@@ -4,7 +4,7 @@
  * WeEngine is NOT a free software, it under the license terms, visited http://www.we7.cc/ for more details.
  */
 defined('IN_IA') or exit('Access Denied');
-define('PDO_DEBUG', true);
+define('PDO_DEBUG', false);
 
 class DB {
 	protected $pdo;
