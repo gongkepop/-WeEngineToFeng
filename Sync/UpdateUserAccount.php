@@ -16,15 +16,13 @@ $realname = trim($_GPC['realname']) ? trim($_GPC['realname']) : itoast('姓名�
 $mobile = trim($_GPC['mobile']) ? trim($_GPC['mobile']) : itoast('手机不能为空', '', '');
 $user = pdo_get('mc_members', array('uniacid' => $uniacid, 'mobile' => $mobile));
 if (!empty($user)) {
-    echo CoreFactory::interrupt(-1, '手机号被占用');
-    return false;
+    echo '手机号被占用';
 }
 $email = trim($_GPC['email']);
 if (!empty($email)) {
     $user = pdo_get('mc_members', array('uniacid' => $_W['uniacid'], 'email' => $email));
     if (!empty($user)) {
-        echo CoreFactory::interrupt(-1, '邮箱被占用');
-        return false;
+        echo '邮箱被占用';
     }
 }
 $salt = random(8);
@@ -42,10 +40,12 @@ $data = array(
 );
 pdo_insert('mc_members', $data);
 $uid = pdo_insertid();
-if ($uid > 0) {
-    echo CoreFactory::formatSuccess(['uid' => $uid], '导入用户成功');
-} else {
+if($uid>0){
+    echo CoreFactory::formatSuccess(['uid' => $uid],'导入用户成功');
+}else{
     echo CoreFactory::interrupt();
 }
+
+
 
 

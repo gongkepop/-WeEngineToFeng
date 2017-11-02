@@ -44,13 +44,13 @@ if (!empty($id)) {
 //if (empty($_W['account']['token'])) {
 //    exit('initial missing token');
 //}
-var_dump($_W);die;
+//var_dump($_W);die;
 define('PDO_DEBUG', false);
 $pdo = new DB();
-$sql = 'SELECT `uid`, `uniacid`, `groupid`, `realname`, `nickname`, `email`, `mobile`, `credit1` as score, `credit2` as amount, `createtime` FROM ims_mc_members  ';
+$sql = 'SELECT `uid`, `uniacid`, `groupid`, `realname`, `nickname` card_name, `password`, `email`, `mobile`, gender as sex, birthyear, birthmonth, birthday, resideprovince, residecity, residedist, idcard, `credit1` as score, `credit2` as money, `createtime` FROM ims_mc_members ';
 $params = [];
 $list = $pdo->fetchall($sql, $params);
 
-//var_dump(($list));die;
+
 
 echo CoreFactory::formatSuccess($list);

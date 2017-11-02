@@ -7,8 +7,12 @@
  */
 require 'ErrorCode.php';
 
+
+
 class CoreFactory
 {
+    const COMP_ID= 743;
+    const SHOP_ID= 692;
     /**
      * 格式化输出
      * @param $code
