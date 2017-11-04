@@ -21,7 +21,7 @@ class AddToHaiQi {
     }
 
 
-    public function addUser(){
+    public function addUser($params){
         $params = [
             'm' => 'addcard',
             'CardID' => '',

@@ -12,21 +12,19 @@ require 'common/core/CoreFactory.php';
 
 $uniacid = isset($_W['uniacid']) ?: 1;
 
-$realname = trim($_GPC['realname']) ? trim($_GPC['realname']) : itoast('姓名不能为空', '', '');
-$mobile = trim($_GPC['mobile']) ? trim($_GPC['mobile']) : itoast('手机不能为空', '', '');
+//$realname = trim($_GPC['realname']) ? trim($_GPC['realname']) : itoast('姓名不能为空', '', '');
+if( trim($_GPC['mobile']) ){
+    $mobile = trim($_GPC['mobile']);
+} else{
+    echo CoreFactory::interrupt(-1, '手机号被不能为空');
+    return false;
+}
 $user = pdo_get('mc_members', array('uniacid' => $uniacid, 'mobile' => $mobile));
 if (!empty($user)) {
     echo CoreFactory::interrupt(-1, '手机号被占用');
     return false;
 }
-$email = trim($_GPC['email']);
-if (!empty($email)) {
-    $user = pdo_get('mc_members', array('uniacid' => $_W['uniacid'], 'email' => $email));
-    if (!empty($user)) {
-        echo CoreFactory::interrupt(-1, '邮箱被占用');
-        return false;
-    }
-}
+
 $salt = random(8);
 $data = array(
     'uniacid' => $uniacid,

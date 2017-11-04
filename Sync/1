@@ -1,0 +1,308 @@
+[
+    {
+        "batch": 1,
+        "value": [
+            {
+                "date": "2017-10-10",
+                "list": [
+                    {
+                        "id": "1",
+                        "label": "标签1",
+                        "labelColor": "#ffffff",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    },
+                    {
+                        "id": "2",
+                        "label": "标签2",
+                        "labelColor": "#fffffc",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    }
+                ]
+            },
+            {
+                "date": "2017-10-11",
+                "list": [
+                    {
+                        "id": "3",
+                        "label": "标签3",
+                        "labelColor": "#fffffa",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    },
+                    {
+                        "id": "4",
+                        "label": "标签4",
+                        "labelColor": "#fffffb",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "batch": 2,
+        "value": [
+            {
+                "date": "2017-10-10",
+                "list": [
+                    {
+                        "id": "5",
+                        "label": "标签1",
+                        "labelColor": "#ffffff",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    },
+                    {
+                        "id": "6",
+                        "label": "标签2",
+                        "labelColor": "#fffffc",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    }
+                ]
+            },
+            {
+                "date": "2017-10-12",
+                "list": [
+                    {
+                        "id": "17",
+                        "label": "标签3",
+                        "labelColor": "#fffffa",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    },
+                    {
+                        "id": "121",
+                        "label": "标签4",
+                        "labelColor": "#fffffb",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "batch": 3,
+        "value": [
+            {
+                "date": "2017-10-13",
+                "list": [
+                    {
+                        "id": "12",
+                        "label": "标签1",
+                        "labelColor": "#ffffff",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    },
+                    {
+                        "id": "13",
+                        "label": "标签2",
+                        "labelColor": "#fffffc",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    }
+                ]
+            },
+            {
+                "date": "2017-10-11-",
+                "list": [
+                    {
+                        "id": "1",
+                        "label": "标签3",
+                        "labelColor": "#fffffa",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    },
+                    {
+                        "id": "41",
+                        "label": "标签4",
+                        "labelColor": "#fffffb",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "batch": 4,
+        "value": [
+            {
+                "date": "2017-10-10",
+                "list": [
+                    {
+                        "id": "61",
+                        "label": "标签1",
+                        "labelColor": "#ffffff",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    },
+                    {
+                        "id": "1",
+                        "label": "标签2",
+                        "labelColor": "#fffffc",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    }
+                ]
+            },
+            {
+                "date": "2017-10-11",
+                "list": [
+                    {
+                        "id": "1",
+                        "label": "标签3",
+                        "labelColor": "#fffffa",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    },
+                    {
+                        "id": "1",
+                        "label": "标签4",
+                        "labelColor": "#fffffb",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "batch": 5,
+        "value": [
+            {
+                "date": "2017-10-10",
+                "list": [
+                    {
+                        "id": "1",
+                        "label": "标签1",
+                        "labelColor": "#ffffff",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    },
+                    {
+                        "id": "1",
+                        "label": "标签2",
+                        "labelColor": "#fffffc",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    }
+                ]
+            },
+            {
+                "date": "2017-10-11",
+                "list": [
+                    {
+                        "id": "1",
+                        "label": "标签3",
+                        "labelColor": "#fffffa",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    },
+                    {
+                        "id": "1",
+                        "label": "标签4",
+                        "labelColor": "#fffffb",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "batch": 6,
+        "value": [
+            {
+                "date": "2017-10-10",
+                "list": [
+                    {
+                        "id": "1",
+                        "label": "标签1",
+                        "labelColor": "#ffffff",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    },
+                    {
+                        "id": "1",
+                        "label": "标签2",
+                        "labelColor": "#fffffc",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    }
+                ]
+            },
+            {
+                "date": "2017-10-11",
+                "list": [
+                    {
+                        "id": "2",
+                        "label": "标签3",
+                        "labelColor": "#fffffa",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    },
+                    {
+                        "id": "1",
+                        "label": "标签4",
+                        "labelColor": "#fffffb",
+                        "imageUrl": "http://adminzph.cugqz.com:5678/upload/image/20170831/1504168593492412.png",
+                        "videoUrl": "http://player.youku.com/embed/XMzEyMDY0MzA2MA==",
+                        "playTime": "5′47″",
+                        "diplay": "true"
+                    }
+                ]
+            }
+        ]
+    }
+]
