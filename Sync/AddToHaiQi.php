@@ -9,11 +9,12 @@
 require_once 'common\core\CurlBase.php';
 
 
-class AddToHaiQi {
+class AddToHaiQi
+{
 
     const HAI_QI_ADD_USER_URL = 'http://weiqing.liansuosoft.com/syn.ashx';
 
-    private $_curl ;
+    private $_curl;
 
     public function __construct()
     {
@@ -21,20 +22,18 @@ class AddToHaiQi {
     }
 
 
-    public function addUser($params){
+    public function addUser($params)
+    {
         $params = [
             'm' => 'addcard',
-            'CardID' => '',
-            'CardName' => '',
+            'CardID' => $params['mobile'],
+            'CardName' => $params['mobile'],
             'PassWord' => '',
             'CompId' => CoreFactory::COMP_ID,
             'ShopId' => CoreFactory::SHOP_ID
         ];
 
-        $this->_curl->get(self::HAI_QI_ADD_USER_URL,$params);
-
-
+        $this->_curl->get(self::HAI_QI_ADD_USER_URL, $params);
     }
-
 
 }
