@@ -1,0 +1,46 @@
+{template 'common/header'}
+<div class="welcome-container" id="js-home-welcome" ng-controller="WelcomeCtrl" ng-cloak>
+	<div class="welcome-container">
+		<div class="panel we7-panel account-stat">
+			<div class="panel-heading">
+				微信模板配置
+			</div>
+		</div>
+		<div class="panel we7-panel notice notice-tab">
+			<div class="panel-heading">
+				<div class="menu">
+					<span class="topic active notice">添加模板</span>
+				</div>
+			</div>
+			<form action="./index.php?c=home&a=wechat&do=add" method="post" class="we7-form" role="form" id="form1">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">code</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="code" value="" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">描述</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="desc" value="" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="">
+						<input type="hidden" name="token" value="{$_W['token']}"/>
+						<input type="hidden" name="form" value="{$_W['token']}"/>
+						<input type="submit" value="提交" class="btn btn-primary"/>
+					</div>
+				</div>
+			</form>
+
+		</div>	
+
+	</div>
+</div>
+<script>
+
+	angular.bootstrap($('#js-home-welcome'), ['homeApp']);
+
+</script>
+{template 'common/footer'}

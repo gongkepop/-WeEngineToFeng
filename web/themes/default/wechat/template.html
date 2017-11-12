@@ -1,0 +1,58 @@
+{template 'common/header'}
+<div class="welcome-container" id="js-home-welcome" ng-controller="WelcomeCtrl" ng-cloak>
+	<div class="welcome-container">
+		<div class="panel we7-panel account-stat">
+			<div class="panel-heading">
+				微信模板配置
+			</div>
+		</div>
+		<div class="panel we7-panel notice notice-tab">
+			<div class="panel-heading">
+				<div class="menu">
+					<span class="topic active notice">模板列表</span>
+				</div>
+				<div class="menu">
+
+
+
+				</div>
+				<a href="./index.php?c=home&a=wechat&do=add_view" class="color-default pull-right">添加模板</a>
+			</div>
+
+			<table class="table we7-table table-hover vertical-middle">
+
+				<col />
+				<col />
+				<col />
+				<col />
+				<col width="90px"/>
+
+				<tr>
+					<th >模板ID</th>
+					<th>模板code</th>
+					<th>模板内容</th>
+					<th >创建时间</th>
+				</tr>
+				{loop $list $li}
+				<tr>
+					<td>{$li['id']}</td>
+					<td>{$li['code']}</td>
+					<td>{$li['desc']}</td>
+					<td>{$li['update_time']}</td>
+
+				</tr>
+				{/loop}
+			</table>
+
+		</div>	
+
+	</div>
+</div>
+<script>
+	$('#add_template').click(function () {
+		alert(1);
+    });
+	angular.bootstrap($('#js-home-welcome'), ['homeApp']);
+
+</script>
+{template 'common/footer'}
