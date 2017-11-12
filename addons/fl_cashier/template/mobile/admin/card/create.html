@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../addons/fl_cashier/template/layui/css/layui.css">
+	
+		<link rel="stylesheet" type="text/css" href="../addons/fl_cashier/template/css/font-awesome.min.css">
+		<script src="../addons/fl_cashier/template/js/jquery.min.js"></script>
+		<script src="../addons/fl_cashier/template/layui/layui.js"></script>
+		<style>
+			.search{ margin:30px 0 0 0}
+			.search .layui-input{
+				width:95%
+			}
+		</style>
+	</head>
+	<body >
+		<div class='search'>
+			<form method="post" action="{php echo geturl('card','docreatecard')}" class="layui-form">
+			
+			 <table class="layui-table">
+			
+				<tbody>
+				  <tr>
+					<td style="width:40%">卡号</td>
+					<td>
+						<input type="text" name="cardnum" value="{$card[card]}" class="layui-input" /></td>
+				  </tr>
+				   <tr>
+					<td>电话</td>
+					<td><input type="text" name="tel" value="{$card[tel]}" class="layui-input" /></td>
+				  </tr>
+				   <tr>
+					<td>姓名</td>
+					<td><input type="text" name="name" value="{$card[name]}" class="layui-input" /></td>
+				  </tr>
+				  <tr>
+					<td>卡类型</td>
+					<td>
+						<select name="type" >
+							{loop $cardtype $value}
+							<option value="{$value[id]}">{$value[name]}</option>
+							{/loop}
+						</select>
+					</td>
+				  </tr>
+					<tr>
+					<td>余额</td>
+					<td><input type="text" name="credit2" placeholder="元" class="layui-input" /></td>
+				  </tr>
+				  <tr>
+					<td>积分</td>
+					<td><input type="text" name="credit1" placeholder="" class="layui-input" /></td>
+				  </tr>
+				  <tr>
+					<td>使用次数</td>
+					<td><input type="text" name="count" placeholder="仅次数卡有效" class="layui-input" /></td>
+				  </tr>
+				</tbody>
+			  </table>
+			<div class="layui-form-item">
+				<label class="layui-form-label"></label>
+				<div class="layui-input-block" style='text-align:right;padding:0 30px 0 0'>
+				  <button class="layui-btn layui-btn-radius">提交</button>
+				</div>
+			  </div>
+			</form>
+		</div>
+		
+		
+		<script>
+			$(function(){
+				layui.use(['layer', 'form'], function(){
+				  var layer = layui.layer
+				  ,form = layui.form();
+
+				});	
+	
+			})
+		</script>
+	</body>
+</html>

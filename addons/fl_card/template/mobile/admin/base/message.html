@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../addons/fl_update/static/layui/css/layui.css">
+	
+		<link rel="stylesheet" type="text/css" href="../addons/fl_update/template/css/font-awesome.min.css">
+		<script src="../addons/fl_update/template/js/jquery.min.js"></script>
+		<script src="../addons/fl_update/static/layui/layui.js"></script>
+	</head>
+	<body>
+		<script>
+			$(function(){
+				layui.use(['layer', 'form'], function(){
+				  var layer = layui.layer
+				  ,form = layui.form;
+
+				});
+				var index = parent.layer.getFrameIndex(window.name);
+				 parent.parent.layer.msg('{$msg}');
+				 {if $url}
+				 location.href="{$url}";
+				 {else}
+				 parent.layer.close(index);
+				 {/if}
+					 
+				{if $refresh}
+				parent.location.reload();
+				{/if}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+	<head>
+		<title>收银台</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../addons/fl_update/static/layui/css/layui.css">
+	
+		<link rel="stylesheet" type="text/css" href="../addons/fl_update/template/css/font-awesome.min.css">
+		<script src="../addons/fl_update/template/js/jquery.min.js"></script>
+		<script src="../addons/fl_update/static/layui/layui.js"></script>
+		<script src="../addons/fl_update/static/js/jquery.fly.min.js"></script>
+		{if $this->config['is_print']&&$this->config['is_print']==1}
+		<script src='http://127.0.0.1:8000/CLodopfuncs.js'></script>
+		{/if}
+		<style>
+			.nav{ margin:20px 0 20px 20px}
+			.nav ul li.list{
+				float: left;
+				margin:0 60px 0 0;
+				display: block;
+				height: 90px;width: 200px;
+				text-align: center;
+				border: 1px solid #ccc;
+				padding:10px 0 0 0;
+				border-radius: 20px;
+				
+				
+			}
+			
+			.nav ul li.list.select{
+				background: #5bc0de;
+				color:#fff
+			}
+		
+			
+			.nav ul li.list .logo img{
+				width: 48px;
+				height:48px
+			}
+			.nav ul li.list .logo i{
+				width: 48px;
+				height:48px;
+				font-size:48px;
+				color:#009900
+			}
+			
+			
+			
+			.cashier{
+				width:50%;
+				padding:0 0 0 0;
+				border:1px solid #ccc;
+				margin:0 0 0 30px ;
+				float:left
+			}
+			.cashier .header{
+				padding:10px 0 0  0;
+				background:#fcf8e3
+			}
+			
+			
+			.cashier .content{
+				height:80px;
+				line-height:80px;
+				width:90%;
+				margin:0 auto 0;
+				
+			
+			}
+			.cashier .content .layui-form-label{
+				height:60px;
+				line-height:40px;
+				font-size:30px;
+				font-weight: bolder
+			}
+			.cashier .content .money input{
+				height: 60px;
+				font-size:30px;
+				background: #ccc;
+				border-radius:0 8px 8px 0
+			}
+			.cashier .contro{
+				width: 90%;
+				margin:10px auto
+			}
+			.cashier .contro ul{
+				margin:0 auto
+			}
+			.cashier .contro ul li{
+				float:left;
+				width:25%;
+				height:60px;
+				text-align: center;
+				line-height: 60px;
+				background: #5bc0de;
+				margin:0 30px 20px 0;
+				font-size:30px;
+				color:#fff;
+				border-radius: 10px;
+				cursor:pointer
+			}
+			.cashier .contro ul li:active{
+				background:#ccc
+			}
+			.cashier .contro ul li.last{
+				margin-right: 0;
+			}
+			.cashier .footer{
+				background: #eee
+			}
+			.cashier .footer .ismember{
+				float:left;
+				margin:10px 0 0 20px
+			
+			}
+			.cashier .footer .ismember .layui-form-switch{
+				width:150px;
+				height:40px;
+			}
+			.cashier .footer .ismember .layui-form-switch  em{
+				font-size:20px;
+				width:100px;
+				font-weight: bolder;
+				line-height:35px
+			}
+			.cashier .footer .ismember .layui-form-switch i{
+				width:30px;
+				height:30px;
+				
+				
+			}
+			
+			.cashier .footer .ismember .layui-form-onswitch i{
+				left:120px;
+			}
+			
+			.cashier .footer ul{
+				margin:0 auto
+			}
+			.cashier .footer ul li{
+				float:right;
+				width:20%;
+				height:50px;
+				text-align: center;
+				line-height: 50px;
+				background: #449d44;
+				margin:10px 50px 10px 0;
+				font-size:20px;
+				color:#fff;
+				border-radius: 10px;
+				cursor:pointer
+			}
+			
+			.cashier .footer ul li:active{
+				background:#ccc
+			}
+			.tools{
+				width: 40%;
+				float:left;
+				margin:0 0 0 50px
+			}
+			.layui-colla-content{
+				padding:0
+			}
+			.layui-table{
+				margin:0;
+			}
+			.money_log img{
+				height:24px;
+				width:24px;
+				float:left;
+				cursor:pointer
+			}
+			.money_log i{
+				font-size:24px;
+				float:left;
+				margin:0 0 0 5px;
+				cursor:pointer
+			}
+			.order tr{
+				height:50px
+			}
+			.order .layui-table-cell{
+				height:40px
+			}
+			.goods{
+				text-align:center;
+				margin-top:20px
+			}
+		</style>
+	</head>
+	<body >
+		<div class='nav'>
+			<input type="hidden" id="pay_type" value="cash" />
+			<ul>
+				
+				{if in_array('cash',$this->config['pay_type'])}
+				<li class='list' type="cash">
+					<div><img src='../addons/fl_cashier/template/images/money.png' /></div>
+					<div>现金(Q)</div>
+					<div>￥<span id="cash_price">0.00</span></div>
+				</li>
+				{/if}
+				{if in_array('online',$this->config['pay_type'])}
+				<li  class='list' type="online">
+					<div class='logo'><img src='../addons/fl_cashier/template/images/wechart.gif' /></div>
+					<div>微信/支付宝(W)</div>
+					<div>￥<span id="online_price">0.00</span></div>
+				</li>
+				{/if}
+				{if in_array('card',$this->config['pay_type']) && basefun()->getplugin("fl_card","mobile") }
+				<li  class='list' type="card">
+					<div class='logo'><i class='fa fa-credit-card'></i></div>
+					<div>会员卡(E)</div>
+					<div>￥<span id="card_price">0.00</span></div>
+				</li>
+				{/if}
+				
+				
+			</ul>
+			<ul>
+				<li  class='list' type="table">
+					<div class='logo'><i class='fa fa-university'></i></div>
+					<div>开台(R)</div>
+					<div><span id="card_price">空余0桌</span></div>
+				</li>
+				<li  class='list' type="table">
+					<div class='logo'><i class='fa fa-hourglass-end'></i></div>
+					<div>结账(T)</div>
+					<div><span id="card_price">未结0桌</span></div>
+				</li>
+			</ul>
+			<div style='clear:both'></div>
+		</div>
+		<hr>
+		<div>
+			<div class='cashier'>
+				<div class='header'>
+					<div class='content layui-form layui-form-pane'>
+						<div class="layui-form-item">
+							<label class="layui-form-label">￥</label>
+							<div class="layui-input-block money">
+								<input type="text" id='money' name="title" required="" value="0" readonly lay-verify="required"  autocomplete="off" class="layui-input">
+							</div>
+						  </div>
+					</div>
+					
+				</div>
+				
+				<div class='order'>
+					<table class="layui-table" lay-data="{height:315, url:'{php echo geturl('cart')}', page:false, id:'cart',limit:60}" lay-filter="test">
+						<thead>
+						  <tr>
+							<th lay-data="{field:'code', width:120}">商品编号</th>
+							<th lay-data="{field:'name', width:170}">商品名称</th>
+							<th lay-data="{field:'thumbs', width:120,templet: '#orderimage'}">商品图片</th>
+							<th lay-data="{field:'price', width:113}">单价</th>
+							<th lay-data="{field:'number', width:150,templet: '#ordernumber'}">数量</th>
+							<th lay-data="{field:'allprice', width:150}">总价</th>
+						
+						  </tr>
+						</thead>
+					  </table>
+					
+				</div>
+<script type="text/html" id="orderimage">
+  <img src='{{d.thumbs}}' style='width:38px;height:38px;margin:0 0 0 20px' />
+</script>
+<script type="text/html" id="ordernumber">
+<div class="layui-btn-group" >
+   <button class="layui-btn layui-btn-small" onclick='removecart({{d.id}})' >
+    <i class="layui-icon">&#xe603;</i>
+  </button>
+   <button class="layui-btn layui-btn-primary layui-btn-small">
+    <i class="layui-icon">{{d.number}}</i>
+  </button>
+  <button class="layui-btn layui-btn-small" onclick='addcart({{d.id}})'>
+    <i class="layui-icon">&#xe602;</i>
+  </button>
+</div>
+ 
+</script>
+				<div class="footer">
+					{if basefun()->getplugin("fl_card","mobile") }
+					<div class="layui-form ismember">
+						 <input type="checkbox" id="ismember" {if $this->config[default_member]==1}checked{/if} lay-skin="switch" lay-text="会员(P)|非会员(P)" style="width:300px" >
+					</div>
+					
+					{/if}
+					<ul>
+						<li onclick="pay()">开台(ENTER)</li>
+					</ul>
+					<div style='clear:both'></div>
+				</div>
+				
+			</div>
+			<div class='tools'>
+				<div class='layui-collapse'>
+					<div class="layui-colla-item">
+							<h2 class="layui-colla-title">
+								<div class='layui-col-md4'>
+									商品列表	
+								</div>
+								
+								
+							</h2>
+						
+							<div class="layui-colla-content  layui-show">
+								
+								<div class='layui-row'>
+								{loop $goods $value}
+								<div class="layui-col-md3 goods" data-id='{$value[id]}'>
+									<div class='img'><img src='{php echo tomedia($value[thumbs])}' style='height:100px; width:100px' /></div>
+									<div class='name'>{$value[name]}</div>
+									<div class='price'>{$value[price]}</div>
+								</div>
+								{/loop}
+								</div>
+								
+								<div class='layui-row' style='margin:10px'>
+								<button class='layui-btn layui-btn-radius layui-btn-normal layui-col-md4 search-goods' style="float:right">搜索(S)</button>
+								</div>	
+						 </div>
+					</div>
+						
+				</div>
+				<script>
+						$(function(){
+							var offset = $(".order").offset();
+							$(".goods").click(function(){
+								var url="{php echo geturl('cart','addcart')}";
+								var data={
+									"id":$(this).attr("data-id")
+								}
+								var callback=function(data){
+									refreshcart();
+								}
+								var type="json";
+								$.post(url,data,callback,type);
+								var img = $(this).find('img').attr('src');
+								var flyer = $('<img class="u-flyer" src="'+img+'">');
+								flyer.fly({
+									start: {
+										left: event.pageX,
+										top: event.pageY
+									},
+									end: {
+										left: offset.left+10,
+										top: offset.top+10,
+										width: 0,
+										height: 0
+									},
+									onEnd: function(){
+										this.destory();
+									}
+								});
+
+							})
+							
+							
+						})
+				</script>
+				
+			
+   
+				<div class="layui-collapse">
+					<div class="layui-colla-item">
+					  <h2 class="layui-colla-title">收款记录（最近10条记录）</h2>
+					  <div class="layui-colla-content layui-show">
+						  <table class="layui-table money_log"  lay-even lay-skin="nob">
+							  <colgroup>
+								<col width="200">
+								<col width="100">
+								<col>
+							  </colgroup>
+							  <thead>
+								<tr>
+									  <th>收款时间</th>
+								  <th>金额</th>
+								  <th>收款方式</th>
+								  <th>状态</th>
+								</tr> 
+							  </thead>
+							  <tbody id="paylog">
+								  
+							  </tbody>
+							</table>
+						  
+						  
+					  </div>
+					</div>
+					
+			</div>
+		</div>
+		<script>
+			layui.use('layer', function(){
+				var layer = layui.layer;
+
+			});
+			var table;
+			layui.use('table',function(){
+				table=layui.table
+			})
+			var form;
+			layui.use('form', function(){
+				form=layui.form;
+			});
+			 var price=0;
+			 var payconfirm;
+			 var keytype=0;
+			 var iscard=0;
+			 var cardnum;
+			 var print_num={php echo $this->config['print_num']?$this->config['print_num']:0};
+			$(function(){
+				changetype($(".nav ul li.list:eq(0)").attr("type"))
+				getmoney();
+				getorderstatus();
+				paylog();
+				login_online();
+				setTimeout("paylog()",60000)
+				getprice()
+				$(document).keydown(function(e){
+					
+					switch(keytype){
+						case 0:
+							//正常情况
+							return keys(e.which)
+							break;
+						case 1:
+							//线上支付扫码情况
+							payonlinekeys(e.which)
+							break;
+						case 2:
+							//输入会员卡框情况
+							setcardkeys(e.which)
+							break;
+						
+					}
+					
+					
+					
+				});
+
+				$(".nav ul li.list").click(function(){
+					changetype($(this).attr("type"))
+				})
+				$(".search-goods").click(function(){
+					search_goods();
+				})
+				
+			})
+			layui.use('element', function(){
+				var element = layui.element;
+
+				//…
+			  });
+			  
+			  function changetype(type){
+				  if($(".nav ul li.list[type='"+type+"']").length>0){
+					$(".nav ul li.list").removeClass("select");
+					$(".nav ul li.list[type='"+type+"']").addClass("select");
+					$("#pay_type").val(type)
+				  }else{
+					  return false;
+				  }
+				 
+			  }
+			  
+			  function addnum(num){
+				  if(num=="."&&(price+"").indexOf(".")>0){
+					  //判断是否有.
+					return false;
+				  }
+				  if(price!=0){
+					 
+					  price+=""+num;
+				  }else{
+					  price+=num;
+				  }
+				  
+				  $("#money").val(price)
+			  }
+			  
+			  function dropmoney(){
+				  var num=price.length-1;
+				  if(num>0){
+					  price=price.substring(0,num)
+					 
+				  }else{
+					  price=0;
+				  }
+				  $("#money").val(price)
+				  return false;
+			  }
+
+			  function clearnum(){
+				  price=0;
+				  $("#money").val(price)
+			  }
+			  var paystatus=0;
+			  //支付
+			  function pay(){
+				  if(paystatus&&!payconfirm){
+					  return false;
+				  }
+				  
+				  
+				  
+				  //查询支付金额
+				  var price=$("#money").val();
+				  
+				  if(price>0){
+					  paystatus=1;
+				  }else{
+					  return ;
+				  }
+				  if(price.substring(price.length-1,price.length)=="."){
+					  price=price.substring(0,price.length-1)
+				  }
+				  
+				  
+				  
+				  
+				  //查询支付方式
+				  var type=$("#pay_type").val();
+				  
+				  if(type=="card"){
+					$("#ismember").attr("checked",true)
+				
+					form.render('checkbox')
+				  }
+				  
+				  
+				  //查询是否为会员,如果是会员 ，跳出输入卡号框
+				  if($("#ismember").attr("checked")&&iscard==0){
+					  //出现扫码框
+						keytype=2;
+						payconfirm=layer.prompt({
+						  formType: 1,
+						  value: '',
+						  title: '请扫码或输入会员卡号',
+						  area: ['800px', '350px'] //自定义文本域宽高
+						}, function(value, index, elem){
+							setcard(value);
+						});
+					  
+					  return ;
+				  }
+				  
+				  
+				  //现金支付
+				  if(type=="cash"){
+					   if(payconfirm){
+							layer.close(payconfirm)
+							payconfirm=0;
+							paycash(price);
+						}else{
+							payconfirm=layer.confirm("确认现金收款"+price+"元？",function(index){
+								 paycash(price);
+								 layer.close(payconfirm)
+								 payconfirm=0
+							},function(index){
+								paystatus=0;
+								payconfirm=0;
+							})
+						}
+				  }
+				  
+				  //在线支付
+				  if(type=="online"){
+					 payonline(price);
+				  }
+				  
+				  //会员卡支付
+				  if(type=="card"){
+					   if(payconfirm){
+							layer.close(payconfirm)
+							payconfirm=0;
+							paycard(price);
+						}else{
+							payconfirm=layer.confirm("确认会员卡余额收款"+price+"元？",function(index){
+								 paycard(price);
+								 layer.close(payconfirm)
+								 payconfirm=0
+							},function(index){
+								paystatus=0;
+								payconfirm=0;
+							})
+						}
+				  }
+				  
+			  }
+			  
+			  function  keys(data){
+				  
+				  var str="";
+				
+					switch(data){
+						
+						case 81:
+							changetype("cash")
+							break;
+						case 83:
+							search_goods();
+							break;	
+						case 87:
+							changetype("online")
+							break;
+						case 69:
+							changetype("card")
+							break;
+						case 13:
+							pay();
+						
+							break;
+						case 27:
+							closepayconfirm()
+							break;
+						case 8:
+							dropmoney();
+							return false;
+							break;
+						case 80:
+							select_member();
+							break;
+						default:
+							//alert(data);
+							//return false;
+							break;
+					}
+					return true;
+			  }
+			  
+			  
+			  function payonlinekeys(data){
+				  switch(data){
+					  case 13:
+						  var code=$("#layui-layer"+payconfirm+" input").val();
+						  if(code!=""){
+							ajaxpayonline(price,code);
+						  }
+						  break;
+					  case 27:
+						  closepayconfirm();
+						  keytype=0;
+						  break;
+					  default:
+						  console.log(data)
+						  break;
+				  }
+			  }
+			  
+			  
+			  function setcardkeys(data){
+				  switch(data){
+					  case 13:
+						  var card=$("#layui-layer"+payconfirm+" input").val();
+						  if(card!=""){
+							setcard(card);
+						  }
+						  break;
+					  case 27:
+						  closepayconfirm();
+						  keytype=0;
+						  break;
+					  default:
+						  console.log(data)
+						  break;
+				  }
+			  }
+			  
+			
+			  
+			  function closepayconfirm(){
+				  layer.close(payconfirm)
+					payconfirm=0
+					paystatus=0;
+					carnum=0;
+					iscard=0;
+			  }
+			  
+			  
+			   //会员卡支付
+			  function paycard(price){
+				  var url="{php echo geturl('pay','card')}";
+				  var data={
+					  "price":price,
+					  "cardnum":cardnum
+				  }
+				  var callback=function(data){
+					  //打印
+					  if(data.status==1){
+						print(data.id,print_num)
+						clearpay();
+					  }else{
+						 clearpay();
+						 payconfirm=layer.alert(data.msg)
+					  }
+					
+					 
+				  }
+				  var type="json";
+				  
+				  $.post(url,data,callback,type);
+				  
+				  
+			  }
+			  
+			  //微信/支付宝支付
+			  function payonline(price){
+				  //出现扫码框
+				  keytype=1;
+				  payconfirm=layer.prompt({
+					formType: 1,
+					value: '',
+					title: '请扫码收取'+price+"元",
+					area: ['800px', '350px'] //自定义文本域宽高
+				  }, function(value, index, elem){
+					ajaxpayonline(price,value)
+				  });
+				  
+				  
+			  }
+			  
+			  
+			  
+			  
+			  function ajaxpayonline(price,code){
+				  layer.close(payconfirm);
+				  payconfirm=layer.alert("正在提交订单，请稍等");
+				  
+				  var url="{php echo geturl('pay','online')}";
+				  var data={
+					  "price":price,
+					  "code":code,
+					  "cardnum":cardnum
+				  }
+				  var callback=function(data){
+					  if(data.status==1){
+						layer.close(payconfirm);
+						payconfirm=0;
+						
+						clearpay();
+						
+						//等待用户支付
+						payconfirm=layer.alert("等待用户支付中……",function(index){
+							return false;
+						})
+						getorder(data.id,1);
+						
+					  }else{
+						  layer.close(payconfirm);
+						  payconfirm=layer.alert(data.msg)
+						  clearpay();
+						  
+					  }
+					  
+					  
+				  }
+				  var type="json"
+				  $.post(url,data,callback,type);
+			  }
+			  
+			  //获取订单支付状态
+			  function getorder(id,prints){
+				  if(prints==0){
+					  var alerts=layer.alert("正在查询订单状态，请稍后……");
+				  }
+				  var url="{php echo geturl('order','getorder')}";
+				  var data={
+					  "id":id
+				  }
+				  var callback=function(data){
+					  if(data.status==1){
+						  layer.close(payconfirm);
+						  clearpay();
+						  if(prints==1){
+							 print(data.id,print_num)
+						  }else{
+							  layer.close(alerts)
+						  }
+					  }else{
+						  if(prints==1){
+							  if(payconfirm){
+								  setTimeout("getorder("+id+","+prints+")",1000)
+							  }
+							
+						  }else{
+							layer.close(alerts)
+							layer.alert("用户尚未支付。");  
+						  }
+						 
+					  }
+				  }
+				  var type="json";
+				  $.post(url,data,callback,type);
+			  }
+			  
+			  //现金支付
+			  function paycash(price){
+				 
+				  var url="{php echo geturl('pay','cash')}";
+				  var data={
+					  "price":price,
+					  "cardnum":cardnum
+				  }
+				  var callback=function(data){
+					  //打印
+					  if(data.status==1){
+						print(data.id,print_num)
+						clearpay();
+					  }else{
+						 clearpay();
+						 payconfirm=layer.alert(data.msg)
+					  }
+					
+					 
+				  }
+				  var type="json";
+				  
+				  $.post(url,data,callback,type);
+				  
+			  }
+			  
+			  //打印
+			  function print(id,num){
+				  {if $this->config['is_print']&&$this->config['is_print']==1}
+					if(!jQuery.isFunction(LODOP.PRINT_INIT)){
+					   return false;
+					}
+					if(num>0){
+						//查询订单信息
+					  var url="{php echo geturl('order','getorderprint')}";
+					  var data={
+						  "id":id
+					  }
+					  var callback=function(data){
+						  LODOP.PRINT_INIT("收银小票");
+						  LODOP.SET_PRINT_PAGESIZE(3,580,100,"");
+						  eval(data);
+						  LODOP.PRINT();
+
+						  //储存打印记录
+						  saveprint(id);
+						  num--;
+						  if(num>0){
+							  setTimeout("print("+id+","+num+")",3000);
+						  }
+
+	//					  LODOP.PREVIEW();
+					  }
+					  var type="html"
+					  $.post(url,data,callback,type);
+					}else{
+						return ;
+					}
+				{else}
+					return ;
+				  {/if}
+				  
+			  }
+			  
+			  //储存打印次数
+			  function saveprint(id){
+				  var url="{php echo geturl('order','saveprint')}"
+				  var data={
+					  "id":id
+				  }
+				  var callback=function(data){
+					  paylog();
+				  }
+				  var type="json"
+				  $.post(url,data,callback,type);
+				  
+			  }
+			  
+			  
+			  
+			  //清理支付
+			  function clearpay(){
+				  paystatus=0;
+				  price=0;
+				  keytype=0;
+				  iscard=0;
+				  cardnum=0;
+				  $("#money").val(0);
+				  paylog();
+				  getmoney();
+				  {if $this->config[default_member]==1}{else}
+				   $("#ismember").attr("checked",false)
+				  form.render('checkbox')
+				{/if}
+				 
+			  }
+			  
+			  function paylog(){
+				  var url="{php echo geturl('pay','log')}";
+				  var data={}
+				  var callback=function(data){
+					  $("#paylog").html(data);
+				
+				  }
+				  var type="html";
+				  $.post(url,data,callback,type);
+			  }
+			  //数据统计
+			  function getmoney(){
+				  var url="{php echo geturl('pay','getmoney')}";
+				  var data={}
+				  var callback=function(data){
+					  $("#cash_price").html(data.cash);
+					  var online_price=data.online
+					  if(online_price==0){
+						  online_price="0.00";
+					  }
+					  $("#online_price").html(online_price);
+					  $("#card_price").html(data.card);
+				  }
+				  var type="json"
+				  $.post(url,data,callback,type);
+			  }
+			  
+			  
+			  //查询未支付订单状态
+			  function getorderstatus(){
+				  var url="{php echo geturl('order','getstatus')}"
+				  var data={}
+				  var callback=function(data){
+					  if(data.status==1){
+						  paylog()
+					  }else{
+						//  t=setTimeout("getorderstatus()",5000)
+					  }
+					  
+				  }
+				  var type="json"
+				  $.post(url,data,callback,type);
+			  }
+			  
+			  
+			  function select_member(){
+				  if($("#ismember").length>0){
+					   if($("#ismember").attr("checked")){
+							$("#ismember").attr("checked",false)
+						}else{
+						  $("#ismember").attr("checked",true)
+						}
+
+						form.render('checkbox')
+				  }else{
+					  return false;
+				  }
+				 
+			  }
+			  
+			  //设定卡号
+			  function setcard(num){
+				  cardnum=num;
+				  iscard=1;
+				  keytype=0;
+				  layer.close(payconfirm)
+				  payconfirm=0;
+				  paystatus=0;
+				  pay();
+				 
+			  }
+			  
+			  //保持在线
+			  function login_online(){
+				  
+			  }
+			  
+			  function search_goods(){
+				layer.open({
+					type:2,
+					"title":"搜索菜品",
+					"area":['60%','400px'],
+					"content":'{php echo geturl("goods","searchtpl")}',
+					end:function(){
+						refreshcart();
+					
+					}
+				})
+			  }
+			  
+			  //删除购物车
+			  function removecart(id){
+				  var url="{php echo geturl('cart','removecart')}";
+				  var data={
+					  "id":id
+				  }
+				  var callback=function(data){
+					  refreshcart();
+				  }
+				  var type="json";
+				  $.post(url,data,callback,type);
+			  }
+			  function addcart(id){
+				  var url="{php echo geturl('cart','addcart')}";
+				  var data={
+					  "id":id
+				  }
+				  var callback=function(data){
+					  refreshcart();
+				  }
+				  var type="json";
+				  $.post(url,data,callback,type);
+			  }
+			  
+			  function refreshcart(){
+				  getprice();
+			  
+				  table.reload("cart")
+			  }
+			  
+			  //计算总金额
+			  function getprice(){
+				  var url="{php echo geturl('cart','cartprice')}"
+				  var data={}
+				  var callback=function(data){
+					  $("#money").val(data.price);
+				  }
+				  var type="json";
+				  $.post(url,data,callback,type);	
+			  }
+			  
+		</script>
+	</body>
+</html>

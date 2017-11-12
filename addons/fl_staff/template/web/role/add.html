@@ -1,0 +1,119 @@
+{template 'header'}
+<style>
+	.role .title{
+		font-weight:bolder;
+		font-size:16px
+	}
+	.role label{
+		margin:0 10px 10px 0
+	}
+</style>
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}   <!-- Top Nav End -->
+    <div class="sub-nav hidden-sm hidden-xs">
+      <ul>
+        <li><a href="{php echo $this->createWebUrl('role')}" class="heading">员工管理系统</a></li>
+        <li class="hidden-sm hidden-xs">
+			<a href="{php echo $this->createWebUrl('role')}"> 角色管理</a>
+        </li>
+		<li class="hidden-sm hidden-xs">
+			<a href="{php echo $this->createWebUrl('role',array('task'=>'add'))}" class="selected">新增角色</a>
+        </li>
+     </ul>
+      <div class="custom-search hidden-sm hidden-xs">
+        <a href="#">角色管理</a> &gt; <a>首页</a>
+      </div>
+    </div>
+    <!-- Sub Nav End -->
+
+      <ul class="nav nav-tabs">
+          <li class="active"><a href="#"><i class="fa fa-plus"></i>{if $_GPC['id']}编辑{else}添加{/if}角色</a></li>
+      </ul>
+	<form class="form-horizontal form" id="form2" action="{php echo $this->createWebUrl('role',array('task'=>'save'))}" method="post">
+              <input type="hidden" name="id" value="{$_GPC[id]}" />
+                  <div class="dashboard-wrapper">
+                      <div class="row">
+                          <div class="col-sm-12">
+							
+                              <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">角色名称</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                      <input type="text" class="form-control" name="name" value="{$data[name]}"/><span class="help-block"></span>
+                                  </div>
+                              </div>
+                             
+							  
+                               <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">角色权限</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                      <div class='role'>
+										  
+										  <div class='title'>
+											  独立后台
+											  <label>
+												  <input type="checkbox" id='offline'  />全选
+											  </label></div>
+										  <div>
+											  
+											  <label>
+												  <input type="checkbox" class='offline' name='role[offline][]' value='use' {if in_array('use',$data['config']['offline'])}checked{/if} />使用
+											  </label>
+											  <br>
+											   <label>
+												  <input type="checkbox" class='offline' name='role[offline][]' value='createcard' {if in_array('createcard',$data['config']['offline'])}checked{/if}   />开卡
+											  </label>
+											    <label>
+												  <input type="checkbox" class='offline' name='role[offline][]' value='credit2_add' {if in_array('credit2_add',$data['config']['offline'])}checked{/if}   />余额充值
+											  </label>
+											  <label>
+												  <input type="checkbox" class='offline' name='role[offline][]' value='credit2_minus' {if in_array('credit2_minus',$data['config']['offline'])}checked{/if}   />余额消费
+											  </label>
+											  <label>
+												  <input type="checkbox" class='offline' name='role[offline][]' value='credit1_add' {if in_array('credit1_add',$data['config']['offline'])}checked{/if}   />积分充值
+											  </label>
+											  <label>
+												  <input type="checkbox" class='offline' name='role[offline][]' value='credit1_minus' {if in_array('credit1_minus',$data['config']['offline'])}checked{/if}   />积分消费
+											  </label>
+											  <label>
+												  <input type="checkbox" class='offline' name='role[offline][]' value='count_add' {if in_array('count_add',$data['config']['offline'])}checked{/if}   />次数充值
+											  </label>
+											  <label>
+												  <input type="checkbox" class='offline' name='role[offline][]' value='count_minus' {if in_array('count_minus',$data['config']['offline'])}checked{/if}   />次数消费
+											  </label>
+											  <label>
+												  <input type="checkbox" class='offline' name='role[offline][]' value='edit_card' {if in_array('edit_card',$data['config']['offline'])}checked{/if}   />修改卡资料
+											  </label>
+											  
+										  </div>
+										  <div class='title'>
+											  收银台
+											  <label>
+												  <input type="checkbox" id='cashier'  />全选
+											  </label></div>
+										  <div>
+											  <label>
+												  <input type="checkbox" class='cashier' name='role[cashier][]' value='use'  {if in_array('use',$data['config']['cashier'])}checked{/if}   />使用
+											  </label>
+										  </div>
+									  </div>
+                                  </div>
+                              </div>
+                     
+                              
+                              
+                              <div class="form-group col-sm-12">
+                                  <input name="token" type="hidden" value="{$_W['token']}" />
+                                  <input type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交" />
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+          </form>
+
+
+
+{template 'footer'}

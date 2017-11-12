@@ -1,0 +1,76 @@
+{template 'themes/sui/header'}
+    <div class="page-group">
+        <div class="page page-current">
+  <header class="bar bar-nav">
+	  <a class="button button-link button-nav pull-left" href="{php echo $this->createMobileUrl('index')}" data-transition='slide-out'>
+      <span class="icon icon-left"></span>
+      返回
+    </a>
+    <h1 class="title">会员卡</h1>
+  </header>
+
+  <div class="content">
+	
+    <div class="page-index">
+		 <script>
+			$(function(){
+
+				  var width=$(window).width(); 
+				  var img_width=width*(300/375)
+				  $("#card_img1").width(img_width);
+
+				$("input[name='starttime']").change(function(){
+					$("#ff").submit()
+				});
+				$("input[name='endtime']").change(function(){
+					$("#ff").submit()
+				});
+			})
+		</script>
+		
+		
+		<div class="card">
+			<div class="card-header">
+				会员卡二维码
+			</div>
+			<div class="card-content">
+			  <div class="list-block media-list">
+				<ul>
+				  <li class="item-content">
+					
+					<div class="item-inner" style='text-align:center'>
+						<img src="{php echo $this->createMobileUrl('qrcode',array('url'=>$url))}" style="width:200px; height:200px" />
+					</div>
+				  </li>
+				</ul>
+			  </div>
+			</div>
+			<div class="card-header">
+				条形码
+			</div>
+			<div class="card-content">
+			  <div class="list-block media-list">
+				<ul>
+				  <li class="item-content">
+					
+					<div class="item-inner" style='text-align:center'>
+						<img id="card_img1" src="{php echo $this->createMobileUrl('qrcode',array('type'=>'128','url'=>$url))}" style=" height:100px" />
+					</div>
+				  </li>
+				</ul>
+			  </div>
+			</div>
+			<div class="card-footer">
+			  <span>请于收银台扫码使用会员卡</span>
+			
+			</div>
+		  </div>   
+ 
+
+</div>
+  </div>
+
+        </div>
+    </div>
+
+{template 'themes/sui/footer'}

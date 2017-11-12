@@ -1,0 +1,79 @@
+{template 'header'}
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}   <!-- Top Nav End -->
+    <div class="sub-nav hidden-sm hidden-xs">
+      <ul>
+        <li><a href="{php echo $this->createWebUrl('index')}" class="heading">首页</a></li>
+        <li class="hidden-sm hidden-xs">
+          <a href="#" class="selected">会员管理</a>
+        </li>
+     </ul>
+      <div class="custom-search hidden-sm hidden-xs">
+        <a href="#">会员卡管理中心</a> &gt; <a>首页</a>
+      </div>
+    </div>
+    <!-- Sub Nav End -->
+
+      <ul class="nav nav-tabs">
+          <li><a href="{php echo $this->createWebUrl('cardtype')}">会员分类</a></li>
+          <li class="active"><a href="{php echo $this->createWebUrl('cardtypeadd',array())}"><i class="fa fa-plus"></i>会员导入</a></li>
+      </ul>
+	<form class="form-horizontal form" id="form2" action="{php echo $this->createWebUrl('member',array('task'=>'saveimport'))}" enctype="multipart/form-data" method="post">
+                  <div class="dashboard-wrapper">
+                      <div class="row">
+                          <div class="col-sm-12">
+							  <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">选择xsl文件</label>
+                                  <div class="col-sm-9 col-xs-12">
+									  {if $file}文件已上传{/if}
+                                  </div>
+                              </div>
+                         
+                              <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员卡类型</label>
+                                  <div class="col-sm-9 col-xs-12">
+									  
+                                  </div>
+                              </div>
+                              <div class="form-group col-sm-12">
+                                  <input name="token" type="hidden" value="{$_W['token']}" />
+                                  <input type="button" class="btn btn-primary col-lg-1" onclick="importfile()" name="submit" value="开始导入" />
+                              </div>
+							  <div id="showlog"></div>
+                          </div>
+                      </div>
+                  </div>
+
+          </form>
+	<script>
+		var pages=1;
+		function importfile(){
+			var file='{php echo base64_encode($file)}';
+			var url="{php echo $this->createWebUrl('member',array('task'=>'saveimport'))}"
+			var data={
+				"file":file,
+				"page":pages,
+				"tid":{$_GPC[type]}
+			}
+			var callback=function(data){
+				var str="<div>";
+				str+="从"+data.start+"到"+data.end+"条导入完成</div>";
+				$("#showlog").append(str)
+				if(data.status==1){
+					pages++;
+					importfile();
+				}else{
+					alert("导入完成");
+					location.href="{php echo $this->createWebUrl('member',array('task'=>'import'))}"
+				}
+			}
+			var type="json"
+			$.post(url,data,callback,type);
+		}
+	</script>
+
+
+{template 'footer'}

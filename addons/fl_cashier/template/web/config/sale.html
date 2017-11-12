@@ -1,0 +1,79 @@
+{template 'header'}
+<style>
+	.pay_palace{
+		display:none
+	}
+	.show{
+		display:block
+	}
+</style>
+<script>
+	$(function(){
+		$("select[name='pay_palce']").change(function(){
+			var id=$(this).val()
+			$(".pay_palace").removeClass("show");
+			$(".pay_palace[data="+id+"]").addClass("show")
+		})
+	})
+</script>
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}  <!-- Top Nav End -->
+<div class="sub-nav hidden-sm hidden-xs">
+  <ul>
+    <li><a href="{php echo $this->createWebUrl('index')}" class="heading">首页</a></li>
+    <li class="hidden-sm hidden-xs">
+      <a href="{php echo $this->createWebUrl('config')}" >基础设置</a>
+	  <a href="{php echo $this->createWebUrl('config',array('task'=>'sale'))}" class="selected">营销设置</a>
+    </li>
+
+  </ul>
+  <div class="custom-search hidden-sm hidden-xs">
+    <a href="#">会员卡管理中心</a> &gt; <a>首页</a>
+  </div>
+</div>
+<!-- Sub Nav End -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="{php echo $this->createWebUrl('config')}">营销设置</a></li>
+</ul>
+<form class="form-horizontal form" id="form2" action="{php echo $this->createWebUrl('config',array('task'=>'savesale'))}"method="post">
+  <input type="hidden" name="id" value="" />
+  <div class="dashboard-wrapper">
+	  <div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label">消费赠积分</label>
+		<div class="col-sm-9 col-xs-12">
+			<select name='sale_credit' class='form-control'>
+				<option value='0' {if $this->cashier[sale_credit]==0}selected{/if} >关闭</option>
+				<option value='1'  {if $this->cashier[sale_credit]==1}selected{/if} >开启</option>
+			</select>
+			<div><a href="{php echo murl("site/entry",array("m"=>"fl_card","do"=>"active",'task'=>'config'))}" target="_blank">点击设定赠送积分比例</a></div>
+		</div>
+	  </div>
+	  <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">赠送积分付款方式</label>
+      <div class="col-sm-9 col-xs-12">
+          <label><input type="checkbox" name="sale_credit_type[]" value="cash" {if in_array('cash',$this->cashier['sale_credit_type']?$this->cashier['sale_credit_type']:array())}checked{/if}>现金支付</label>
+          <label><input type="checkbox" name="sale_credit_type[]" value="online" {if in_array('online',$this->cashier['sale_credit_type']?$this->cashier['sale_credit_type']:array())}checked{/if}>微信/支付宝</label>
+		 <label><input type="checkbox" name="sale_credit_type[]" value="card" {if in_array('card',$this->cashier['sale_credit_type']?$this->cashier['sale_credit_type']:array())}checked{/if}>会员卡</label>
+
+	  </div>
+    </div>
+	  
+	
+	  
+	  
+	  
+	  
+	 
+    <div class="form-group col-sm-12">
+      <input name="token" type="hidden" value="07a740f8" />
+      <input type="submit" class="btn btn-primary col-lg-1" name="submit" value="保存" />
+    </div>
+  </div>
+</div>
+</div>
+</form>
+</div>
+{template 'footer'}

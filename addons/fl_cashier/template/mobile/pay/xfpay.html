@@ -1,0 +1,35 @@
+<script type="text/javascript">
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+	WeixinJSBridge.invoke('getBrandWCPayRequest', {
+		'appId' : '{$xfpay[appid]}',
+		'timeStamp': '{$xfpay[timestamp]}',
+		'nonceStr' : '{$xfpay[noncestr]}',
+		'package' : '{$xfpay[packages]}',
+		'signType' : '{$xfpay[signtype]}',
+		'paySign' : '{$xfpay[paysign]}'
+	}, function(res) {
+		if(res.err_msg == 'get_brand_wcpay_request:ok') {
+			location.search += '&done=1';
+		} else {
+			alert('启动微信支付失败, 请检查你的支付参数. 详细错误为: ' + res.err_msg);
+			history.go(-1);
+		}
+	});
+}, false);
+</script>
+	WeixinJSBridge.invoke('getBrandWCPayRequest', {
+		'appId' : '{$xfpay[appid]}',
+		'timeStamp': '{$xfpay[timestamp]}',
+		'nonceStr' : '{$xfpay[noncestr]}',
+		'package' : '{$xfpay[packages]}',
+		'signType' : '{$xfpay[signtype]}',
+		'paySign' : '{$xfpay[paysign]}'
+	}, function(res) {
+		if(res.err_msg == 'get_brand_wcpay_request:ok') {
+			location.search += '&done=1';
+		} else {
+			alert('启动微信支付失败, 请检查你的支付参数. 详细错误为: ' + res.err_msg);
+			history.go(-1);
+		}
+	});
+}, false);

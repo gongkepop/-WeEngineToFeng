@@ -1,0 +1,26 @@
+  {loop $paylog $value}
+	<tr>
+		  <td>{php echo date("Y-m-d H:i:s",$value[createtime])}</td>
+	  <td>{$value[price]}</td>
+	  <td>
+		  {if $value[pay_status]==1}
+		  <img src='../addons/fl_cashier/template/images/money.png' title="现金支付" />
+		  {elseif $value[pay_status]==2}
+		   <img src='../addons/fl_cashier/template/images/alipay.png' title="支付宝支付" />
+		  {elseif $value[pay_status]==3}
+		  <img src='../addons/fl_cashier/template/images/wechart.gif' title="微信支付" />
+		  {elseif $value[pay_status]==4}
+		  <i class='fa fa-credit-card' style="margin:0" title="会员卡余额支付"></i>
+		  {/if}
+		  {if $value[card_num]}
+			 <i class="fa fa-address-card "  style="color:#009900" title="会员卡号{$value[card_num]}"></i>
+		 {/if}
+		 {if $value[status]==0}
+		  <i class="fa fa-exclamation-triangle "  style="color:#770" title="等待支付，点击重新获取支付状态" onclick="getorder({$value[id]},0)"></i>
+		 {/if}
+	  </td>
+	  <td>
+		  <i class='fa fa-print' {if $value[print]==0}title="点击打印订单"{else}style="color:#009900" title="已打印{$value[print]}次，点击继续打印"{/if} onclick="print({$value[id]},1)" ></i>
+	  </td>
+	</tr>
+{/loop}

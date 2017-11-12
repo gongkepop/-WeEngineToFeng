@@ -1,0 +1,389 @@
+{template 'themes/sui/header'}
+<div class="page-group">
+	<div class="page page-current">
+	 <header class="bar bar-nav">
+
+		<h1 class="title">{php echo $this->config[name]}</h1>
+	  </header>
+		 <div class="content">
+
+			<div class="page-index">
+				<style>
+					input[type="date"]:before{
+						color:#A9A9A9;
+						content:attr(placeholder);
+					}
+
+
+					input[type="date"].full:before {
+						color:black;
+						content:""!important;
+					}
+				</style>
+				
+				{if $slide}
+				<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+				<script>
+					$(function(){
+						var width=$(document).width()
+						$(".swiper-wrapper img").width(width).height("190px");
+					})
+				</script>
+				 <div class="swiper-container" data-space-between='10' data-swiper-autoplay="2000" style="height:180px;width:100%">
+					<div class="swiper-wrapper">
+					{loop $slide $value}
+					  <div class="swiper-slide" ><img src="{php echo tomedia($value[image])}" alt="" onclick="location.href='{$value[url]}'"></div>
+					  {/loop}
+					</div>
+					<div class="swiper-pagination"></div>
+				  </div>
+				{/if}
+				
+				<div class="list-block">
+				<ul>
+					<!-- Text inputs -->
+					{if $this->config_level['member_bindtype']==1}
+					<li>
+					  <div class="item-content">
+						<div class="item-media"><i class="icon icon-form-name"></i></div>
+						<div class="item-inner">
+						  <div class="item-title label">卡号</div>
+						  <div class="item-input">
+							<input type="text" id="card" placeholder="请输入卡号">
+						  </div>
+						</div>
+					  </div>
+					</li>
+					<li>
+					  <div class="item-content">
+						<div class="item-media"><i class="icon icon-form-name"></i></div>
+						<div class="item-inner">
+						  <div class="item-title label">密码</div>
+						  <div class="item-input">
+							<input type="text"  id="password" placeholder="请输入卡密码" >
+						  </div>
+						</div>
+					  </div>
+					</li>
+					{elseif $this->config_level['member_bindtype']==2}
+
+
+					{else}
+					<li>
+					  <div class="item-content">
+						<div class="item-media"><i class="icon icon-form-name"></i></div>
+						<div class="item-inner">
+						  <div class="item-title label">手机号</div>
+						  <div class="item-input">
+							<input type="text" id="mobile" placeholder="请输入手机号" maxlength="11">
+
+						  </div>
+							{if $this->config_level['close_code']==0}
+							<div class="item-footer">
+								<span class="button" id="sendCodeBtn" style=" margin-right: 4px;">获取验证码</span>
+							</div>
+							{/if}
+						</div>
+
+
+					  </div>
+					</li>
+					{if $this->config_level['close_code']==0}
+
+					<li>
+					  <div class="item-content">
+						<div class="item-media"><i class="icon icon-form-name"></i></div>
+						<div class="item-inner">
+						  <div class="item-title label">验证码</div>
+						  <div class="item-input">
+							<input type="text"  id="verifyCode" placeholder="请输入验证码"  maxlength="11">
+						  </div>
+						</div>
+					  </div>
+					</li>
+					{/if}
+					{/if}
+				   {if $this->config_level[reg_data][name]==1}
+						<li>
+							<div class="item-content">
+							  <div class="item-media"><i class="icon icon-form-name"></i></div>
+							  <div class="item-inner">
+								<div class="item-title label">姓名</div>
+								<div class="item-input">
+								  <input type="text"  id="name" placeholder="请输入姓名"  maxlength="11">
+								</div>
+							  </div>
+							</div>
+						  </li>
+					{/if}
+					{if $this->config_level[reg_data][idcard]==1}
+						<li>
+							<div class="item-content">
+							  <div class="item-media"><i class="icon icon-form-name"></i></div>
+							  <div class="item-inner">
+								<div class="item-title label">身份证号</div>
+								<div class="item-input">
+								  <input type="text"  id="idcard" placeholder="请输入身份证号"  >
+								</div>
+							  </div>
+							</div>
+						  </li>
+					{/if}
+					{if $this->config_level[reg_data][birth]==1}
+					<script>
+						$(function(){
+							$("#birth").on("input",function(){
+								if($(this).val().length>0){
+									$(this).addClass("full");
+								}else{
+									$(this).removeClass("full");
+							   }
+							});
+						})
+					</script>
+						<li>
+							<div class="item-content">
+							  <div class="item-media"><i class="icon icon-form-name"></i></div>
+							  <div class="item-inner">
+								<div class="item-title label">生日</div>
+								<div class="item-input">
+								  <input type="date"  id="birth" placeholder="请输入生日"  >
+								</div>
+							  </div>
+							</div>
+						  </li>
+					{/if}
+					{if $diyform}
+					{loop $diyform $value}
+					{if $value['type']=="text"}
+
+					<li>
+						<div class="item-content">
+						  <div class="item-media"><i class="icon icon-form-name"></i></div>
+						  <div class="item-inner">
+							<div class="item-title label">{$value[name]}</div>
+							<div class="item-input">
+							  <input type="text" class='diyform'  data="{$value[name]}" placeholder="请输入{$value[name]}"  maxlength="11">
+							</div>
+						  </div>
+						</div>
+					  </li>
+
+					{/if}
+					{/loop}
+					{/if}
+				</ul>
+				</div>
+				  <div class="content-block">
+					  <div class="row" style="text-align:center">
+					  <div class="col-100"><a href="javascript:void(0);" class="button button-big button-fill button-success" id="verify">提交绑定</a></div>
+					</div>
+				  </div>
+
+			</div>
+		 </div>
+
+
+
+
+
+
+
+
+	</div>
+</div>
+{template 'themes/sui/footer'}
+
+<script type="text/javascript">
+
+	$(function(){
+	    var tokenVal;
+	    var mobileVal;
+	    var cardInfo;
+
+		// 发送验证码
+		$("#sendCodeBtn").click(function(){
+			var mobileVal = $('#mobile').val();
+			if (!$.trim(mobileVal)) {
+				$.alert("请输入手机号码", function(){
+					$('#mobile').focus();
+				});
+				return false;
+			}
+
+
+//			if (!ToolUtil.isMobile($.trim(mobileVal))) {
+//				alertDlg("请输入11位手机号码", function(){
+//					$('#mobile').focus();
+//				});
+//				return false;
+//			}
+			/* 发送短信验证码,没事别浪费短信啊,本来工资就不多,再支付短信费,发不起工资了 */
+			var $this = $(this);
+			$.ajax({
+				url : '{php echo $this->createMobileUrl('sendsms')}',
+				async : true,
+				type : 'POST',
+				cache : false,
+				data : {
+					tel : mobileVal,
+					id : 'reg'
+				},
+				dataType : 'json',
+				timeout : 15000,
+				beforeSend : function(xhr) {
+					$this.addClass("disabled").attr("initText", $this.text()).text("发送中...");
+				},
+				complete : function(xhr, ts) {},
+				error : function(xhr, ts, eh) {
+					$this.removeClass("disabled");
+				},
+				success : function(data) {
+
+					$("#verifyCode").focus();
+					var json = data;
+					$this.attr("initText", $this.text()).text("获取验证码");
+					$this.removeClass("disabled");
+					$.alert(json.msg);
+
+
+				}
+			});
+		});
+
+		//提交验证，获取卡列表
+		$("#verify").click(function(){
+
+			{if $this->config_level['member_bindtype']==1}
+			//卡密验证
+			var card=$("#card").val();
+			var password=$("#password").val();
+			{elseif $this->config_level['member_bindtype']==2}
+			{else}
+			//手机验证
+		    mobileVal = $('#mobile').val();
+			if (!$.trim(mobileVal)) {
+				$.alert("请输入手机号码", function(){
+					$('#mobile').focus();
+				});
+				return false;
+			}
+
+			{if !$this->config_level[close_code]}
+			var verifyCodeVal = $('#verifyCode').val();
+				// if (!ToolUtil.isVerificationCode($.trim(verifyCodeVal))) {
+				if (!$.trim(verifyCodeVal)) {
+					$.alert("请输入6位验证码", function(){
+						$('#verifyCode').focus();
+					});
+					return false;
+				}
+			{else}
+			var verifyCodeVal = 666;
+			{/if}
+			{/if}
+			var $this = $(this);
+
+			//自定义表单
+			{if $this->config_level[reg_data][name]==1}
+			var name=$("#name").val();
+			if(!name){
+				$.alert("请输入姓名");
+				return false;
+			}
+			{/if}
+			{if $this->config_level[reg_data][idcard]==1}
+			var idcard=$("#idcard").val();
+			if(!idcard){
+				$.alert("请输入身份证号");
+				return false;
+			}
+			{/if}
+			{if $this->config_level[reg_data][birth]==1}
+			var birth=$("#birth").val();
+			if(!birth){
+				$.alert("请输入生日");
+				return false;
+			}
+			{/if}
+            //diy表单
+			{if $diyform}
+			var diyform=new Array()
+			{loop $diyform $key=>$value}
+			{if $value['ischeck']==1}
+				if($(".diyform[data='{$value[name]}']").val()==""){
+					$.alert("请输入{$value[name]}", function(){
+						$(".diyform[data='{$value[name]}']").focus();
+					});
+					return false;
+				}
+			{/if}
+			diyform[{$key}]={
+				name:'{$value[name]}',
+				content:$(".diyform[data='{$value[name]}']").val()
+			}
+			{/loop}
+			{/if}
+			$.ajax({
+				url : '{php echo $this->createMobileUrl('bind')}',
+				async : true,
+				type : 'POST',
+				cache:false,
+				data : {
+
+
+
+					{if $this->config_level[reg_data][name]==1}
+					name:name,
+					{/if}
+					{if $this->config_level[reg_data][birth]==1}
+					birth:birth,
+					{/if}
+					{if $this->config_level[reg_data][idcard]==1}
+					idcard:idcard,
+					{/if}
+					{if $diyform}
+					diyform:diyform,
+					{/if}
+					{if $this->config_level['member_bindtype']==1}
+					card:card,
+					password:password
+					{elseif $this->config_level['member_bindtype']==2}
+					bind:1
+					{else}
+					tel : mobileVal,
+					code : verifyCodeVal
+					{/if}
+				},
+				dataType : 'json',
+				timeout : 15000,
+
+				error : function(result, status) {
+				},
+
+				success : function(data) {
+					if(data.status==1){
+
+						if(data.url){
+							location.href=data.url
+						}else{
+							location.href="{php echo $this->createMobileUrl('index')}"
+						}
+
+					}else{
+						$.alert(data.msg);
+					}
+				}
+			});
+		});
+
+
+
+	});
+	//页面返回按钮
+	$(".icon_left").html("&#xe611;").on("click", function(){window.history.back();});
+
+</script>
+</body>
+</html>

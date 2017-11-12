@@ -1,0 +1,95 @@
+{template 'themes/sui/header'}
+	
+    <div class="page-group">
+        <div class="page page-current">
+  <header class="bar bar-nav">
+	  <a class="button button-link button-nav pull-left" href="{php echo $this->createMobileUrl('index')}" data-transition='slide-out'>
+      <span class="icon icon-left"></span>
+      返回
+    </a>
+    <h1 class="title">积分记录</h1>
+  </header>
+
+  <div class="content">
+	
+    <div class="page-index">
+		  <script>
+		  $(function(){
+			  $("input[name='starttime']").change(function(){
+				  $("#ff").submit()
+			  });
+			  $("input[name='endtime']").change(function(){
+				  $("#ff").submit()
+			  });
+		  })
+	  </script>
+	<div class="content-block">
+      <div class="list-block">
+		  <form method='get' action='' id='ff'>
+			  <input type='hidden' name='id' value='{$_GPC[id]}' />
+			  <input type='hidden' name='i' value='{$_GPC[i]}' />
+			  <input type='hidden' name='c' value='{$_GPC[c]}' />
+			  <input type='hidden' name='task' value='{$_GPC[task]}' />
+			  <input type='hidden' name='do' value='{$_GPC[do]}' />
+			  <input type='hidden' name='m' value='{$_GPC[m]}' />
+        <ul>
+          <!-- Text inputs -->
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">开始日期</div>
+                <div class="item-input">
+                  <input type="date" placeholder="开始日期" name='starttime' value='{$_GPC[starttime]}' data-toggle='date'/>
+                </div>
+              </div>
+            </div>
+          </li>
+		   <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">截止日期</div>
+                <div class="item-input">
+                  <input type="date" placeholder="截止日期" name='endtime' value='{$_GPC[endtime]}'  data-toggle='date'/>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+		  </form>
+      </div>
+    </div>
+		
+		
+		{loop $log $value}
+		<div class="card">
+			<div class="card-header">会员卡号：{$value[card]}</div>
+			<div class="card-content">
+			  <div class="list-block media-list">
+				<ul>
+				  <li class="item-content">
+					
+					<div class="item-inner">
+					  <div class="item-title-row">
+						<div class="item-title">{if $value[num]>0}充值{else}消费{/if}{$value[num]}元</div>
+					  </div>
+					  {if $value[cardmoney]>0}<div class="item-subtitle">余额支付：{$value[cardmoney]}元</div>{/if}
+					  {if $value[paymoney]>0}<div class="item-subtitle">微信支付：{$value[paymoney]}元</div>{/if}
+					</div>
+				  </li>
+				</ul>
+			  </div>
+			</div>
+			<div class="card-footer">
+			  <span>{$value[content]}</span>
+			  <span>{php echo date("Y-m-d H:i:s",$value[createtime])}</span>
+			</div>
+		  </div>  
+		{/loop}
+ 
+
+</div>
+  </div>
+
+        </div>
+    </div>
+{template 'themes/sui/footer'}

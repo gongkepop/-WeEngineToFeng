@@ -1,0 +1,102 @@
+{template 'header'}
+<script>
+	$(function(){
+		$(document).on("click",'.remove_group',function(){
+			$(this).parents(".form-group").remove();
+		})
+		
+		var form_keys={php echo $diyform?count($diyform):0}+0;
+		$("#addbutton").click(function(){
+			form_keys++;
+			var str="";
+			var addtype=$("#addtype").val();
+			var addcolumn=$("#addcolumn").val();
+			if(addtype=="text"){
+				str+='<div class="form-group">'
+				str+='<input type="hidden" name="diytype['+form_keys+']" value="text" />'
+				str+='<label class="col-xs-12 col-sm-3 col-md-2 control-label">单行文本</label>'
+				str+='<div class="col-sm-5 col-xs-12">'
+				str+=	'<input class="form-control" name="diyform['+form_keys+']" value="'+addcolumn+'"  />'
+				str+=	'</div>'
+				str+='<div class="col-sm-1 col-xs-12">'
+				str+='<label><input type="checkbox" name="diyform_check['+form_keys+']" value="1"   />必填</label>'
+				str+='</div>'
+				str+='<div class="col-sm-1 col-xs-12">'
+				str+='<input type="button" class="remove_group" value="删除" />'
+				str+='</div>'
+				str+='</div>'
+			}
+			
+			$("#form-content").append(str);
+		})
+	})
+</script>
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}  <!-- Top Nav End -->
+<div class="sub-nav hidden-sm hidden-xs">
+  <ul>
+    <li><a href="{php echo $this->createWebUrl('index')}" class="heading">工具管理</a></li>
+    <li class="hidden-sm hidden-xs">
+      <a href="#" class="selected">万能表单</a>
+    </li>
+  </ul>
+  <div class="custom-search hidden-sm hidden-xs">
+    <a href="#">会员卡管理中心</a> &gt; <a>首页</a>
+  </div>
+</div>
+<!-- Sub Nav End -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="{php echo $this->createWebUrl('config')}">万能表单</a></li>
+</ul>
+<form class="form-horizontal form" id="form2" action="{php echo $this->createWebUrl('form',array('task'=>'save'))}"method="post">
+  <input type="hidden" name="id" value="{$_GPC[id]}" />
+  <div class="dashboard-wrapper">
+	  <div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label">模板名称</label>
+		<div class="col-sm-9 col-xs-12">
+			<input class='form-control' name='name' value='{$res[name]}' />
+		</div>
+	  </div>
+	  <div id="form-content">
+		  {loop $diyform $key=>$value}
+		  {if $value['type']=="text"}
+		 <div class="form-group">
+				<input type="hidden" name="diytype[{$key}]" value="text" />
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">单行文本</label>
+				<div class="col-sm-5 col-xs-12">
+				<input class="form-control" name="diyform[{$key}]" value="{$value[name]}"  />
+				</div>
+				<div class="col-sm-1 col-xs-12">
+				<label><input type="checkbox" name="diyform_check[{$key}]" value="1" {if $value[ischeck]}checked{/if}  />必填</label>
+				</div>
+				<div class="col-sm-1 col-xs-12">
+				<input type="button" class="remove_group" value="删除" />
+				</div>
+			</div>
+		  
+		  {/if}
+		  {/loop}
+	  </div>
+	  
+	  <div>
+		  <select id="addtype">
+			  <option value="text">单行文本</option>
+		  </select>
+		  字段名称：<input type="text" id="addcolumn" />
+		  <input type="button" id="addbutton" value="增加" />
+	  </div>
+  
+   
+    <div class="form-group col-sm-12">
+      <input name="token" type="hidden" value="07a740f8" />
+      <input type="submit" class="btn btn-primary col-lg-1" name="submit" value="保存" />
+    </div>
+  </div>
+</div>
+</div>
+</form>
+</div>
+{template 'footer'}

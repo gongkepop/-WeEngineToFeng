@@ -1,0 +1,45 @@
+   <div id="cssmenu"><div id="menu-button">Menu</div>
+    <ul>
+      <li class="has-sub "><span class="submenu-button"></span>
+		  {if $_W['cache']['unimodules:'.$_W['weid'].":"]['fl_card']}
+        <li class="  has-sub {if $nav=='index'}active{/if}"><span class="submenu-button"></span>
+          <a href="{php echo murl('home/welcome/ext',array('m'=>'fl_card'))}"><i class="fa fa-home"></i>超级会员卡</a>
+          <ul>
+          </ul>
+        </li>
+       {/if}
+   
+    
+	<li class="{if $nav=='shop'}active{/if} has-sub"><span class="submenu-button"></span>
+      <a href="{php echo $this->createWebUrl('index')}"><i class="fa fa-bar-chart-o"></i>店铺管理</a>
+    
+    </li>
+	<li class="{if $nav=='staff'}active{/if} has-sub"><span class="submenu-button"></span>
+      <a href="{php echo $this->createWebUrl('staff')}"><i class="fa fa-bar-chart-o"></i>员工管理</a>
+    
+    </li>
+	<li class="{if $nav=='role'}active{/if} has-sub"><span class="submenu-button"></span>
+      <a href="{php echo $this->createWebUrl('role')}"><i class="fa fa-bar-chart-o"></i>角色管理</a>
+    </li>
+	{if $_W["uid"]==="1" &&!$_W['config']['setting']['member']}
+	<li class="{if $nav=='adminconfig'}active{/if} has-sub"><span class="submenu-button"></span>
+		<a href="{php echo $this->createWebUrl('adminconfig')}"><i class="fa fa-bar-chart-o"></i>权限配置</a>
+    </li>
+	{/if}
+	<li class=" has-sub"><span class="submenu-button"></span>
+		<a href="#"><i class="fa fa-bar-chart-o"></i>系统参数</a>
+		 <ul>
+   
+		  {loop $this->cover $value}
+		  <li><a href="{php echo murl('platform/cover',array('eid'=>$value[eid]))}">{$value[title]}</a></li>
+		  {/loop}
+        </ul>
+    </li>
+    <li>
+     <a href="{php echo murl('home/welcome/ext')}">
+      <i class="fa fa-sign-out"></i>
+      返回系统
+    </a>
+  </li>
+</ul>
+</div>

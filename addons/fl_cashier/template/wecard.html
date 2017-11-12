@@ -1,0 +1,238 @@
+{template 'header'}
+
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}   <!-- Top Nav End -->
+    <div class="sub-nav hidden-sm hidden-xs">
+      <ul>
+        <li><a href="{php echo $this->createWebUrl('index')}" class="heading">首页</a></li>
+        <li class="hidden-sm hidden-xs">
+          <a href="{php echo $this->createWebUrl('card')}" class="selected">会员管理</a>
+        </li>
+     </ul>
+      <div class="custom-search hidden-sm hidden-xs">
+        <a href="#">会员卡管理中心</a> &gt; <a>首页</a>
+      </div>
+    </div>
+    <!-- Sub Nav End -->
+
+      <ul class="nav nav-tabs">
+          <li><a href="{php echo $this->createWebUrl('cardtype')}">会员卡分类</a></li>
+          <li class="active"><a href="{php echo $this->createWebUrl('cardtype',array('task'=>'add'))}"><i class="fa fa-plus"></i>卡包配置</a></li>
+      </ul>
+              <input type="hidden" name="id" value="{$_GPC[id]}" />
+                  <div class="dashboard-wrapper" style="min-height:650px">
+                      <div class="wecard">
+						  <div class="main_title"></div>
+						  <div class="wecard_main" style='background:{if $card[wecard_config][background]}url({php echo tomedia($card[wecard_config][background])}){else}{php echo $cardClass->getColorList($card[wecard_config][color])}{/if}' >
+							  <div class="logo">
+								  <img src="{php echo tomedia($card[wecard_config][logo])}" style="height:38px;width:38px" />
+							  </div>
+							  <div class="shopname">{php echo $this->config[name]}</div>
+							  <div class="cardname">{$card[name]}</div>
+							  <div class="qrcode"></div>
+							  <div class="cardnum">0221234567</div>
+							  <div class="info"></div>
+						  </div>
+						  <div class="menu">
+							  <ul class="bind">
+								  <li class="list">
+									  <div class="main">
+										  <span class="title">适用门店</span>
+										  <span class="go"></span>
+									  </div>
+								  </li>
+								  <li class="list" style="border:0">
+									  <div class="main">
+										  <span class="title">公众号</span>
+										  <span class="go"></span>
+									  </div>
+								  </li>
+							  </ul>
+							
+							  <ul class="bind">
+								  <li class="list">
+									  <div class="main">
+										  <span class="title">菜单1(仅激活后显示)</span>
+										  <span class="go"></span>
+										  <span class="second">副标题</span>
+									  </div>
+								  </li>
+								  <li class="list">
+									  <div class="main">
+										  <span class="title">菜单2</span>
+										 
+										  <span class="go"></span>
+										   <span class="second">副标题</span>
+									  </div>
+								  </li>
+								   <li class="list">
+									  <div class="main">
+										  <span class="title">菜单3</span>
+										 
+										  <span class="go"></span>
+										   <span class="second">副标题</span>
+									  </div>
+								  </li>
+							  </ul>
+						  </div>
+						  
+					  </div>
+					  <form class="form-horizontal form" id="form2" action="{php echo $this->createWebUrl('cardtype',array('task'=>'savewecard'))}" method="post">
+						<input type="hidden" name="tid" value="{$_GPC[id]}" />
+						  <div class="form">
+							<div class="row" style="margin:0 0 0 400px">
+								<div class="col-sm-8">
+									<div class="form-group">
+										<label class="col-xs-12 col-sm-3 col-md-2 control-label">会员卡名称</label>
+										<div class="col-sm-9 col-xs-12">
+											<input type="text" class="form-control" name="name" value="{php echo $card[wecard_config][name]?$card[wecard_config][name]:$card[name]}"/><span class="help-block"></span>
+										</div>
+									</div>
+									<style>
+										.card_color{
+											float:left;
+											margin:0 20px 10px 0;
+											height:60px;
+											width:60px
+										}
+									</style>
+									<div class="form-group">
+										<label class="col-xs-12 col-sm-3 col-md-2 control-label">会员卡颜色</label>
+										<div class="col-sm-9 col-xs-12">
+											<select class="form-control" name="color">
+												{loop $color $key=>$value}
+												<option value="{$key}" {if $key==$card[wecard_config][color]}selected{/if} style="background:{$value}">{$key}</option>
+												{/loop}
+											</select>
+					
+											<span class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-12 col-sm-3 col-md-2 control-label">背景图片</label>
+										<div class="col-sm-9 col-xs-12">
+											{php echo tpl_form_field_image('background', $card[wecard_config][background]);}
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-12 col-sm-3 col-md-2 control-label">logo</label>
+										<div class="col-sm-9 col-xs-12">
+											{php echo tpl_form_field_image('logo', $card[wecard_config][logo]);}
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-12 col-sm-3 col-md-2 control-label">会员卡特权</label>
+										<div class="col-sm-9 col-xs-12">
+											<input type="text" class="form-control" name="prerogative" value="{$card[wecard_config][prerogative]}"/><span class="help-block">会员卡特权说明。</span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-12 col-sm-3 col-md-2 control-label">使用须知</label>
+										<div class="col-sm-9 col-xs-12">
+											<input type="text" class="form-control" name="description" value="{$card[wecard_config][description]}"/><span class="help-block">卡券使用说明，字数上限为1024个汉字。    </span>
+										</div>
+									</div>
+<!--									<div class="form-group">
+										<label class="col-xs-12 col-sm-3 col-md-2 control-label">显示内容</label>
+										<div class="col-sm-9 col-xs-12">
+											<label class='col-xs-3 show_column'><input type='checkbox' name='show_column[]' value='supply_bonus' />积分</label>
+											<label class='col-xs-3 show_column'><input type='checkbox' name='show_column[]' value='supply_balance' />余额</label>
+											<label class='col-xs-3 show_column'><input type='checkbox' name='show_column[]' value='custom_field1' />等级</label>
+											<label class='col-xs-3 show_column'><input type='checkbox' name='show_column[]' value='custom_field2' />折扣</label>
+											<lable><input type='checkbox' name='show_column[]' value='custom_field3' />字段3</lable>
+											<div>(最多选3个)</div>
+										</div>
+									</div>-->
+									
+									<div class="form-group">
+										<label class="col-xs-12 col-sm-3 col-md-2 control-label">菜单1标题</label>
+										<div class="col-sm-9 col-xs-12">
+											<input type="text" class="form-control" name="custom_url_name" value="{$card[wecard_config][custom_url_name]}"/><span class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-12 col-sm-3 col-md-2 control-label">菜单1副标题</label>
+										<div class="col-sm-9 col-xs-12">
+											<input type="text" class="form-control" name="custom_url_sub_title" value="{$card[wecard_config][custom_url_sub_title]}"/><span class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-12 col-sm-3 col-md-2 control-label">菜单1链接</label>
+										<div class="col-sm-9 col-xs-12">
+											<input type="text" class="form-control" name="custom_url" value="{$card[wecard_config][custom_url]}"/><span class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-12 col-sm-3 col-md-2 control-label">菜单2标题</label>
+										<div class="col-sm-9 col-xs-12">
+											<input type="text" class="form-control" name="custom_cell1[name]" value="{$card[wecard_config][custom_cell1][name]}"/><span class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-12 col-sm-3 col-md-2 control-label">菜单2副标题</label>
+										<div class="col-sm-9 col-xs-12">
+											<input type="text" class="form-control" name="custom_cell1[tips]" value="{$card[wecard_config][custom_cell1][tips]}"/><span class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-12 col-sm-3 col-md-2 control-label">菜单2链接</label>
+										<div class="col-sm-9 col-xs-12">
+											<input type="text" class="form-control" name="custom_cell1[url]" value="{$card[wecard_config][custom_cell1][url]}"/><span class="help-block"></span>
+										</div>
+									</div>
+									
+									
+									<div class="form-group">
+										<label class="col-xs-12 col-sm-3 col-md-2 control-label">菜单3标题</label>
+										<div class="col-sm-9 col-xs-12">
+											<input type="text" class="form-control" name="promotion_url_name" value="{$card[wecard_config][promotion_url_name]}"/><span class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-12 col-sm-3 col-md-2 control-label">菜单3副标题</label>
+										<div class="col-sm-9 col-xs-12">
+											<input type="text" class="form-control" name="promotion_url_sub_title" value="{$card[wecard_config][promotion_url_sub_title]}"/><span class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-12 col-sm-3 col-md-2 control-label">菜单3链接</label>
+										<div class="col-sm-9 col-xs-12">
+											<input type="text" class="form-control" name="promotion_url" value="{$card[wecard_config][promotion_url]}"/><span class="help-block"></span>
+										</div>
+									</div>
+									
+									
+									
+									
+								
+
+									<div class="form-group col-sm-12">
+										<input name="token" type="hidden" value="{$_W['token']}" />
+										<input type="submit" class="btn btn-primary col-lg-2" name="submit" value="保存预览" />
+										{if $card[wecard_id]}
+										<input type="button" onclick="location.href='{php echo $this->createWebUrl('cardtype',array('task'=>'updatewecard','id'=>$_GPC[id]))}'" class="btn btn-primary col-lg-3" style="margin:0 0 0 30px" name="submit" value="更新会员卡" />
+										<input type="button" onclick="location.href='{php echo $this->createWebUrl('cardtype',array('task'=>'createtest','id'=>$_GPC[id]))}'" class="btn btn-primary col-lg-3" style="margin:0 0 0 30px" name="submit" value="投放测试卡券" />
+											{if $_W['config']['setting']['test']==1}
+												<input type="button" onclick="location.href='{php echo $this->createWebUrl('cardtype',array('task'=>'getwecardapi','id'=>$_GPC[id]))}'" class="btn btn-primary col-lg-3" style="margin:0 0 0 30px" name="submit" value="查看接口(开发使用)" />
+											{/if}
+										{else}
+										<input type="button" onclick="location.href='{php echo $this->createWebUrl('cardtype',array('task'=>'createwecard','id'=>$_GPC[id]))}'" class="btn btn-primary col-lg-3" style="margin:0 0 0 30px" name="submit" value="创建会员卡" />
+
+										{/if}
+									</div>
+								</div>
+							</div>
+						</div>
+					  </form>
+                  </div>
+			  
+				  
+
+         
+
+
+
+{template 'footer'}

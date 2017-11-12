@@ -1,0 +1,90 @@
+{template 'themes/sui/header'}
+	  <script>
+		  $(function(){
+			  $("input[name='starttime']").change(function(){
+				  $("#ff").submit()
+			  });
+			  $("input[name='endtime']").change(function(){
+				  $("#ff").submit()
+			  });
+		  })
+	  </script>
+    <div class="page-group">
+        <div class="page page-current">
+  <header class="bar bar-nav">
+	  <a class="button button-link button-nav pull-left" href="{php echo $this->createMobileUrl('index')}" data-transition='slide-out'>
+      <span class="icon icon-left"></span>
+      返回
+    </a>
+    <h1 class="title">会员卡列表</h1>
+  </header>
+
+  <div class="content">
+	
+    <div class="page-index">
+	
+		
+		
+		{loop $cardlist $value}
+		<div class="card">
+			<div class="card-header">
+				<span>会员卡号：{$value[card]}</span>
+				<span>{$value[tname]}</span>
+				
+			</div>
+			<div class="card-content">
+			  <div class="list-block media-list">
+				<ul>
+				  <li class="item-content">
+					
+					<div class="item-inner" style='text-align:center'>
+					  <img src="{php echo tomedia($value[images])}" style="width:300px; height:179px" />
+					</div>
+				  </li>
+				</ul>
+			  </div>
+			</div>
+			{if $value[iscount]}
+			<div class="card-footer">
+		
+			  <span>余次：{$value[card_count]}次</span>
+			  <span><a href="{php echo $this->createMobileUrl('card',array('task'=>'use','id'=>$value[id]))}" class="button button-small button-fill button-success">使用</a></span>
+			  <span><a href="{php echo $this->createMobileUrl('log',array('task'=>'countlist','id'=>$value['id']))}" class="button button-small button-fill button-success">记录</a></span>
+			  <span><a href="{php echo $this->createMobileUrl('card',array('task'=>'packagelist','cid'=>$value[id]))}" class="button button-small button-fill button-success">套餐续费</a></span>
+			</div>
+			{/if}
+			<div class="card-footer">
+			  <span>{php echo date("Y-m-d H:i:s",$value[createtime])}</span>
+			  {if $value[info]}
+			  <span>
+				  <div class="col-20"><p onclick="$.alert($('.info-{$value[id]}').html(),'会员卡说明');" class="button button-small button-fill button-success">说明</p></div>
+			</span>
+			  {/if}
+			  <span>
+				  {if $value[default]}
+				  主卡
+				  {else}
+					  {if $value[status]==0}
+						等待审核
+
+					{else}
+						<div class="col-20"><a href="{php echo $this->createMobileUrl('card',array('task'=>'setdefault','id'=>$value[id]))}" class="button button-small button-fill button-success">设为主卡</a></div>
+					{/if}
+				  {/if}
+			  </span>
+			</div>
+		  </div>
+		<div class="info-{$value[id]}" style="display:none">
+			{php echo htmlspecialchars_decode($value[info])}
+		</div>
+		{/loop}
+ 
+
+</div>
+  </div>
+
+        </div>
+    </div>
+
+
+{template 'themes/sui/footer'}

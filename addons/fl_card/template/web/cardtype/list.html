@@ -1,0 +1,180 @@
+{template 'header'}
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}    <!-- Top Nav End -->
+    <div class="sub-nav hidden-sm hidden-xs">
+      <ul>
+        <li><a href="{php echo $this->createWebUrl('index')}" class="heading">首页</a></li>
+        <li class="hidden-sm hidden-xs">
+          <a href="{php echo $this->createWebUrl('card')}" class="selected">会员管理</a>
+        </li>
+     </ul>
+      <div class="custom-search hidden-sm hidden-xs">
+        <a href="#">会员卡管理中心</a> &gt; <a>首页</a>
+      </div>
+    </div>
+    <!-- Sub Nav End -->
+
+      <ul class="nav nav-tabs">
+          <li class="active"><a href="{php echo $this->createWebUrl('cardtype')}">会员卡分类</a></li>
+          <li><a href="{php echo $this->createWebUrl('cardtype',array('task'=>'add'))}"><i class="fa fa-plus"></i>添加分类</a></li>
+		  <li><a href="{php echo $this->createWebUrl('cardgroup')}">分组管理</a></li>
+		   <li><a href="{php echo $this->createWebUrl('cardgroup',array('task'=>'add'))}"><i class="fa fa-plus"></i>添加分组</a></li>
+      </ul>
+	<div class="panel-body" style=" background: #fff">
+		<form id='ff' action="./index.php" method="get" class="form-horizontal" role="form">
+			<input type="hidden" name="c" value="site" />
+			<input type="hidden" name="a" value="entry" />
+			<input type="hidden" name="m" value="{$_GPC[m]}" />
+			<input type="hidden" name="do" value="{$_GPC[do]}" />
+			<input type="hidden" name="task" value="{$_GPC[task]}" />
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">会员卡分组</label>
+				<div class="col-xs-12 col-sm-8 col-lg-2">
+					<select name="group1" id="group1" class="form-control">
+						<option value="0">全部</option>
+						{loop $group $value}
+						<option value="{$value[id]}" {if $value[id]==$_GPC[group1]}selected{/if} >{$value[name]}</option>
+						{/loop}
+					</select>
+				</div>
+				<script>
+					  $(function(){
+						  $("#group1").change(function(){
+							  var id=$(this).val()
+							  var url="{php echo $this->createWebUrl('cardgroup',array('task'=>'getlist'))}"
+							  var data={
+								  "fid":id
+							  }
+							  var callback=function(data){
+								  var str="<option value='0'  >全部</option>"
+								  if(id>0){
+									  $.each(data,function(key,val){
+										str+="<option value='"+val.id+"'  >"+val.name+"</option>"
+									})
+								  }
+								  
+								  $("#group2").html(str)
+							  }
+							  var type="json"
+							  $.post(url,data,callback,type);
+						  })
+					  })
+				</script>
+				<div class="col-xs-12 col-sm-8 col-lg-2">
+					<select name="group2" id="group2" class="form-control">
+						<option value="0">全部</option>
+						{loop $group2 $value}
+						<option value="{$value[id]}" {if $value[id]==$_GPC[group2]}selected{/if} >{$value[name]}</option>
+						{/loop}
+					</select>
+				</div>
+			</div>
+			
+			
+			
+			
+			
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-1 control-label"></label>
+
+      
+        <div class="col-sm-8 col-xs-12">
+				</div>
+     
+				<div class="col-xs-12 col-sm-2 col-lg-1">
+					<button class="btn btn-default" onclick="return search()"><i class="fa fa-search"></i> 搜索</button>
+				</div>
+<!--		<div class="col-xs-12 col-sm-2 col-lg-2">
+			<button class="btn btn-default" onclick="return download()"><i class="fa fa-download"></i> 导出</button>
+				</div>-->
+				
+			</div>
+
+			<div class="form-group">
+			</div>
+		</form>
+	</div>
+		
+      <div class="dashboard-wrapper">
+          <div class="row">
+              <div class="col-sm-12">
+                  <div class="panel-body">
+                      <table  class="table table-hover"  style="width:100%;z-index:-10;" cellspacing="0" cellpadding="0">
+                          <tr>
+                              <th style="width:50px;">ID</th>
+                              <th style="width:100px;">分类名称</th>
+                              <th style="width:120px;">背景图片</th>
+                              <th style="width:60px;">分类状态</th>
+<!--                              <th style="width:60px;">分类审核</th>
+                              <th style="width:60px;">分类申请</th>-->
+							 <th style="width:60px;">卡类型</th>
+							  <th style="width:60px;">售价</th>
+							 
+							  <th style="width:100px;">分组</th>
+							  <th style="width:80px;">组内等级</th>
+							  {if $this->config_level[auto_up]}
+							  <th style="width:80px;">升级条件</th>
+							  {/if}
+							  <th style="width:80px;">会员折扣</th>
+							  {if $this->config_level[can_wecard]==1}
+							  <th style="width:120px;">卡包状态</th>
+							  {/if}
+                              <th style="width:120px;">操作</th>
+                          </tr>
+                          </thead>
+                          {loop $res $value}
+                          <tr>
+                              <td style=" line-height: 43px">{$value[id]}</td>
+                              <td style=" line-height: 43px">{$value[name]}</td>
+                              <td><a href='{php echo tomedia($value[images])}' target="_blank"><img src='{php echo tomedia($value[images])}' style='width:100px; height: 50px' /></a></td>
+                              <td style=" line-height: 43px">{php echo getCartTypeStatus($value[status])}</td>
+<!--                              <td style=" line-height: 43px">{php echo getCartTypeCheck($value[ischeck])}</td>
+                              <td style=" line-height: 43px">{php echo getCartTypeShenqing($value[isget])}</td>-->
+							  <td style=" line-height: 43px">{if $value[iscount]==1}次数卡{else}标准卡{/if}</td>
+							   <td style=" line-height: 43px">
+								    {if $value[iscount]==1}
+									套餐价格
+									{else}
+									{php echo $value[isbuy]?$value[price]:"不支持购买"}
+									{/if}
+								   
+							   </td>
+							   <td style=" line-height: 43px">{if $value[group1_name]}{$value[group1_name]}--{/if}{$value[group_name]}</td>
+							   <td style=" line-height: 43px">{$value[group_level]}</td>
+							   {if $this->config_level[auto_up]}
+							   <td style=" line-height: 43px">{php echo $value[up_credit]?$value[up_credit]:"无"}</td>
+							   {/if}
+							   <td style=" line-height: 43px">{if $value[discount]>0}{$value[discount]}{else}暂无{/if}</td>
+							   {if $this->config_level[can_wecard]==1}
+								<td style=" line-height: 43px">{if $value[wecard_id]}已生成{else}未对接{/if}</td>
+								{/if}
+                              <td style=" line-height: 43px">
+								  {if $value[iscount]==1}
+								  <a href="{php echo $this->createWebUrl('cardtype',array('task'=>'package','tid'=>$value[id]))}" class="btn btn-primary btn-sm">套餐管理</a>
+								  {/if}
+								  {if $this->config_level[can_wecard]==1}
+								   <a href="{php echo $this->createWebUrl('cardtype',array('task'=>'wecard','id'=>$value[id]))}" class="btn btn-primary btn-sm">卡包配置</a>
+                                  {/if}
+								   <a href="{php echo $this->createWebUrl('cardtype',array('task'=>'edit','id'=>$value[id]))}" class="btn btn-primary btn-sm">编辑</a>
+                                  <a href="{php echo $this->createWebUrl('cardtype',array('id'=>$value[id],'task'=>'del'))} " onclick="return confirm('确认是否删除？')" class="btn btn-primary btn-sm">删除</a>
+                              </td>
+                          </tr>
+                          {/loop}
+                      </table>
+                      <div style=" text-align: center">{$pagination}</div>
+                  </div>
+                  <div class="form-group col-sm-12">
+                      <input name="token" type="hidden" value="{$_W['token']}" />
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+
+
+
+{template 'footer'}

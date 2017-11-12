@@ -1,0 +1,96 @@
+{template 'header'}
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}   <!-- Top Nav End -->
+    <div class="sub-nav hidden-sm hidden-xs">
+      <ul>
+        <li><a href="{php echo $this->createWebUrl('index')}" class="heading">首页</a></li>
+        <li class="hidden-sm hidden-xs">
+          <a href="{php echo $this->createWebUrl('card')}" class="selected">广告管理</a>
+        </li>
+     </ul>
+      <div class="custom-search hidden-sm hidden-xs">
+        <a href="#">会员卡管理中心</a> &gt; <a>首页</a>
+      </div>
+    </div>
+    <!-- Sub Nav End -->
+
+      <ul class="nav nav-tabs">
+          <li><a href="{php echo $this->createWebUrl('slide')}">广告列表</a></li>
+          <li class="active"><a href="{php echo $this->createWebUrl('slide',array('task'=>'add'))}"><i class="fa fa-plus"></i>添加广告</a></li>
+      </ul>
+	<form class="form-horizontal form" id="form2" action="{php echo $this->createWebUrl('slide',array('task'=>'save'))}" method="post">
+              <input type="hidden" name="id" value="{$_GPC[id]}" />
+                  <div class="dashboard-wrapper">
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告标题</label>
+                                  <div class="col-sm-5 col-xs-12">
+                                      <input type="text" class="form-control" name="name" value="{$res[name]}"/><span class="help-block"></span>
+                                  </div>
+                              </div>
+						
+							
+							  <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告位置</label>
+                                  <div class="col-sm-3 col-xs-12">
+									  <select name='place' class='form-control'>
+										  
+										  {loop getslideplace() $key=>$value}
+										  {if $key}
+										  <option value='{$key}' {if $value==$res[place]}selected{/if} >{$value}</option>
+										  {/if}
+										  {/loop}
+									  </select>
+									  
+                                    <span class="help-block"></span>
+                                  </div>
+								
+                              </div>
+							 
+                              <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告图片</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                      {php echo tpl_form_field_image('image', $res[image]);}
+                                  </div>
+                              </div>
+							  
+							   <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告链接</label>
+                                  <div class="col-sm-5 col-xs-12">
+                                      <input type="text" class="form-control" name="url" value="{$res[url]}"/><span class="help-block"></span>
+                                  </div>
+                              </div>
+							  
+							  
+                              <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告状态</label>
+                                  <div class="col-sm-9 col-xs-12">
+									  <select name='status' class='form-control'>
+										  <option value='1' {if $res[status]==1}selected{/if} >启用</option>
+										  <option value='0' {if $res&&$res[status]==0}selected{/if} >禁用</option>
+									  </select>
+                                    <span class="help-block"></span>
+                                  </div>
+                              </div>
+                        
+                          
+						
+							
+							  
+						
+                              <div class="form-group col-sm-12">
+                                  <input name="token" type="hidden" value="{$_W['token']}" />
+                                  <input type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交" />
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+          </form>
+
+
+{template 'footer'}

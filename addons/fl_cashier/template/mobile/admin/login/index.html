@@ -1,0 +1,72 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+	<title>登录-收银台系统</title>
+	<meta name="renderer" content="webkit">	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">	
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">	
+	<meta name="apple-mobile-web-app-capable" content="yes">	
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" type="text/css" href="../addons/fl_cashier/template/layui/css/layui.css" media="all">
+	<link rel="stylesheet" type="text/css" href="../addons/fl_cashier/template/mobile/admin/css/global.css" media="all">
+	<link rel="stylesheet" type="text/css" href="../addons/fl_cashier/template/mobile/admin/css/login.css" media="all">
+	<script src="../addons/fl_cashier/template/js/jquery.min.js"></script>
+</head>
+<body>
+<div class="login_bg">
+    <div class="login_box">
+        <div class="login_tit"><i class="layui-icon">&#xe62e;</i> <br/>收银台系统</div>
+        <div class="login_form">
+        	<form action="" method="post" onsubmit='return loginForm();'>
+            <ul class="login_form_li clearfix">
+                <li>
+					<div style="text-align:center">
+                    <img id="qrcode" src='' style="height: 200px" />
+					</div>
+                </li>
+                         
+                <li>
+                    <p class="jump" id="codeback"><i class="layui-icon">&#xe623;</i> 员工扫码登陆</p>
+                </li>
+            </ul>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+	$(function(){
+		geturl();
+		//检查登录事件
+		setInterval("checklogin()",3000);
+	})
+	
+	function geturl(){
+		var url="{php echo geturl('login','loginqrcodeurl')}";
+		var data={}
+		var callback=function(data){
+			//生成二维码
+			var url="{php echo $this->createMobileUrl('qrcode')}&url="+data
+			$("#qrcode").attr("src",url);
+		}
+		var type="html"
+		$.post(url,data,callback,type);
+	}
+	
+	function checklogin(){
+		var url="{php echo geturl('login','getlogin')}";
+		var data={}
+		var callback=function(data){
+			$("#codeback").html(data.msg);
+			if(data.status==2){
+				location.href='{php echo geturl("index")}';
+			}
+		}
+		var type="json"
+		$.post(url,data,callback,type);
+	}
+</script>
+</body>
+</html>

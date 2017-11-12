@@ -1,0 +1,211 @@
+{template 'themes/sui/header'}
+
+    <div class="page-group">
+        <div class="page page-current">
+  <header class="bar bar-nav">
+
+    <h1 class="title">{php echo $this->config[name]}</h1>
+  </header>
+
+  <div class="content">
+	
+    <div class="page-index">
+	<script>
+		$(function(){
+			var width=$(window).width(); 
+			var img_width=width*(300/375)
+			$("#card_img").width(img_width);
+			
+			 $('#index-card').click(function () {
+				 var str=$("#index-cardinfo").html();
+				 {if $card[info]}
+				$.alert(str,"会员卡说明");
+				{/if}
+			 });
+			
+		})
+	</script>
+	<div style="display:none" id="index-cardinfo">
+		{php echo htmlspecialchars_decode($card[info])}
+	</div>	
+		
+		<div class="card">
+<!--			<div class="card-header">
+				<span>会员卡号：{$value[card]}</span>
+				<span>{$value[tname]}</span>
+				
+			</div>-->
+			<div id="index-card" class="card-content">
+			  <div class="list-block media-list">
+				<ul>
+				  <li class="item-content">
+					
+					<div class="item-inner" style='text-align:center'>
+						<span style='position:absolute;color:#fff;margin:10px 0 0 30px;{if $this->config_level[text_shadow]==1}text-shadow: 1px 1px 0px #ccc{/if} '>{php echo $this->config[name]}</span>
+						<span style='position:absolute;color:#fff;margin:30px 0 0 30px;{if $this->config_level[text_shadow]==1}text-shadow: 1px 1px 0px #ccc{/if} '>{$card[tname]}</span>
+
+						<span style='position:absolute;color:#fff;margin:140px 0 0 20px;{if $this->config_level[text_shadow]==1}text-shadow: 1px 1px 0px #ccc{/if} '>{$card[card]}</span>
+						{if $card[info]}
+						<span style='position:absolute;color:#fff;margin:10px 0 0 250px; '><i class="fa fa-info-circle" style="width:20px;height:20px;font-size:20px"></i></span>
+						{/if}
+						<!--<span style='position:absolute;color:#fff;margin:140px 0 0 50px;text-shadow: 1px 1px 0px #ccc '>{$value[card]}</span>-->
+						<img id="card_img" src="{php echo tomedia($card[t_images])}" style="width:300px; height:179px" />
+					</div>
+				  </li>
+				</ul>
+			  </div>
+			</div>
+			<div class="card-footer">
+			  <span>余额：{$_W['member'][credit2]}元</span>
+			  <span>积分：{$_W['member'][credit1]}</span>
+			  {if $card[iscount]}
+			  <span>余次：{$card[card_count]}次</span>
+			  {/if}
+			</div>
+			
+		  </div>   
+		
+	{if !isset($this->config_level[index_menu])||$this->config_level[index_menu]==1}
+		<div class='tools'>
+			<div class='card'>
+				
+				<div class='card-header'>
+					{if $this->config_level['can_recharge']==1}
+					 <span style='width:30%'><a href="{php echo $this->createMobileUrl('recharge',array('id'=>$card[id]))}" class="button button-small button-fill button-success">充值</a></span>
+					{/if}
+					 <span style='width:30%'><a href="{php echo $this->createMobileUrl('card',array('task'=>'qrcode','id'=>$card['id']))}" class="button button-small button-fill button-success">会员消费</a></span>
+					{if $card[iscount]}
+					 <span style='width:30%'><a href="{php echo $this->createMobileUrl('card',array('task'=>'use','id'=>$card[id]))}" class="button button-small button-fill button-success">套餐消费</a></span>
+					 {/if}
+				</div>
+			</div>
+			
+		</div>
+		{/if}
+		<div class='menu'>
+			{if $this->config_level[menu_themes]=="line"}
+			<div class="list-block" style='margin:0.75rem 0'>
+				<ul style="background:none; ">
+					
+					{if $this->config_level[default_menu]==1}
+					
+					<a href="{php echo $this->createMobileUrl('card',array('task'=>'lists'))}" style="display:block;margin:0 0 10px 0;background: #fff">
+						<li class="item-content item-link"  >
+							<div class="item-media">
+								<i class="fa fa-list" style="font-size:30px;width:30px" ></i>
+							</div>
+						  <div class="item-inner">
+							<div class="item-title">会员卡列表</div>
+							<div class="item-after"></div>
+						  </div>
+						</li>
+					</a>
+					{if $this->config_level['is_buy']==1}
+					<a href="{php echo $this->createMobileUrl('buy')}" style="display:block;margin:0 0 10px 0;background: #fff">
+						<li class="item-content item-link"  >
+							<div class="item-media">
+								<i class="fa fa-credit-card " style="font-size:30px;width:30px" ></i>
+							</div>
+						  <div class="item-inner">
+							<div class="item-title">购买会员卡</div>
+							<div class="item-after"></div>
+						  </div>
+						</li>
+					</a>
+					{/if}
+					{if $this->config_level['paypass']==1}
+					<a href="{php echo $this->createMobileUrl('setpass')}" style="display:block;margin:0 0 10px 0;background: #fff">
+						<li class="item-content item-link"  >
+							<div class="item-media">
+								<i class="fa fa-deaf " style="font-size:30px;width:30px" ></i>
+							</div>
+						  <div class="item-inner">
+							<div class="item-title">支付密码</div>
+							<div class="item-after"></div>
+						  </div>
+						</li>
+					</a>
+					{/if}
+					{if $this->config_level['can_recharge']==1}
+					<a href="{php echo $this->createMobileUrl('log',array('task'=>'creditlist','id'=>$card['id']))}" style="display:block;margin:0 0 10px 0;background: #fff">
+						<li class="item-content item-link"  >
+							<div class="item-media">
+								<i class="fa fa-bar-chart  " style="font-size:30px;width:30px" ></i>
+							</div>
+						  <div class="item-inner">
+							<div class="item-title">积分记录</div>
+							<div class="item-after"></div>
+						  </div>
+						</li>
+					</a>
+					{/if}
+					<a href="{php echo $this->createMobileUrl('log',array('task'=>'paylist','id'=>$card['id']))}" style="display:block;margin:0 0 10px 0;background: #fff">
+						<li class="item-content item-link"  >
+							<div class="item-media">
+								<i class="fa fa-tasks  " style="font-size:30px;width:30px" ></i>
+							</div>
+						  <div class="item-inner">
+							<div class="item-title">余额记录</div>
+							<div class="item-after"></div>
+						  </div>
+						</li>
+					</a>
+					{if $card[iscount]}
+					<a href="{php echo $this->createMobileUrl('log',array('task'=>'countlist','id'=>$card['id']))}" style="display:block;margin:0 0 10px 0;background: #fff">
+						<li class="item-content item-link"  >
+							<div class="item-media">
+								<i class="fa fa-tasks  " style="font-size:30px;width:30px" ></i>
+							</div>
+						  <div class="item-inner">
+							<div class="item-title">次数记录</div>
+							<div class="item-after"></div>
+						  </div>
+						</li>
+					</a>
+					{/if}
+					
+					
+					{/if}
+					
+					
+					{loop $menu $value}
+					<a href="{$value[url]}" class="external" style="display:block;margin:0 0 10px 0;background: #fff">
+				  <li class="item-content item-link"  >
+					  <div class="item-media">
+						  <img src="{php echo tomedia($value[images])}" style="width: 30px; height:30px;" />
+					  </div>
+					<div class="item-inner">
+					  <div class="item-title">{$value[name]}</div>
+					  <div class="item-after"></div>
+					</div>
+				  </li>
+					</a>
+				  {/loop}
+				
+				</ul>
+		  </div>
+			{elseif $this->config_level[menu_themes]=="box"}
+			<style>
+				.box-menu a{ margin:0 20px 20px 0;float: left;border-radius: 10px;padding:5px; background: #fff;width:100px;text-align:center}
+			</style>
+			<div class="list-block">
+				<div class="box-menu" style="margin:0 0 0 15px  ">
+					{loop $menu $value}
+					<a href="{$value[url]}">
+						<span><img src="{php echo tomedia($value[images])}" style="width:60px;height:60px" /></span>
+						<span style="display:block;font-weight: bolder">{$value[name]}</span>
+					</a>
+				
+					{/loop}
+				</div>
+				
+		  </div>
+			{/if}
+		</div>
+		    
+</div>
+  </div>
+
+        </div>
+    </div>
+{template 'themes/sui/footer'}

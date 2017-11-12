@@ -1,0 +1,71 @@
+{template 'header'}
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}  <!-- Top Nav End -->
+<div class="sub-nav hidden-sm hidden-xs">
+  <ul>
+    <li><a href="{php echo $this->createWebUrl('index')}" class="heading">首页</a></li>
+    <li class="hidden-sm hidden-xs">
+      <a href="{php echo $this->createWebUrl('adminconfig')}" >短信设置</a>
+    </li>
+	<li class="hidden-sm hidden-xs">
+		<a href="{php echo $this->createWebUrl('adminconfig',array('task'=>'basic'))}">权限设置</a>
+    </li>
+	<li class="hidden-sm hidden-xs">
+		<a href="{php echo $this->createWebUrl('adminconfig',array('task'=>'attachment'))}" >附件设置</a>
+    </li>
+	<li class="hidden-sm hidden-xs">
+		<a href="{php echo $this->createWebUrl('adminconfig',array('task'=>'pay'))}"   class="selected">支付设置</a>
+    </li>
+	<li class="hidden-sm hidden-xs">
+		<a href="{php echo $this->createWebUrl('adminconfig',array('task'=>'ports'))}" >接口设定</a>
+    </li>
+  </ul>
+  <div class="custom-search hidden-sm hidden-xs">
+    <a href="#">会员卡管理中心</a> &gt; <a>首页</a>
+  </div>
+</div>
+<!-- Sub Nav End -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="{php echo $this->createWebUrl('adminconfig')}">支付设置</a></li>
+</ul>
+<form class="form-horizontal form" id="form2" action="{php echo $this->createWebUrl('adminconfig',array('task'=>'savepay'))}"method="post">
+  <div class="dashboard-wrapper">
+	 <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否启用特殊通道</label>
+      <div class="col-sm-9 col-xs-12">
+          <select name="is_xfpay" class='form-control'>
+			  <option value='0' {if $config[level][is_xfpay]==0}selected{/if} >不启用</option>
+			  <option value='1' {if $config[level][is_xfpay]==1}selected{/if} >启用</option>
+		  </select>
+		     <div>默认费率0.55%，需要者联系开发者开通，支持支付宝，微信，百度钱包，一码付等。最低可到0.35%，远低于官方0.6%</div>
+      </div>
+    </div> 
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户号</label>
+      <div class="col-sm-9 col-xs-12">
+          <input type="" class="form-control" name="appid" value='{$config[level][xfpay][appid]}' />
+      </div>
+    </div>
+	
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户秘钥</label>
+      <div class="col-sm-9 col-xs-12">
+          <input type="" class="form-control" name="appkey" value='{$config[level][xfpay][appkey]}' />
+      </div>
+    </div>
+    <div class="form-group col-sm-12">
+      <input name="token" type="hidden" value="07a740f8" />
+      <input type="submit" class="btn btn-primary col-lg-1" name="submit" value="保存" />
+    </div>
+	  	<a href="https://o2odiy.kf5.com/hc/kb/article/1049248/?from=draft" target='_blank'>说明</a>
+  </div>
+
+</div>
+</div>
+</form>
+
+</div>
+{template 'footer'}

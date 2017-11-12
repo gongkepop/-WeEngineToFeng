@@ -1,0 +1,74 @@
+{template 'header'}
+		{template 'nav'}
+<style>
+	.main a{ color:#fff}
+</style>
+		<div id="w1080">
+			<div class="main">
+				{loop $model $key=>$value}
+				<div class="bsquare" data='{$value[model]}' >
+					<div class="ssquare">
+						<img class="logo1" src="../addons/fl_update/template/images/logo.png" style="width:100px;height:70px">
+					</div>
+					<h4>{$value[name]}</h4>
+					<div class="version test" data='{$value[model]}'>检测更新中</div>
+					{if !$_W['config']['setting']['member']}
+					<div   class="version test" style="margin-top:5px"  >
+						{if $value[shop_url]}
+						<a href="{$value[shop_url]}" target="_blank">
+						购买地址
+						</a>
+						{else}
+						<a href="">暂未上架</a>
+						{/if}
+					</div>
+					{/if}
+				</div>
+				{/loop}
+
+			</div>
+			
+		</div>
+		<script>
+			$(function(){
+				$(".bsquare").each(function(){
+					
+					getversion($(this).attr("data"))
+				})
+			})
+			
+			function getversion(module){
+				
+				var url='{php echo $this->createWebUrl('update',array('task'=>'ajax'))}';
+				var data={
+					"model":module
+				}
+				var callback=function(data){
+					if(data.check==1){
+						if(data.base){
+							$(".version[data='"+module+"']").html("<a href='{php echo $this->createWebUrl('update')}&model="+module+"&install=1'>安装模块</a>");
+							$(".version[data='"+module+"']").removeClass("test").addClass("immediate");
+							return ;
+						}
+						if(data.version){
+							$(".version[data='"+module+"']").html("<a href='{php echo $this->createWebUrl('update')}&model="+module+"'>立即更新</a>");
+							$(".version[data='"+module+"']").removeClass("test").addClass("immediate");
+						}else{
+							$(".version[data='"+module+"']").html("已是更新");
+							$(".version[data='"+module+"']").removeClass("test").addClass("newest");
+						}
+						
+					}else{
+						$(".version[data='"+module+"']").html("无授权");
+					}
+				
+				}
+				var type="json";
+				$.post(url,data,callback,type);
+				
+				
+			}
+			
+		</script>		
+		
+{template 'footer'}

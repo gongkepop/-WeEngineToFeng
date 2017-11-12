@@ -1,0 +1,159 @@
+a {
+	text-decoration: none;
+	color: #000000;
+}
+html,
+body {
+	background: lightgray;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+
+.nav {
+	background: white;
+	text-align: center;
+	margin-top: 0;
+	border-bottom: 1px solid darkgray;
+	min-width: 1285px;
+}
+/*.sl{
+	display: inline-block;
+	width: 50px;
+	height: 2px;
+	background:white;
+	position:absolute;
+	top: 35px;
+	left: 325px;
+}*/
+.nav ul {
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+
+.nav ul li {
+	display: inline;
+	padding: 0;
+	line-height: 40px;
+}
+.logo {
+	padding-top:15px;
+	display: inline-block;
+	width: 90px;
+	height: 40px;
+	background: #ffffff;
+	color: white;
+	position: relative;
+	left: -120px;
+}
+.home{
+	color: #39C5BB;
+}
+.return {
+	position: relative;
+	left: 210px;
+}
+.state span{
+	display: inline-block;
+	width: 50px;
+	height: 2px;
+	background:white;
+	position: relative;
+	top: 9px;
+	left: -40px;
+}
+.return span{
+	display: inline-block;
+	width: 90px;
+	height: 2px;
+	background:white;
+	position: relative;
+	top: 9px;
+	left: -75px;
+}
+.state {
+	padding: 0 4px;
+	position: relative;
+	left: -55px;
+}
+
+#w1080 {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.main {
+	margin-top: 50px;
+	justify-content: space-between;
+}
+
+.bsquare {
+	display: inline-block;
+	margin: 0 20px;
+	width: 165px;
+	height: 165px;
+	background-color: white;
+	border-radius: 10px;
+	text-align: center;
+}
+
+.ssquare {
+	width: 80px;
+	height: 80px;
+	background: #39C5BB;
+	border-radius: 7px;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
+.bsquare h4 {
+	font-weight: normal;
+	font-size: 15px;
+	color: black;
+	position: relative;
+	top: -12px;
+}
+
+.test,
+.immediate,
+.newest {
+	width: 80px;
+	height: 24px;
+	text-align: center;
+	display: block;
+	margin: 0 auto;
+	border-radius: 5px;
+	position: relative;
+	top: -16px;
+	font-size: 12px;
+	line-height: 24px;
+	color: white;
+}
+
+.test {
+	background: lightcoral;
+}
+
+.immediate {
+	background: dodgerblue;
+}
+
+.newest {
+	background: limegreen;
+}
+
+.footer {
+	font-size: 14px;
+	color: gray;
+	background: white;
+	width: 100%;
+	line-height: 40px;
+	text-align: center;
+	position: fixed;
+	bottom: 0;
+}
+
+.footer span {
+	padding: 30px;
+}

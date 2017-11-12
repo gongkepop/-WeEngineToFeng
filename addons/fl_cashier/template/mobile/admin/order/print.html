@@ -1,0 +1,48 @@
+var left=10;
+var height=0;
+
+var textheight=0;
+
+//标题
+textheight=50;
+LODOP.SET_PRINT_STYLE("FontSize",30);
+LODOP.ADD_PRINT_TEXT(height,16,200,textheight,"收银小票");   //ADD_PRINT_TEXT(intTop,intLeft,intWidth,intHeight,strContent)
+height+=textheight;
+
+//内容
+textheight=30;
+LODOP.SET_PRINT_STYLE("FontSize",8);
+LODOP.ADD_PRINT_TEXT(height,5,200,textheight,"收款时间：{php echo date("Y-m-d H:i:s",$order[createtime])}"); 
+height+=textheight;
+
+textheight=30;
+LODOP.SET_PRINT_STYLE("FontSize",8);
+LODOP.ADD_PRINT_TEXT(height,5,200,textheight,"收款店铺：{php echo $this->staff['shop_name']}"); 
+height+=textheight;
+
+textheight=30;
+LODOP.SET_PRINT_STYLE("FontSize",8);
+LODOP.ADD_PRINT_TEXT(height,5,200,textheight,"收款方式：{php echo getpaytype($order[pay_status])}"); 
+height+=textheight;
+
+textheight=30;
+LODOP.SET_PRINT_STYLE("FontSize",8);
+LODOP.ADD_PRINT_TEXT(height,5,200,textheight,"收款金额：{$order[price]}"); 
+height+=textheight;
+
+{if $order[card_num]}
+textheight=30;
+LODOP.SET_PRINT_STYLE("FontSize",8);
+LODOP.ADD_PRINT_TEXT(height,5,200,textheight,"会员卡：{$order[card_num]}"); 
+height+=textheight;
+{/if}
+
+
+textheight=80;
+LODOP.ADD_PRINT_BARCODE(height,0,180,textheight,"128Auto","{$order[ordersn]}");	//条码，Top,Left,Width,Height,BarCodeType,BarCodeValue
+height+=textheight;
+
+
+textheight=14;
+LODOP.ADD_PRINT_RECT(height+10,0,550,2,0,2) //LODOP.ADD_PRINT_RECT(10,55,360,220,0,1);
+height+=textheight;

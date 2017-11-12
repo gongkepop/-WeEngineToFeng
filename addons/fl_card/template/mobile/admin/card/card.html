@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../addons/fl_update/static/layui/css/layui.css">
+	
+		<link rel="stylesheet" type="text/css" href="../addons/fl_update/template/css/font-awesome.min.css">
+		<script src="../addons/fl_update/template/js/jquery.min.js"></script>
+		<script src="../addons/fl_update/static/layui/layui.js"></script>
+		<style>
+			.search{ margin:30px 0 0 0}
+			.search .layui-input{
+				width:95%
+			}
+		</style>
+	</head>
+	<body >
+		<div class='search'>
+			<form method="post" action="{php echo geturl('card','doeditcard')}" class="layui-form">
+			
+				<input type="hidden" name="card" value="{$_GPC[card]}" />
+			 <table class="layui-table">
+			
+				<tbody>
+				  <tr>
+					<td style="width:20%">卡号</td>
+					<td style='width:30%'>
+						{$card[card]}
+					</td>
+					<td style='width:20%'>会员等级</td>
+					<td style='width:30%'>
+						{$card[tname]}
+					</td>
+				  </tr>
+				  <tr>
+					
+					<td style='width:20%'>姓名</td>
+					<td style='width:30%'>
+						{$card[name]}
+					</td>
+					<td style="width:20%">手机号</td>
+					<td style='width:30%'>
+						{$card[tel]}
+					</td>
+				  </tr>
+				   <tr>
+					<td style="width:20%">身份证号</td>
+					<td style='width:30%'>
+						{$card[idcard]}
+					</td>
+					<td style='width:20%'>生日</td>
+					<td style='width:30%'>
+						{php echo $card[birth]?date('Y-m-d',$card[birth]):'--'}
+					</td>
+				  </tr>
+				  <tr>
+					<td style="width:20%">卡类型</td>
+					<td style='width:30%'>
+						{php echo $card[iscount]?"套餐卡":"基础卡"}
+					</td>
+					<td style='width:20%'>创建日期</td>
+					<td style='width:30%'>
+						{php echo date('Y-m-d H:i:s',$card[createtime])}
+					</td>
+				  </tr>
+				  <tr>
+					<td style="width:20%">会员折扣</td>
+					<td style='width:30%'>
+						{if $card[discount]>0}{php echo $card[discount]*10}折{else}--{/if}
+					</td>
+					<td style='width:20%'>积分倍数</td>
+					<td style='width:30%'>
+						{php echo $card[credit_discount]}
+					</td>
+				  </tr>
+				  
+				  
+				  <tr>
+					<td style="width:20%">绑定微信</td>
+					<td style='width:30%'>
+						{php echo $card[openid]?$card[nickname]:"--"}
+					</td>
+					<td style='width:20%'>绑定日期</td>
+					<td style='width:30%'>
+						{php echo $card[bindtime]?date('Y-m-d H:i:s',$card[bindtime]):'--'}
+					</td>
+				  </tr>
+				  
+				  <tr>
+					<td style="width:20%">积分</td>
+					<td style='width:30%'>
+						{php echo $card[openid]?$card[mcredit]:$card[credit1]}
+					</td>
+					<td style='width:20%'>余额</td>
+					<td style='width:30%'>
+						{php echo $card[openid]?$card[mcredit2]:$card[credit2]}
+					</td>
+				  </tr>
+				</tbody>
+			  </table>
+		
+			</form>
+		</div>
+		
+		
+		<script>
+			$(function(){
+				layui.use(['layer', 'form','laydate'], function(){
+				  var layer = layui.layer
+				  ,form = layui.form;
+				    var laydate = layui.laydate;
+				   laydate.render({
+					elem: '#birth' //指定元素
+				  });
+				});	
+	
+			})
+		</script>
+	</body>
+</html>

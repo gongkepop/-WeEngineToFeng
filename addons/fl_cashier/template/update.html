@@ -1,0 +1,76 @@
+{template 'header'}
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}  <!-- Top Nav End -->
+<div class="sub-nav hidden-sm hidden-xs">
+  <ul>
+    <li><a href="{php echo $this->createWebUrl('index')}" class="heading">首页</a></li>
+    <li class="hidden-sm hidden-xs">
+      <a href="#" class="selected">系统更新</a>
+    </li>
+  </ul>
+  <div class="custom-search hidden-sm hidden-xs">
+    <a href="#">会员卡管理中心</a> &gt; <a>首页</a>
+  </div>
+</div>
+<!-- Sub Nav End -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="{php echo $this->createWebUrl('adminconfig')}">系统更新</a></li>
+</ul>
+<form class="form-horizontal form" id="form2" >
+  <div class="dashboard-wrapper">
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">当前系统版本</label>
+      <div class="col-sm-9 col-xs-12">
+         {if $reback[check]} {$version}{else}系统未授权，请联系管理员进行授权{/if}
+      </div>
+    </div>
+	<div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">可更新版本</label>
+      <div class="col-sm-9 col-xs-12">
+          {if $reback[check]}{$reback['version']}{else}系统未授权，请联系管理员进行授权{/if}
+      </div>
+    </div>
+
+	
+	
+  
+   
+    <div class="form-group col-sm-12">
+      <input name="token" type="hidden" value="07a740f8" />
+	  {if $reback[check]}
+      <input type="button" onclick='doupdate()' id='update' class="btn btn-primary col-lg-1" name="submit" value="更新" />
+	  {/if}
+    </div>
+  </div>
+</div>
+</div>
+</form>
+
+<script>
+	function doupdate(){
+		$("#update").val("更新中……");
+		$("#update").attr({"disabled":"disabled"});
+		
+		var url="{php echo $this->createWebUrl('update',array('task'=>'update','start'=>1))}";
+		var data={}
+		var callback=function(data){
+			if(data.file==1){
+				alert("更新完成");
+				location.reload();
+			}else{
+				alert("更新失败，请联系售后。")
+				location.reload();
+			}
+		}
+		var type="json";
+		$.post(url,data,callback,type);
+		
+	}
+	
+	
+</script>
+</div>
+{template 'footer'}

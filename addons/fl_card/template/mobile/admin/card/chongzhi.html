@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../addons/fl_update/static/layui/css/layui.css">
+	
+		<link rel="stylesheet" type="text/css" href="../addons/fl_update/template/css/font-awesome.min.css">
+		<script src="../addons/fl_update/template/js/jquery.min.js"></script>
+		<script src="../addons/fl_update/static/layui/layui.js"></script>
+		<style>
+			.search{ margin:30px 0 0 0}
+			.search .layui-input{
+				width:50%;
+			}
+		</style>
+	</head>
+	<body >
+		<div class='search'>
+			<form method="get" action="index.php" onsubmit="return doform();">
+				<input type="hidden" name="i" value="{$_GPC[i]}" />
+				<input type="hidden" name="c" value="{$_GPC[c]}" />
+				<input type="hidden" name="m" value="{$_GPC[m]}" />
+				<input type="hidden" name="do" value="{$_GPC[do]}" />
+				<input type="hidden" name="controller" value="{$_GPC[controller]}" />
+				<input type="hidden" name="task" value="{$_GPC[task]}" />
+		
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="font-size:40px;width:30%">会员卡号</label>
+				<div class="layui-input-block">
+				  <input type="text" name="card" id="card" value="{$_GPC[card]}"  placeholder="请输入会员卡号" autocomplete="off" class="layui-input">
+				</div>
+			  </div>
+			</form>
+		</div>
+		
+		
+		<script>
+			$(function(){
+				$("#card").focus();
+				layui.use(['layer', 'form'], function(){
+				  var layer = layui.layer
+				  ,form = layui.form;
+				
+				});	
+				
+			})
+			
+			function doform(){
+				var card=$("#card").val();
+				parent.layer.open({
+					type:2,
+					content:"{php echo geturl('card','search')}&card="+card,
+					id:"c_credit2",
+					area:['50%','80%'],
+					title:"会员充值"
+				})
+				var index = parent.layer.getFrameIndex(window.name);
+				
+				parent.layer.close(index);
+				return false;
+			}
+		</script>
+	</body>
+</html>

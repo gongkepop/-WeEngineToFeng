@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="IE=9; IE=8; IE=7; IE=EDGE" http-equiv="X-UA-Compatible">
+<title>会员卡管理系统</title>
+<link rel="stylesheet" type="text/css" href="../addons/fl_update/template/css/bootstrap.min.css"> 
+<link rel="stylesheet" type="text/css" href="../addons/fl_update/template/css/new.css">  
+<link rel="stylesheet" type="text/css" href="../addons/fl_update/template/css/font-awesome.min.css">    
+<!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <script src="js/respond.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="../addons/fl_update/template/js/jquery.js"></script>
+<script type="text/javascript" src="../addons/fl_update/template/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../addons/fl_update/template/js/jquery.scrollUp.js"></script>
+<!-- jQuery UI JS -->
+<script src="../addons/fl_update/template/js/jquery-ui-v1.10.3.js"></script>
+<!-- Custom JS -->
+<script src="../addons/fl_update/template/js/menu.js"></script>
+<script type="text/javascript" src="../addons/fl_update/template/js/jquery.layer.js"></script>
+<link rel="stylesheet" href="../addons/fl_update/template/js/skin/layer.css">
+<script type="text/javascript" src="../addons/fl_update/template/js/jquery.countdown.js"></script>
+<script type="text/javascript" src="../addons/fl_update/template/js/validate.js"></script>
+<script src="../addons/fl_update/template/js/beau.js"></script>
+</head>
+
+<body>
+<header>
+  <a href="#" class="logo">
+	  <font style="font-size: 26px;font-weight: bolder; color: #fff">会员卡系统</font>
+  </a>
+  <div class="pull-right">
+    <ul id="mini-nav" class="clearfix">
+      <li class="list-box">
+        <a href="#">
+          <i class="fa fa-user text-warning"></i> <span class="text-white">操作员</span>
+        </a>
+      </li>
+
+      <li class="list-box">
+        <a href="#">
+          <i class="fa fa-envelope"></i>
+        </a>
+        <span class="info-label success-bg">0</span>
+      </li>
+      <li class="list-box user-profile">
+        <a id="drop7" href="#" role="button" class="dropdown-toggle user-avtar" data-toggle="dropdown">
+          <img src="../addons/fl_update/template/images/user5.png" alt="zm9999">
+        </a>
+        <ul class="dropdown-menu server-activity">
+          <li>
+            <p class="center-align-text">欢迎您, <b>zm9999</b> !</p>
+          </li>
+          <li>
+            <p><i class="fa fa-reply text-info"></i><span>返回系统</span></p>
+          </li>
+          <li>
+            <p><i class="fa fa-cog text-info"></i><span>权限管理</span></p>
+          </li>
+          <li>
+            <p><i class="fa fa-lock text-info"></i><span>修改密码</span></p>
+          </li>
+          <li>
+            <div class="demo-btn-group clearfix">
+              <button class="btn btn-danger">
+                安全退出
+              </button>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<!-- Main Container start -->
+<div class="dashboard-container">
+
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}    <!-- Top Nav End -->
+    <div class="sub-nav hidden-sm hidden-xs">
+      <ul>
+        <li><a href="{php echo $this->createWebUrl('index')}" class="heading">首页</a></li>
+        <li class="hidden-sm hidden-xs">
+          <a href="#" class="selected">会员等级管理</a>
+		  <a href="{$menu[add]}">新增会员等级</a>
+        </li>
+      
+     </ul>
+      <div class="custom-search hidden-sm hidden-xs">
+        <a href="#">会员卡管理中心</a> &gt; <a>首页</a>
+      </div>
+    </div>
+    <!-- Sub Nav End -->
+<div class="dashboard-wrapper">
+	<div class="row">
+		当时使用的是<span>{php echo $levelModel->levelName}</span>会员体系，如需修改，请到系统设置中修改
+	</div>
+  <div class="row">
+	   <div class="col-sm-12">
+	  <table style=" width: 100%" class=" table">
+		  <thead>
+			  {loop $levelList[title] $key=>$value}
+			  {if is_array($value)}
+			  <th>{$value['title']}</th>
+			  {else}
+			  <th>{$value}</th>
+			  {/if}
+			   
+			  
+			 
+			  {/loop}
+			
+			  <th>操作</th>
+		  </thead>
+		  <tbody>
+			  {loop $levelList[list] $value}
+			  <tr>
+				{php $key1=0;}
+				{loop $value $value1}
+				{if is_array($levelList['title'][$key1])}
+				<td>{$levelList[title][$key1][value][$value1]}</td>
+				{else}
+				<td>{$value1}</td>
+				{/if}
+				{php $key1++;}
+				{/loop}
+			
+				<td>
+					<a href="{$menu[edit]}&id={$value[id]}">修改</a>
+				</td>
+			  </tr>
+			  {/loop}
+		  </tbody>
+	  </table>
+	   </div>
+  
+ 
+  </div>
+</div>
+<footer>
+  <p>版权信息</p>
+</footer>
+  </div>
+</div></body></html>

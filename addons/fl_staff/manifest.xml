@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[超级员工管理]]></name>
+		<identifie><![CDATA[fl_staff]]></identifie>
+		<version><![CDATA[0.13]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[超级员工管理]]></ability>
+		<description><![CDATA[超级员工管理]]></description>
+		<author><![CDATA[疯狼工作组]]></author>
+		<url><![CDATA[http://bbs.we7.cc/]]></url>
+	</application>
+	<platform>
+		
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="员工绑定入口" do="staff" state="" direct="false" />
+			<entry title="员工绑定入口" do="staff" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="管理中心" do="index" state="" direct="false" />
+		
+		</menu>
+	</bindings>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

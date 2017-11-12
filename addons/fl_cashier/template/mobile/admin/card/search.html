@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../addons/fl_cashier/template/layui/css/layui.css">
+	
+		<link rel="stylesheet" type="text/css" href="../addons/fl_cashier/template/css/font-awesome.min.css">
+		<script src="../addons/fl_cashier/template/js/jquery.min.js"></script>
+		<script src="../addons/fl_cashier/template/layui/layui.js"></script>
+		<style>
+			.search{ margin:30px 0 0 0}
+			.search .layui-input{
+				width:95%
+			}
+		</style>
+	</head>
+	<body >
+		<div class='search'>
+			<form method="get" action="index.php">
+				<input type="hidden" name="i" value="{$_GPC[i]}" />
+				<input type="hidden" name="c" value="{$_GPC[c]}" />
+				<input type="hidden" name="m" value="{$_GPC[m]}" />
+				<input type="hidden" name="do" value="{$_GPC[do]}" />
+				<input type="hidden" name="controller" value="{$_GPC[controller]}" />
+				<input type="hidden" name="task" value="{$_GPC[task]}" />
+			 <div class="layui-form-item">
+				<label class="layui-form-label">手机号</label>
+				<div class="layui-input-block">
+				  <input type="text" name="tel" value="{$_GPC[tel]}"  placeholder="请输入手机号" autocomplete="off" class="layui-input">
+				</div>
+			  </div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">会员卡号</label>
+				<div class="layui-input-block">
+				  <input type="text" name="card" value="{$_GPC[card]}"  placeholder="请输入会员卡号" autocomplete="off" class="layui-input">
+				</div>
+			  </div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">会员姓名</label>
+				<div class="layui-input-block">
+				  <input type="text" name="name" value="{$_GPC[name]}"   placeholder="请输入会员姓名" autocomplete="off" class="layui-input">
+				</div>
+			  </div>
+			<div class="layui-form-item">
+				<label class="layui-form-label"></label>
+				<div class="layui-input-block" style='text-align:right;padding:0 30px 0 0'>
+				  <button class="layui-btn layui-btn-radius">搜索</button>
+				</div>
+			  </div>
+			</form>
+		</div>
+		
+		<div>
+			<table class="layui-table">
+			
+				<thead>
+				  <tr>
+					<th>卡号</th>
+					<th>手机号</th>
+					<th>姓名</th>
+					<th>积分</th>
+					<th>余额</th>
+					<th>余次</th>
+					<th>等级</th>
+					<th>操作</th>
+				  </tr> 
+				</thead>
+				<tbody>
+					{loop $card $value}
+				  <tr>
+					<td>{$value[card]}</td>
+					<td>{$value[tel]}</td>
+					<td>{$value[name]}</td>
+					<td>{php echo $value[openid]?$value[mcredit]:$value[credit1]}&nbsp;<a class='fa fa-pencil-square-o editcredit' data-cid="{$value[id]}" style='cursor:pointer;' ></a>&nbsp;<a class='fa fa-area-chart showcredit' data-cid="{$value[id]}" style='cursor:pointer;' ></a></td>
+					<td>{php echo $value[openid]?$value[mcredit2]:$value[credit2]}&nbsp;<a class='fa fa-pencil-square-o editcredit2' data-cid="{$value[id]}" style='cursor:pointer;' ></a>&nbsp;<a class='fa fa-area-chart showcredit2' data-cid="{$value[id]}" style='cursor:pointer;' ></a></td>
+					<td>{if $value[iscount]==1}{$value[card_count]}次&nbsp;<a class='fa fa-pencil-square-o editcount' data-cid="{$value[id]}" style='cursor:pointer;' ></a>&nbsp;<a class='fa fa-area-chart showcount' data-cid="{$value[id]}" style='cursor:pointer;' ></a>{else}无限制{/if}</td>
+					<td>{$value[tname]}&nbsp;<a class='fa fa-pencil-square-o editcardtype' data-cid="{$value[id]}" style='cursor:pointer;' ></a>&nbsp;<a class='fa fa-area-chart showtype' data-cid="{$value[id]}" style='cursor:pointer;' ></a></td>
+					<td><a class='fa fa-pencil-square-o editcard' data-cid="{$value[id]}" style='cursor:pointer;' ></a>&nbsp;<a class='fa fa-area-chart showcardlog' data-cid="{$value[id]}" style='cursor:pointer;' ></a></td>
+				  </tr>
+				  {/loop}
+				</tbody>
+			  </table>
+		</div>
+		<script>
+			$(function(){
+				layui.use(['layer', 'form'], function(){
+				  var layer = layui.layer
+				  ,form = layui.form();
+
+				});	
+				$(".editcredit").click(function(){
+					var id=$(this).attr("data-cid");
+					layer.open({
+							type:2,
+							content:"{php echo geturl('card','editcredit1')}&card="+id,
+							maxmin :true,
+							id:"editcredit",
+							area:['50%','80%'],
+							title:"修改积分"
+						})
+				})
+				
+				$(".editcredit2").click(function(){
+					var id=$(this).attr("data-cid");
+					layer.open({
+							type:2,
+							content:"{php echo geturl('card','editcredit2')}&card="+id,
+							maxmin :true,
+							id:"editcredit",
+							area:['50%','80%'],
+							title:"修改余额"
+						})
+				})
+				
+				$(".showcredit").click(function(){
+					var id=$(this).attr("data-cid");
+					parent.layer.open({
+							type:2,
+							content:"{php echo geturl('card','getcreditlist')}&type=credit&card="+id,
+							id:"showcredit",
+							shade:0,
+							area:['50%','80%'],
+							title:"积分记录"
+						})
+				})
+				$(".showcredit2").click(function(){
+					var id=$(this).attr("data-cid");
+					parent.layer.open({
+							type:2,
+							content:"{php echo geturl('card','getcreditlist')}&type=credit2&card="+id,
+							id:"showcredit2",
+							shade:0,
+							area:['50%','80%'],
+							title:"余额记录"
+						})
+				})
+				
+				
+				$(".editcount").click(function(){
+					var id=$(this).attr("data-cid");
+					layer.open({
+							type:2,
+							content:"{php echo geturl('card','editcount')}&card="+id,
+							maxmin :true,
+							id:"editcount",
+							area:['50%','80%'],
+							title:"修改次数"
+						})
+				})
+				$(".showcount").click(function(){
+					var id=$(this).attr("data-cid");
+					parent.layer.open({
+							type:2,
+							content:"{php echo geturl('card','getcreditlist')}&type=count&card="+id,
+							id:"showcount",
+							shade:0,
+							area:['50%','80%'],
+							title:"次数记录"
+						})
+				})
+				$(".editcardtype").click(function(){
+					var id=$(this).attr("data-cid");
+					layer.open({
+							type:2,
+							content:"{php echo geturl('card','edittype')}&card="+id,
+							maxmin :true,
+							id:"edittype",
+							area:['50%','90%'],
+							title:"修改会员等级"
+						})
+				})
+				
+				$(".showtype").click(function(){
+					var id=$(this).attr("data-cid");
+					parent.layer.open({
+							type:2,
+							content:"{php echo geturl('card','gettypelist')}&card="+id,
+							id:"showtype",
+							shade:0,
+							area:['60%','80%'],
+							title:"卡等级修改记录"
+						})
+				})
+				
+				$(".editcard").click(function(){
+					var id=$(this).attr("data-cid");
+					layer.open({
+							type:2,
+							content:"{php echo geturl('card','editcard')}&card="+id,
+							maxmin :true,
+							id:"edittype",
+							area:['50%','80%'],
+							title:"修改会员卡资料"
+						})
+				})
+				
+				$(".showcardlog").click(function(){
+					var id=$(this).attr("data-cid");
+					parent.layer.open({
+							type:2,
+							content:"{php echo geturl('card','getcardloglist')}&card="+id,
+							id:"showcardlog",
+							shade:0,
+							area:['60%','80%'],
+							title:"会员卡修改记录"
+						})
+				})
+			})
+		</script>
+	</body>
+</html>

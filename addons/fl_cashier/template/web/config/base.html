@@ -1,0 +1,163 @@
+{template 'header'}
+<style>
+	.pay_palace{
+		display:none
+	}
+	.show{
+		display:block
+	}
+</style>
+<script>
+	$(function(){
+		$("select[name='pay_palce']").change(function(){
+			var id=$(this).val()
+			$(".pay_palace").removeClass("show");
+			$(".pay_palace[data="+id+"]").addClass("show")
+		})
+	})
+</script>
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}  <!-- Top Nav End -->
+<div class="sub-nav hidden-sm hidden-xs">
+  <ul>
+    <li><a href="{php echo $this->createWebUrl('index')}" class="heading">首页</a></li>
+    <li class="hidden-sm hidden-xs">
+      <a href="{php echo $this->createWebUrl('config')}" class="selected">基础设置</a>
+	  {if basefun()->getplugin("fl_card") }
+	  <a href="{php echo $this->createWebUrl('config',array('task'=>'sale'))}" >营销设置</a>
+	  {/if}
+    </li>
+
+  </ul>
+  <div class="custom-search hidden-sm hidden-xs">
+    <a href="#">会员卡管理中心</a> &gt; <a>首页</a>
+  </div>
+</div>
+<!-- Sub Nav End -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="{php echo $this->createWebUrl('config')}">基础设置</a></li>
+</ul>
+<form class="form-horizontal form" id="form2" action="{php echo $this->createWebUrl('config',array('task'=>'save'))}"method="post">
+  <input type="hidden" name="id" value="" />
+  <div class="dashboard-wrapper">
+	  <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">支付通道</label>
+      <div class="col-sm-9 col-xs-12">
+          <select name='pay_palce' class='form-control'>
+			  <option value='0' {if $config[pay_palce]==0}selected{/if} >原生通道</option>
+			  <option value='1'  {if $config[pay_palce]==1}selected{/if} >专用通道</option>
+		  </select>
+		  <div>原生通道只支持微信刷卡，暂不支持支付宝刷卡，支付宝刷卡默认依旧走专有通道，专有通道支持支付宝，微信，申请方式请咨询管理员</div>
+      </div>
+    </div>
+	  
+	<div class="pay_palace ">
+		<div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label">支付宝appid</label>
+		<div class="col-sm-9 col-xs-12">
+			<input class='form-control' name='zfb[appid]' value='{$config['zfb'][appid]}' />
+		</div>
+	  </div>
+		<div class="form-group">
+		  <label class="col-xs-12 col-sm-3 col-md-2 control-label">应用公钥(RSA2)</label>
+		  <div class="col-sm-9 col-xs-12">
+			  <textarea class="form-control" name="zfb[app_secret]" style="height:200px"></textarea>
+		  </div>
+		</div>
+		<div class="form-group">
+		  <label class="col-xs-12 col-sm-3 col-md-2 control-label">支付宝公钥(RSA2)</label>
+		  <div class="col-sm-9 col-xs-12">
+			  <textarea class="form-control" name="zfb[zfb_secret]" style="height:200px"></textarea>
+		  </div>
+		</div>
+	 </div>
+	  
+	  
+	  
+	  
+	  
+	  
+		<div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label">商户号</label>
+		<div class="col-sm-9 col-xs-12">
+			<input class='form-control' name='appid' value='{$config['xfpay'][appid]}' />
+				   <div>原生通道可不填</div>
+		</div>
+	  </div>
+		<div class="form-group">
+		  <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户秘钥</label>
+		  <div class="col-sm-9 col-xs-12">
+				   <input class='form-control' name='appkey' value='{$config['xfpay'][appkey]}' />
+						  <div>原生通道可不填</div>
+		  </div>
+		</div>
+	  
+	  
+	  
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">收款方式</label>
+      <div class="col-sm-9 col-xs-12">
+          <label><input type="checkbox" name="pay_type[]" value="cash" {if in_array('cash',$config['pay_type']?$config['pay_type']:array())}checked{/if}>现金支付</label>
+          <label><input type="checkbox" name="pay_type[]" value="online" {if in_array('online',$config['pay_type']?$config['pay_type']:array())}checked{/if}>微信/支付宝</label>
+		 <label><input type="checkbox" name="pay_type[]" value="card" {if in_array('card',$config['pay_type']?$config['pay_type']:array())}checked{/if}>会员卡</label>
+
+	  </div>
+    </div>
+	  <div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启打印</label>
+		<div class="col-sm-9 col-xs-12">
+			<select name="is_print" class="form-control">
+				<option value="1" {if $config[is_print]==1}selected{/if} >开启</option>
+				<option value="0"  {if $config[is_print]==0}selected{/if} >关闭</option>
+			</select>
+		</div>
+	  </div>
+	  <div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label">打印小票数量</label>
+		<div class="col-sm-9 col-xs-12">
+		         <input class='form-control' name='print_num' value='{php echo $config[print_num]?$config[print_num]:0}' />
+		</div>
+	  </div>
+	  <div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label">收银模式</label>
+		<div class="col-sm-9 col-xs-12">
+			<select name="cashier_type" class="form-control">
+				<option value=""  {if $config[cashier_type]==0}selected{/if} >正常模式</option>
+				<!--<option value="shop" {if $config[cashier_type]==1}selected{/if} >商品模式</option>-->
+				
+			</select>
+		</div>
+	  </div>
+	   <div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label">收银默认会员</label>
+		<div class="col-sm-9 col-xs-12">
+			<select name="default_member" class="form-control">
+				<option value="0"  {if $config[default_member]==0}selected{/if} >关闭</option>
+				<option value="1" {if $config[default_member]==1}selected{/if} >开启</option>
+				
+			</select>
+		</div>
+	  </div>
+	  <div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label">模板选择</label>
+		<div class="col-sm-9 col-xs-12">
+			<select name="themes" class="form-control">
+				<option value="default"  {if $this->cashier[themes]==""||$this->cashier[themes]=="default"}selected{/if} >默认</option>
+				<option value="canyin" {if $this->cashier[themes]=="canyin"}selected{/if} >餐饮</option>
+				
+			</select>
+		</div>
+	  </div>
+    <div class="form-group col-sm-12">
+      <input name="token" type="hidden" value="07a740f8" />
+      <input type="submit" class="btn btn-primary col-lg-1" name="submit" value="保存" />
+    </div>
+  </div>
+</div>
+</div>
+</form>
+</div>
+{template 'footer'}

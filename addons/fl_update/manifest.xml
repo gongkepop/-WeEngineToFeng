@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[超级系列升级中心]]></name>
+		<identifie><![CDATA[fl_update]]></identifie>
+		<version><![CDATA[0.1]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[升级中心]]></ability>
+		<description><![CDATA[升级中心]]></description>
+		<author><![CDATA[疯狼工作组]]></author>
+		<url><![CDATA[http://bbs.we7.cc/]]></url>
+	</application>
+	<platform>
+		
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+
+		<menu>
+			<entry title="升级中心" do="index" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[
+CREATE TABLE if not exists `ims_super_card_config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `weid` int(11) NOT NULL COMMENT '公众号id',
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '店铺名称',
+  `logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '商户logo',
+  `is_reg` int(1) NOT NULL DEFAULT '0' COMMENT '是否需要注册1需要注册0无需注册',
+  `level_type` int(1) NOT NULL COMMENT '等级类型0自有等级1超级商城等级2微外卖等级',
+  `level_config` text COLLATE utf8_unicode_ci COMMENT '等级配置，json格式储存',
+  `text_config` text COLLATE utf8_unicode_ci COMMENT '文字设定',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='超级会员卡配置表';
+
+
+
+
+]]></install>
+	<uninstall><![CDATA[
+	
+]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

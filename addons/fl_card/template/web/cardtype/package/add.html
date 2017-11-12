@@ -1,0 +1,90 @@
+{template 'header'}
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}   <!-- Top Nav End -->
+    <div class="sub-nav hidden-sm hidden-xs">
+      <ul>
+        <li><a href="{php echo $this->createWebUrl('index')}" class="heading">首页</a></li>
+        <li class="hidden-sm hidden-xs">
+          <a href="{php echo $this->createWebUrl('cardtype')}">会员卡分类</a>
+        </li>
+     </ul>
+      <div class="custom-search hidden-sm hidden-xs">
+        <a href="{php echo $this->createWebUrl('cardtype')}">会员卡分类</a> &gt; <a>首页</a>
+      </div>
+    </div>
+    <!-- Sub Nav End -->
+
+       <ul class="nav nav-tabs">
+          <li><a href="{php echo $this->createWebUrl('cardtype')}">会员卡分类</a></li>
+          <li ><a href="{php echo $this->createWebUrl('cardtype',array('task'=>'package','tid'=>$_GPC[tid]))}">套餐列表</a></li>
+		  <li  class="active"><a href="{php echo $this->createWebUrl('cardtype',array('task'=>'package_add','tid'=>$_GPC[tid]))}"><i class="fa fa-plus"></i>添加套餐</a></li>
+      </ul>
+	<form class="form-horizontal form" id="form2" action="{php echo $this->createWebUrl('cardtype',array('task'=>'savepackage'))}" method="post">
+              <input type="hidden" name="id" value="{$_GPC[id]}" />
+			  <input type="hidden" name="tid" value="{$_GPC[tid]}" />
+                  <div class="dashboard-wrapper">
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">套餐名称</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                      <input type="text" class="form-control" name="name" value="{$res[name]}"/><span class="help-block"></span>
+                                  </div>
+                              </div>
+							  
+							
+							 
+                              <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">套餐状态</label>
+                                  <div class="col-sm-9 col-xs-12">
+									  <select name='status' class='form-control'>
+										  <option value='1' {if $res[status]==1}selected{/if} >启用</option>
+										  <option value='0' {if $res&&$res[status]==0}selected{/if} >禁用</option>
+									  </select>
+                                    <span class="help-block"></span>
+                                  </div>
+                              </div>
+                              
+                             
+							  
+							  <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">购买价格</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                    
+									  <input type="text" style="width:100px" class="form-control" name="price" value="{$res[price]}"/><span class="help-block">单位（元）</span>
+
+                                  </div>
+                              </div>
+						
+							  <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">次数</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                    
+									  <input type="text" style="width:100px" class="form-control" name="number" value="{$res[number]}"/><span class="help-block">单位（次）</span>
+
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">赠送积分</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                    
+									  <input type="text" style="width:100px" class="form-control" name="credit" value="{$res[credit]}"/><span class="help-block"></span>
+
+                                  </div>
+                              </div>
+                              <div class="form-group col-sm-12">
+                                  <input name="token" type="hidden" value="{$_W['token']}" />
+                                  <input type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交" />
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+          </form>
+
+
+
+{template 'footer'}

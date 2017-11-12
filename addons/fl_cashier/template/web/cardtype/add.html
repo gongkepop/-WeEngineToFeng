@@ -1,0 +1,155 @@
+{template 'header'}
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}   <!-- Top Nav End -->
+    <div class="sub-nav hidden-sm hidden-xs">
+      <ul>
+        <li><a href="{php echo $this->createWebUrl('index')}" class="heading">首页</a></li>
+        <li class="hidden-sm hidden-xs">
+          <a href="{php echo $this->createWebUrl('card')}" class="selected">会员管理</a>
+        </li>
+     </ul>
+      <div class="custom-search hidden-sm hidden-xs">
+        <a href="#">会员卡管理中心</a> &gt; <a>首页</a>
+      </div>
+    </div>
+    <!-- Sub Nav End -->
+
+      <ul class="nav nav-tabs">
+          <li><a href="{php echo $this->createWebUrl('cardtype')}">会员卡分类</a></li>
+          <li class="active"><a href="{php echo $this->createWebUrl('cardtype',array('task'=>'add'))}"><i class="fa fa-plus"></i>添加分类</a></li>
+      </ul>
+	<form class="form-horizontal form" id="form2" action="{php echo $this->createWebUrl('cardtype',array('task'=>'save'))}" method="post">
+              <input type="hidden" name="id" value="{$_GPC[id]}" />
+                  <div class="dashboard-wrapper">
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">分类名称</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                      <input type="text" class="form-control" name="name" value="{$res[name]}"/><span class="help-block"></span>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">背景图片</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                      {php echo tpl_form_field_image('images', $res[images]);}
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">分类状态</label>
+                                  <div class="col-sm-9 col-xs-12">
+									  <select name='status' class='form-control'>
+										  <option value='1' {if $res[status]==1}selected{/if} >启用</option>
+										  <option value='0' {if $res[status]==0}selected{/if} >禁用</option>
+									  </select>
+                                    <span class="help-block"></span>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否需要审核</label>
+                                  <div class="col-sm-9 col-xs-12">
+									   <select name='ischeck' class='form-control'>
+										   <option value='0' {if $res[ischeck]==0}selected{/if} >不需要审核</option>
+										  <option value='1' {if $res[ischeck]==1}selected{/if} >需要审核</option>
+										  
+									  </select>
+										<span class="help-block"></span>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否需要申请</label>
+                                  <div class="col-sm-9 col-xs-12">
+									  <select name='isget' class='form-control'>
+										  <option value='0' {if $res[isget]==0}selected{/if} >不需要申请</option>
+										  <option value='1' {if $res[isget]==1}selected{/if} >需要申请</option>
+										  
+									  </select>
+									<span class="help-block"></span>
+                                  </div>
+                              </div>
+							  <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否允许购买</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                      <select name='isbuy' class='form-control'>
+										  <option value='0' {if $res[isbuy]==0}selected{/if}>不可购买</option>
+										  <option value='1' {if $res[isbuy]==1}selected{/if}>允许购买</option>
+									  </select>
+									  <span class="help-block"></span>
+                                  </div>
+                              </div>
+							  <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">购买价格</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                    
+									  <input type="text" style="width:100px" class="form-control" name="price" value="{$res[price]}"/><span class="help-block">单位（元）</span>
+
+                                  </div>
+                              </div>
+							  <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">返还积分</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                    
+									  <input type="text" style="width:100px" class="form-control" name="re_credit1" value="{$res[re_credit1]}"/><span class="help-block">创建会员卡时返还的积分</span>
+
+                                  </div>
+                              </div>
+							  <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">返还余额</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                    
+									  <input type="text" style="width:100px" class="form-control" name="re_credit2" value="{$res[re_credit2]}"/><span class="help-block">创建会员卡时返还的余额，单位（元）</span>
+
+                                  </div>
+                              </div>
+							    <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启次数限制</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                      <select name='iscount' class='form-control'>
+										  <option value='0'>关闭</option>
+										  <option value='1' {if $res[iscount]==1}selected{/if}>开启</option>
+										
+									  </select>
+									  
+									  
+									  <span class="help-block"></span>
+                                  </div>
+                              </div>
+							   <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">返还次数</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                    
+									  <input type="text" style="width:100px" class="form-control" name="re_count" value="{$res[re_count]}"/><span class="help-block">创建会员卡时返还的使用次数，单位（次）</span>
+
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">对应等级</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                      <select name='levelid' class='form-control'>
+										  <option value='0'>无</option>
+										  {loop $level[list] $value}
+										  <option value='{$value[id]}' {if $res[levelid]==$value[id]}selected{/if}>{$value[name]}</option>
+										  {/loop}
+									  </select>
+									  
+									  
+									  <span class="help-block"></span>
+                                  </div>
+                              </div>
+                              
+                              <div class="form-group col-sm-12">
+                                  <input name="token" type="hidden" value="{$_W['token']}" />
+                                  <input type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交" />
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+          </form>
+
+
+
+{template 'footer'}

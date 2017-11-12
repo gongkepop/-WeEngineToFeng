@@ -1,0 +1,80 @@
+{template 'header'}
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}  <!-- Top Nav End -->
+<div class="sub-nav hidden-sm hidden-xs">
+  <ul>
+    <li><a href="{php echo $this->createWebUrl('index')}" class="heading">首页</a></li>
+    <li class="hidden-sm hidden-xs">
+      <a href="{php echo $this->createWebUrl('adminconfig')}">短信设置</a>
+    </li>
+	<li class="hidden-sm hidden-xs">
+		<a href="{php echo $this->createWebUrl('adminconfig',array('task'=>'basic'))}"  class="selected">权限设置</a>
+    </li>
+	<li class="hidden-sm hidden-xs">
+		<a href="{php echo $this->createWebUrl('adminconfig',array('task'=>'attachment'))}" >附件设置</a>
+    </li>
+	<li class="hidden-sm hidden-xs">
+		<a href="{php echo $this->createWebUrl('adminconfig',array('task'=>'pay'))}" >支付设置</a>
+    </li>
+	<li class="hidden-sm hidden-xs">
+		<a href="{php echo $this->createWebUrl('adminconfig',array('task'=>'ports'))}" >接口设定</a>
+    </li>
+  </ul>
+  <div class="custom-search hidden-sm hidden-xs">
+    <a href="#">会员卡管理中心</a> &gt; <a>首页</a>
+  </div>
+</div>
+<!-- Sub Nav End -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="{php echo $this->createWebUrl('adminconfig')}">权限设置</a></li>
+</ul>
+<form class="form-horizontal form" id="form2" action="{php echo $this->createWebUrl('adminconfig',array('task'=>'savebasic'))}"method="post">
+  <div class="dashboard-wrapper">
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否允许对接卡包</label>
+      <div class="col-sm-9 col-xs-12">
+          <select name="can_wecard" class='form-control'>
+			  <option value='0' {if $config[level][can_wecard]==0}selected{/if} >禁止</option>
+			  <option value='1' {if $config[level][can_wecard]==1}selected{/if} >允许</option>
+		  </select>
+      </div>
+    </div>
+	<div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启线下核销</label>
+      <div class="col-sm-9 col-xs-12">
+          <select name="can_offline" class='form-control'>
+			  <option value='0' {if $config[level][can_offline]==0}selected{/if} >禁止</option>
+			  <option value='1' {if $config[level][can_offline]==1}selected{/if} >允许</option>
+		  </select>
+      </div>
+    </div>
+	<div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员卡模式</label>
+      <div class="col-sm-9 col-xs-12">
+          <select name="shop_card_type" class='form-control'>
+			  <option value='0' {if $config[level][shop_card_type]==0}selected{/if} >连锁模式(会员卡通用)</option>
+		  </select>
+      </div>
+    </div>
+	<div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">socket</label>
+      <div class="col-sm-9 col-xs-12">
+          <select name="socket" class='form-control'>
+			  <option value='0' {if $config[level][socket]==0}selected{/if} >关闭</option>
+			  <option value='1' {if $config[level][socket]==1}selected{/if} >开启</option>
+		  </select>
+      </div>
+    </div>
+    <div class="form-group col-sm-12">
+      <input name="token" type="hidden" value="07a740f8" />
+      <input type="submit" class="btn btn-primary col-lg-1" name="submit" value="保存" />
+    </div>
+  </div>
+</div>
+</div>
+</form>
+</div>
+{template 'footer'}

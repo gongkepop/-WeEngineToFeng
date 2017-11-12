@@ -1,0 +1,99 @@
+{template 'header'}
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}   <!-- Top Nav End -->
+    <div class="sub-nav hidden-sm hidden-xs">
+      <ul>
+        <li><a href="{php echo $this->createWebUrl('index')}" class="heading">首页</a></li>
+        <li class="hidden-sm hidden-xs">
+          <a href="{php echo $this->createWebUrl('card')}" class="selected">员工管理</a>
+        </li>
+     </ul>
+      <div class="custom-search hidden-sm hidden-xs">
+        <a href="#">员工管理</a> &gt; <a>首页</a>
+      </div>
+    </div>
+    <!-- Sub Nav End -->
+
+      <ul class="nav nav-tabs">
+          <li><a href="{php echo $this->createWebUrl('staff')}">员工管理</a></li>
+          <li class="active"><a href="{php echo $this->createWebUrl('staff',array('task'=>'add'))}"><i class="fa fa-plus"></i>添加员工</a></li>
+      </ul>
+	<form class="form-horizontal form" id="form2" action="{php echo $this->createWebUrl('staff',array('task'=>'save'))}" method="post">
+              <input type="hidden" name="id" value="{$_GPC[id]}" />
+                  <div class="dashboard-wrapper">
+                      <div class="row">
+                          <div class="col-sm-12">
+							   <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">所属店铺</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                      <select name='sid' class='form-control'>
+										  {loop $shop $value}
+										  <option value='{$value[id]}' {if $value[id]==$res[sid]}selected{/if} >{$value[name]}</option>
+										  {/loop}
+									  </select><span class="help-block"></span>
+                                  </div>
+                              </div>
+							  <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">店员角色</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                      <select name='rid' class='form-control'>
+										  {loop $role $value}
+										  <option value='{$value[id]}' {if $value[id]==$res[rid]}selected{/if} >{$value[name]}</option>
+										  {/loop}
+									  </select><span class="help-block"></span>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">店员名称</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                      <input type="text" class="form-control" name="name" value="{$res[name]}"/><span class="help-block"></span>
+                                  </div>
+                              </div>
+                             
+							   <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">店员电话</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                      <input type="text" class="form-control" name="tel" value="{$res[tel]}"/><span class="help-block"></span>
+                                  </div>
+                              </div>
+							   <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">工号</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                      <input type="text" class="form-control" name="staff_num" value="{$res[staff_num]}"/><span class="help-block"></span>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">店员状态</label>
+                                  <div class="col-sm-9 col-xs-12">
+									  <select name='status' class='form-control'>
+										  <option value='1' {if $res[status]==1}selected{/if} >启用</option>
+										  <option value='0' {if $res[status]==="0"}selected{/if} >禁用</option>
+									  </select>
+                                    <span class="help-block"></span>
+                                  </div>
+                              </div>
+                               <div class="form-group">
+                                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">绑定用户</label>
+                                  <div class="col-sm-9 col-xs-12">
+                                      <input type="text" class="form-control" name="openid" value="{$res[openid]}"/><span class="help-block"></span>
+                                  </div>
+                              </div>
+                     
+                              
+                              
+                              <div class="form-group col-sm-12">
+                                  <input name="token" type="hidden" value="{$_W['token']}" />
+                                  <input type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交" />
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+          </form>
+
+
+
+{template 'footer'}

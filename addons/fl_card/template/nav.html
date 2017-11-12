@@ -1,0 +1,62 @@
+   <div id="cssmenu"><div id="menu-button">Menu</div>
+    <ul>
+      <li class="has-sub "><span class="submenu-button"></span>
+        <li class="  has-sub {if $nav=='index'}active{/if}"><span class="submenu-button"></span>
+          <a href="{php echo $this->createWebUrl('index')}"><i class="fa fa-home"></i>首页</a>
+          <ul>
+          </ul>
+        </li>
+        <li class="{if $nav=='base'}active{/if} has-sub"><span class="submenu-button"></span>
+         <a href="#"><i class="fa fa-signal"></i>基础设置</a>
+         <ul>
+          <li><a href="{php echo $this->createWebUrl('config')}">基础设置</a></li>
+		  <li><a href="{php echo $this->createWebUrl('config',array('task'=>'level'))}">等级设定</a></li>
+          <li ><a href="{php echo $this->createWebUrl('menu')}">菜单管理</a></li>
+		  {loop $this->cover $value}
+		  <li><a href="{php echo murl('platform/cover',array('eid'=>$value[eid]))}">{$value[title]}</a></li>
+		  {/loop}
+        </ul>
+      </li>
+      <li class="{if $nav=='card'}active{/if} has-sub"><span class="submenu-button"></span>
+        <a href="javascript:void(0);"><i class="fa fa-users"></i>会员卡管理</a>
+        <ul>
+         <li><a href="{php echo $this->createWebUrl('cardtype')}">会员卡分类管理</a></li>
+         <li><a href="{php echo $this->createWebUrl('card')}">会员卡管理</a></li>
+       </ul>
+     </li>
+     <li class="{if $nav=='level'}active{/if} has-sub"><span class="submenu-button"></span>
+       <a href="{php echo $this->createWebUrl('level')}"><i class="fa fa-sitemap"></i>等级管理</a>
+     </li>
+     <li class="{if $nav=='member'}active{/if} has-sub"><span class="submenu-button"></span>
+      <a href="javascript:void(0);"><i class="fa fa-bar-chart-o"></i>会员导入</a>
+      <ul>
+        <li><a href="{php echo $this->createWebUrl('member',array('task'=>'import'))}">会员导入</a></li>
+      </ul>
+    </li>
+	<li class="{if $nav=='tools'}active{/if} has-sub"><span class="submenu-button"></span>
+      <a href="javascript:void(0);"><i class="fa fa-bar-chart-o"></i>工具管理</a>
+      <ul>
+        <li><a href="{php echo $this->createWebUrl('form',array('task'=>'index'))}">万能表单</a></li>
+		<li><a href="{php echo $this->createWebUrl('active',array('task'=>'config'))}">营销设置</a></li>
+		<li><a href="{php echo $this->createWebUrl('slide')}">广告管理</a></li>
+		 {if basefun()->getplugin("fl_staff")}
+		<li><a href="{php echo murl('home/welcome/ext',array('m'=>'fl_staff'))}">店铺管理</a></li>
+		{if $this->config_level[can_offline]}
+		<li><a href="{php echo $this->createWebUrl('offline',array('task'=>'qrcode'))}">核销管理</a></li>
+		{/if}
+		<li><a href="{php echo $this->createWebUrl('offline',array('task'=>'admin'))}">独立后台</a></li>
+		 {/if}
+		 {if basefun()->getplugin("fl_cashier")}
+		 <li><a href="{php echo murl('home/welcome/ext',array('m'=>'fl_cashier'))}">收银管理</a></li>
+		 {/if}
+		 <li><a href="{php echo $this->createWebUrl('message',array('task'=>'index'))}">公告管理</a></li>
+      </ul>
+    </li>
+    <li>
+     <a href="{php echo murl('home/welcome/ext')}">
+      <i class="fa fa-sign-out"></i>
+      返回系统
+    </a>
+  </li>
+</ul>
+</div>

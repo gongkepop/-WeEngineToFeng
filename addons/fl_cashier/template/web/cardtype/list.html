@@ -1,0 +1,79 @@
+{template 'header'}
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}    <!-- Top Nav End -->
+    <div class="sub-nav hidden-sm hidden-xs">
+      <ul>
+        <li><a href="{php echo $this->createWebUrl('index')}" class="heading">首页</a></li>
+        <li class="hidden-sm hidden-xs">
+          <a href="{php echo $this->createWebUrl('card')}" class="selected">会员管理</a>
+        </li>
+     </ul>
+      <div class="custom-search hidden-sm hidden-xs">
+        <a href="#">会员卡管理中心</a> &gt; <a>首页</a>
+      </div>
+    </div>
+    <!-- Sub Nav End -->
+
+      <ul class="nav nav-tabs">
+          <li class="active"><a href="{php echo $this->createWebUrl('cardtype')}">会员卡分类</a></li>
+          <li><a href="{php echo $this->createWebUrl('cardtype',array('task'=>'add'))}"><i class="fa fa-plus"></i>添加分类</a></li>
+      </ul>
+
+      <div class="dashboard-wrapper">
+          <div class="row">
+              <div class="col-sm-12">
+                  <div class="panel-body">
+                      <table  class="table table-hover"  style="width:100%;z-index:-10;" cellspacing="0" cellpadding="0">
+                          <tr>
+                              <th style="width:50px;">ID</th>
+                              <th style="width:120px;">分类名称</th>
+                              <th style="width:120px;">背景图片</th>
+                              <th style="width:60px;">分类状态</th>
+                              <th style="width:60px;">分类审核</th>
+                              <th style="width:60px;">分类申请</th>
+							  <th style="width:60px;">售价</th>
+							  {if $this->config_level[can_wecard]==1}
+							  <th style="width:120px;">卡包状态</th>
+							  {/if}
+                              <th style="width:120px;">操作</th>
+                          </tr>
+                          </thead>
+                          {loop $res $value}
+                          <tr>
+                              <td style=" line-height: 43px">{$value[id]}</td>
+                              <td style=" line-height: 43px">{$value[name]}</td>
+                              <td><a href='../attachment/{$value[images]}' target="_blank"><img src='../attachment/{$value[images]}' style='width:100px; height: 50px' /></a></td>
+                              <td style=" line-height: 43px">{php echo getCartTypeStatus($value[status])}</td>
+                              <td style=" line-height: 43px">{php echo getCartTypeCheck($value[ischeck])}</td>
+                              <td style=" line-height: 43px">{php echo getCartTypeShenqing($value[isget])}</td>
+							   <td style=" line-height: 43px">{php echo $value[isbuy]?$value[price]:"不支持购买"}</td>
+							   {if $this->config_level[can_wecard]==1}
+								<td style=" line-height: 43px">{if $value[wecard_id]}已生成{else}未对接{/if}</td>
+								{/if}
+                              <td style=" line-height: 43px">
+								  {if $this->config_level[can_wecard]==1}
+								   <a href="{php echo $this->createWebUrl('cardtype',array('task'=>'wecard','id'=>$value[id]))}" class="btn btn-primary btn-sm">卡包配置</a>
+                                  {/if}
+								   <a href="{php echo $this->createWebUrl('cardtype',array('task'=>'edit','id'=>$value[id]))}" class="btn btn-primary btn-sm">编辑</a>
+                                  <a href="{php echo $this->createWebUrl('cardtype',array('id'=>$value[id],'task'=>'del'))} " onclick="return confirm('确认是否删除？')" class="btn btn-primary btn-sm">删除</a>
+                              </td>
+                          </tr>
+                          {/loop}
+                      </table>
+                      <div style=" text-align: center">{$pagination}</div>
+                  </div>
+                  <div class="form-group col-sm-12">
+                      <input name="token" type="hidden" value="{$_W['token']}" />
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+
+
+
+{template 'footer'}

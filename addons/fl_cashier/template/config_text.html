@@ -1,0 +1,55 @@
+{template 'header'}
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}  <!-- Top Nav End -->
+<div class="sub-nav hidden-sm hidden-xs">
+  <ul>
+    <li><a href="{php echo $this->createWebUrl('index')}" class="heading">首页</a></li>
+    <li class="hidden-sm hidden-xs">
+		<a href="{php echo $this->createWebUrl('config')}" >基础设置</a>
+    </li>
+	<li class="hidden-sm hidden-xs">
+      <a href="#" class="selected">文字设置</a>
+    </li>
+  </ul>
+  <div class="custom-search hidden-sm hidden-xs">
+    <a href="#">会员卡管理中心</a> &gt; <a>首页</a>
+  </div>
+</div>
+<!-- Sub Nav End -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#">文字设置</a></li>
+</ul>
+<form class="form-horizontal form" id="form2" action="{php echo $this->createWebUrl('config',array('task'=>'savetext'))}"method="post">
+  <input type="hidden" name="id" value="" />
+  <div class="dashboard-wrapper">
+	   <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">核对资料不符</label>
+      <div class="col-sm-9 col-xs-12">
+          <input class='form-control' name='check_zl' value='{php echo $data[check_zl]?$data[check_zl]:""}' />
+      </div>
+    </div>
+	  <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">核对手机号不存在</label>
+      <div class="col-sm-9 col-xs-12">
+          <input class='form-control' name='check_tel' value='{php echo $data[check_tel]?$data[check_tel]:""}' />
+      </div>
+    </div>
+	<div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">短信验证码填写错误</label>
+      <div class="col-sm-9 col-xs-12">
+          <input class='form-control' name='sms_code_error' value='{$data[sms_code_error]}' />
+      </div>
+    </div>
+    <div class="form-group col-sm-12">
+      <input name="token" type="hidden" value="07a740f8" />
+      <input type="submit" class="btn btn-primary col-lg-1" name="submit" value="保存" />
+    </div>
+  </div>
+</div>
+</div>
+</form>
+</div>
+{template 'footer'}

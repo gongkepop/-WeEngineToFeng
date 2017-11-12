@@ -1,0 +1,188 @@
+{template 'themes/sui/header'}
+
+    <div class="page-group">
+        <div class="page page-current">
+  <header class="bar bar-nav">
+	  <a class="button button-link button-nav pull-left" href="{php echo $this->createMobileUrl('index')}" data-transition='slide-out'>
+      <span class="icon icon-left"></span>
+      返回
+    </a>
+    <h1 class="title">购买会员卡</h1>
+  </header>
+
+  <div class="content">
+	
+    <div class="page-index">
+		
+		
+		{if $this->config_level[group_level]}
+		<script>
+		  $(function(){
+			  $(".group1").change(function(){
+				  $("#ff").submit()
+			  });
+			  {if $this->config_level[group_level]>1}
+			  $(".group2").change(function(){
+				  $("#ff").submit()
+			  });
+			  {/if}
+		  })
+	  </script>
+		<div class="content-block">
+			<div class="list-block">
+				<form method='get' action='' id='ff'>
+					<input type='hidden' name='id' value='{$_GPC[id]}' />
+					<input type='hidden' name='i' value='{$_GPC[i]}' />
+					<input type='hidden' name='c' value='{$_GPC[c]}' />
+					<input type='hidden' name='task' value='{$_GPC[task]}' />
+					<input type='hidden' name='do' value='{$_GPC[do]}' />
+					<input type='hidden' name='m' value='{$_GPC[m]}' />
+			  <ul>
+				<!-- Text inputs -->
+				<li>
+				  <div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">
+							<select name="group1" class="group1">
+							  <option value="0">全部</option>
+							  {loop $group $value}
+							  <option value="{$value[id]}" {if $_GPC[group1]==$value[id]}selected{/if} >{$value[name]}</option>
+							  {/loop}
+						  </select>
+						</div>
+					{if $this->config_level[group_level]>1}
+					  <div class="item-input">
+						  <select name="group2" class="group2">
+							  <option value="0">全部</option>
+							  {loop $group2 $value}
+							  <option value="{$value[id]}" {if $_GPC[group2]==$value[id]}selected{/if} >{$value[name]}</option>
+							  {/loop}
+						  </select>
+					  </div>
+					{/if}
+					</div>
+				  </div>
+				</li>
+				 
+			  </ul>
+				</form>
+			</div>
+		  </div>
+		{/if}
+		
+		{loop $cardlist $value}
+		<div class="card">
+			<div class="card-header">
+				<span>{$value[name]}</span>
+				
+			</div>
+			<div class="card-content">
+			  <div class="list-block media-list">
+				<ul>
+				  <li class="item-content">
+					
+					<div class="item-inner" style='text-align:center'>
+					  <img src="{php echo tomedia($value[images])}" style="width:300px; height:179px" />
+					</div>
+				  </li>
+				</ul>
+			  </div>
+			</div>
+			{if $value[re_credit1]>0||$value[re_credit2]>0}
+			<div class="card-footer">
+			 
+			  {if $value[re_credit1]>0}
+			  <span>赠送积分：{$value[re_credit1]}</span>
+			  {/if}
+			  {if $value[re_credit2]>0}
+			  <span>赠送余额：{$value[re_credit2]}</span>
+			  {/if}
+			
+			</div>
+			{/if}
+			<div class="card-footer">
+				
+			   <span>
+				   {if $value[iscount]}
+						选择套餐
+				   {else}
+				      {if $value[price]>0}
+				   价格：{$value[price]}元
+				   {/if}
+				   {/if}
+				
+			   </span>
+			   
+			  <span>
+					<div class="col-20" style="float:right;margin:0 0 0 20px"><a href="javascript:void(0);" data-href="{php echo $this->createMobileUrl('card',array('task'=>'buy','id'=>$value[id]))}" class="button button-small button-fill button-success buycard" data="{$value[id]}" data-count="{$value[iscount]}">立即购买</a></div>
+					<input type="hidden" class="input_{$value[id]}" />
+					{if $value[info]}
+					<div class="col-20" style="float:right;"><a href="javascript:void(0);" onclick="$.alert($('.info-{$value[id]}').html(),'会员卡说明');" class="button button-small button-fill button-success">说明</a></div>
+					{/if}
+			  </span>
+			</div>
+		  </div>
+		<div class="info-{$value[id]}" style="display:none">
+			{php echo htmlspecialchars_decode($value[info])}
+		</div>
+		{/loop}
+ 
+<script>
+		$(function(){
+			$(".buycard").click(function(){
+				var id=$(this).attr("data");
+				var iscount=$(this).attr("data-count")
+				var gourl=$(this).attr("data-href")
+				var dom=$(this);
+				if(iscount!=1){
+					location.href=gourl;
+					return;
+				}
+				
+				var url="{php echo $this->createMobileUrl('card',array('task'=>'package'))}";
+				var data={
+					"tid":id
+				}
+				var callback=function(data){
+						$("input.input_"+id+"").picker({
+							toolbarTemplate: '<header class="bar bar-nav">\
+							<button class="button button-link pull-left close-picker">取消</button>\
+							<button class="button button-link pull-right" onclick="onbuy('+id+')">确定</button>\
+							<h1 class="title">'+data.title+'</h1>\
+							</header>',
+							cols: [
+							  {
+								textAlign: 'center',
+								values:data.listvalue,
+								displayValues:data.list
+
+							  }
+							]
+						});
+						$("input.input_"+id+"").picker("open");
+				}
+				var type="json";
+				$.post(url,data,callback,type);
+			
+			})
+			
+			
+			
+		})
+		
+		function onbuy(id){
+			var url=$(".buycard[data='"+id+"']").attr("data-href");
+			
+			var package=$("input.input_"+id+"").val();
+			url+="&package="+package;
+			location.href=url;
+		}
+
+</script>
+</div>
+  </div>
+
+        </div>
+    </div>
+
+{template 'themes/sui/footer'}

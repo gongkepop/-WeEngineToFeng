@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="no" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>我要付款</title>
+<link href="../addons/fl_card/template/mobile/css/style.css" rel="stylesheet">
+<script type="text/javascript" src="../addons/fl_update/template/js/jquery.min.js"></script>
+</head>
+<body>
+<div class="header">
+    <span class="le_span" onclick="location.href='{php echo $this->createMobileUrl('index')}'"><em class="icon_1"></em></span>
+    <div class="title">我要付款</div>
+	<span class="ri_span"></span>
+</div>
+	<style>
+		.form-box dt{
+			font-size:20px;
+			width:150px;
+		}
+		.form-box dd{
+			font-size:20px;
+		}
+	</style>
+<div class="main">
+    
+<form method="post" id="ff" action="{php echo $this->createMobileUrl('pay',array('task'=>'offline'))}" >
+	<input type='hidden' name='staff_id' value='{$_GPC['mid']}' />
+    <div class="form-box">
+        <div class="for_m">
+            <dl>
+                <dt>商家：</dt>
+                <dd>{$data[sname]}</dd>
+            </dl>
+        </div>
+<!--        <div class="for_m">
+            <dl>
+                <dt>员工：</dt>
+                <dd>{$data[name]}</dd>
+            </dl>
+        </div>-->
+        <div class="for_m">
+        	<dl style="line-height:39px">
+                <dt>支付金额：</dt>
+                <dd><input type="text" style='height:39px;font-size:20px' name="money" id="money"  readonly class="txt_inp" placeholder="￥0.00">元</dd>
+            </dl>
+            <!--<span class="Validform_checktip" style="display:block;">请输入金额</span>-->
+        </div>
+    </div>
+    <!--<div class="btn_inp"><input type="submit" value="确认支付"></div>-->
+	
+	<style>
+		.cashbox{
+			width:100%;
+			position:fixed;
+			bottom:0;
+			height:243px;
+			background:#fff;
+			font-weight: bolder;
+			font-size:18px;
+		}
+		.cashbox ul.numbers{
+			width:80%;
+			height:163px;
+			float:left;
+			margin:0;
+			padding:0;
+		}
+		.cashbox ul.numbers li{
+			float:left;
+			display:block;
+			width:32%;
+			height:60px;
+			text-align:center;
+			border:1px solid #ccc ;
+			line-height:60px;
+			border-collapse:collapse;
+			background:#fff;
+			border-right:0;
+			border-bottom:0;
+		}
+		.cashbox ul li:active{
+			background:#ccc
+		}
+		.cashbox ul.tools{
+			height:163px;
+			width:21%;
+			float:left;
+			margin-left:-2%;
+		}
+		.cashbox ul.tools li{
+			float:left;
+			height:121px;
+			width:110%;
+			line-height:122px;
+			border:1px solid #ccc;
+			text-align:center;
+			display:block;
+			background:#fff;
+			border-bottom:0;
+			border-right:0;
+		}
+		.cashbox ul.tools li:active{
+			background:#ccc
+		}
+		.cashbox ul.tools li.ok{
+			background:#fab400;
+			height:123px;
+			color:#fff
+		}
+	</style>
+	
+	<div class="cashbox">
+		<ul class="numbers">
+			<li onclick='addnum(1)'>1</li>
+			<li onclick='addnum(2)'>2</li>
+			<li onclick='addnum(3)'>3</li>
+			<li onclick='addnum(4)'>4</li>
+			<li onclick='addnum(5)'>5</li>
+			<li onclick='addnum(6)'>6</li>
+			<li onclick='addnum(7)'>7</li>
+			<li onclick='addnum(8)'>8</li>
+			<li onclick='addnum(9)'>9</li>
+			<li onclick='addnum(".")'>.</li>
+			<li onclick='addnum(0)'>0</li>
+			<li onclick='addnum("00")'>00</li>
+		</ul>
+		<ul class="tools">
+			<li onclick="delnum()">删除</li>
+			<li class="ok">确认</li>
+		</ul>
+	</div>
+</form>
+    
+</div><!--------endmain---------->
+<script>
+	var price=$("#money").val()?$("#money").val():"0";
+	$(function(){
+		
+		$(".ok").click(function(){
+			
+			//判断金额是否合法
+			var money=$("#money").val();
+			if(money==""){
+				alert("请输入支付金额。");
+				return;
+			}
+			$("#ff").submit();
+		})
+	})
+	
+	 function addnum(num){
+		  if(num=="."&&(price+"").indexOf(".")>0){
+			  //判断是否有.
+			return false;
+		  }
+		  if(price){
+			  if(price.split(".")[1]){
+				  if(price.split(".")[1].length>1){
+					  return false;
+				  }
+			  }
+			  
+		  }
+		  
+		  if(price!=0){
+
+			  price+=""+num;
+		  }else{
+			  if(num=="."){
+				  price="0.";
+			  }else{
+				  if((price+"").indexOf(".")>0){
+					  price+=""+num;
+					  
+				  }else{
+					  price=""+num;
+				  }
+				
+			  }
+			 
+		  }
+
+		  $("#money").val(price)
+	  }
+	  function delnum(){
+		  price=price.substring(0,price.length-1);
+			  $("#money").val(price);
+	  }
+</script>
+
+</body>
+</html>

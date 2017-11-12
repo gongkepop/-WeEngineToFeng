@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../addons/fl_update/static/layui/css/layui.css">
+	
+		<link rel="stylesheet" type="text/css" href="../addons/fl_update/template/css/font-awesome.min.css">
+		<script src="../addons/fl_update/template/js/jquery.min.js"></script>
+		<script src="../addons/fl_update/static/layui/layui.js"></script>
+		<style>
+			.search{ margin:20px 0 0 0}
+			.search .layui-input{
+				width:95%
+			}
+		</style>
+	</head>
+	<body >
+		<div class='search'>
+			<form method="post" action="{php echo geturl('card','docreatecard')}" class="layui-form" >
+			
+			 <table class="layui-table">
+			
+				<tbody>
+				  <tr>
+					<td style="width:40%">卡号</td>
+					<td>
+						<input type="text" name="cardnum" value="{$card[card]}" class="layui-input" lay-verify="required" /></td>
+				  </tr>
+				  {if $this->config_level['member_bindtype']}
+				  <tr>
+					<td style="width:40%">卡密码（绑定用）</td>
+					<td>
+						<input type="text" name="password" value="{$card[password]}" class="layui-input" lay-verify="required" /></td>
+				  </tr>
+				  {/if}
+				   <tr>
+					<td>电话</td>
+					<td><input type="text" name="tel" value="{$card[tel]}" class="layui-input" lay-verify="required" /></td>
+				  </tr>
+				   <tr>
+					<td>姓名</td>
+					<td><input type="text" name="name" value="{$card[name]}" class="layui-input" /></td>
+				  </tr>
+				   <tr>
+					<td>生日</td>
+					<td><input id='birth' readonly type="text" name="birth" value="{php echo $card[birth]?date('Y-m-d',$card[birth]):''}" class="layui-input" /></td>
+				  </tr>
+				  <tr>
+					<td>身份证号</td>
+					<td><input type="text" name="idcard" value="{$card[idcard]}" class="layui-input" /></td>
+				  </tr>
+				  
+				  <tr>
+					  <td>卡分组</td>
+					  <td>
+						  <div style="width:50%;float:left">
+							  <select name="group" lay-filter="group" >
+								  <option value="0">全部</option>
+								  {loop $group $value}
+									<option value="{$value[id]}">{$value[name]}</option>
+									{/loop}
+								</select>
+						  </div>
+						  <div style="width:50%;float:left">
+							  <select name="group2" lay-filter="group2" >
+								   <option value="0">全部</option>
+						  </select>
+						  </div>
+						  <div style="clear:both"></div>
+						   
+					  </td>
+				  </tr>
+				  <tr>
+					<td>卡类型</td>
+					<td>
+						<select name="type" lay-filter="type" >
+							{loop $cardtype $value}
+							<option value="{$value[id]}">{$value[name]}{if $value[iscount]}(套餐卡){else}{if $value[price]>0||$value[re_credit1]>0||$value[re_credit2]>0}（{if $value[price]>0}{$value[price]}元{/if}{if $value[re_credit1]>0}赠{$value[re_credit1]}积分{/if}{if $value[re_credit2]>0}赠{$value[re_credit2]}余额{/if}）{/if}{/if}</option>
+							{/loop}
+						</select>
+					</td>
+				  </tr>
+				  <tr class="package">
+					  <td>套餐</td>
+					  <td>
+						  <select name="package"  lay-filter="package"  >
+							  <option value="">套餐选择</option>
+						  </select>
+					  </td>
+				  </tr>
+					<tr>
+					<td>余额</td>
+					<td><input type="text" name="credit2" placeholder="元" class="layui-input" /></td>
+				  </tr>
+				  <tr>
+					<td>积分</td>
+					<td><input type="text" name="credit1" placeholder="" class="layui-input" /></td>
+				  </tr>
+				  <tr class="package">
+					<td>使用次数</td>
+					<td><input type="text" name="count" placeholder="仅次数卡有效" class="layui-input" /></td>
+				  </tr>
+				</tbody>
+			  </table>
+			<div class="layui-form-item">
+				<label class="layui-form-label"></label>
+				<div class="layui-input-block" style='text-align:right;padding:0 30px 0 0'>
+				  <button class="layui-btn layui-btn-radius" lay-submit >提交</button>
+				</div>
+			  </div>
+			</form>
+		</div>
+		
+		
+		<script>
+			function getcard(id){
+				var url="{php echo geturl('card','getcard')}"
+				var data={
+					"tid":id
+				}
+				var callback=function(data){
+					//套餐
+					if(data.iscount==1){
+						var str="";
+						$.each(data.package,function(key,val){
+							str+="<option value='"+val.id+"'>"+val.name+val.price+"元"+val.number+"次</option>"
+							if(key==0){
+								$("input[name='count']").val(val.number);
+							}
+						})
+						$("select[name='package']").html(str);
+						layui.form.render('select');
+						$(".package").show();
+					}else{
+						$(".package").hide();
+						$("input[name='count']").val("");
+					}
+					
+					//返还余额
+					var str="";
+					$("input[name='credit2']").val(data.re_credit2);
+					$("input[name='credit1']").val(data.re_credit1);
+					
+				}
+				var type="json"
+				$.post(url,data,callback,type);
+			}
+			
+			function getpackage(id){
+				var url="{php echo geturl('card','getpackage')}";
+				var data={
+					"id":id
+				}
+				var callback=function(data){
+					$("input[name='count']").val(data.number);
+				}
+				var type="json";
+				$.post(url,data,callback,type);
+			}
+			
+			function getgroup(id){
+				var url="{php echo geturl('card','getgroup')}";
+				var data={
+					"id":id
+				}
+				var callback=function(data){
+					var str="<option value='0'>全部</option>";
+					if(id>0){
+						$.each(data.list,function(key,val){
+							str+="<option value='"+val.id+"'>"+val.name+"</option>"
+							
+						})
+					}
+				
+					$("select[name='group2']").html(str);
+					layui.form().render('select');
+					
+				}
+				var type="json"
+				$.post(url,data,callback,type);
+			}
+			
+			function getgroupcard(id){
+				var url="{php echo geturl('card','getgroupcard')}";
+				var data={
+					"id":id
+				}
+				var callback=function(data){
+					var str="";
+					$.each(data.list,function(key,val){
+						str+="<option value='"+val.id+"'>"+val.name
+							if(val.iscount==1){
+								str+="(套餐卡)";
+							}else{
+								if(val.price>0||val.re_credit1>0||val.re_credit2>0){
+									str+="(";
+									if(val.price>0){
+										str+=val.price+"元";
+									}
+									if(val.re_credit1>0){
+										str+="赠"+val.re_credit1+"积分";
+									}
+									if(val.re_credit2>0){
+										str+="赠"+val.re_credit2+"余额";
+									}
+									str+=")";
+								}
+							}
+							str+="</option>";
+					})
+					
+					$("select[name='type']").html(str);
+					layui.form().render('select');
+					getcard($("select[name='type']").val());
+				}
+				var type="json"
+				$.post(url,data,callback,type);
+			}
+			
+			$(function(){
+			
+				getcard($("select[name='type']").val());
+				
+				layui.use(['layer', 'form','laydate'], function(){
+				  var layer = layui.layer
+				  ,form = layui.form;
+				  var laydate = layui.laydate;
+				   laydate.render({
+					elem: '#birth' //指定元素
+				  });
+				  form.on("select(type)", function(data){
+						getcard(data.value); //得到被选中的值
+				  });
+				  form.on("select(package)", function(data){
+						getpackage(data.value); //得到被选中的值
+				  });
+				  
+				  form.on("select(group)", function(data){
+					  
+						getgroup(data.value); //得到被选中的值
+						getgroupcard(data.value);
+				  });
+				  form.on("select(group2)", function(data){
+						if(data.value==0){
+							var id=$("select[name='group']").val()
+						}else{
+							var id=data.value
+						}
+						console.log(id)
+						getgroupcard(id);
+				  });
+				  
+				});	
+	
+			})
+		</script>
+	</body>
+</html>

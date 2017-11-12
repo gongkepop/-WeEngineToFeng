@@ -1,0 +1,42 @@
+<form class="form-horizontal form" id="form2" action="{php echo $this->createWebUrl('card',array('task'=>'savecredit1'))}" method="post">
+  <input type="hidden" name="id" value="{$_GPC[id]}" />
+  <div style=" margin: 0 0 20px 0"></div>
+		  <div class="form-group col-sm-12">
+			  <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员卡卡号</label>
+			  <div class="col-sm-9 col-xs-12">
+				 <input class="form-control" readonly value="{$card[card]}"  />   
+			  </div>
+		  </div>
+		  <div class="form-group col-sm-12">
+			  <label class="col-xs-12 col-sm-3 col-md-2 control-label">持卡人姓名</label>
+			  <div class="col-sm-9 col-xs-12">
+				  <input class="form-control" readonly value="{$card[name]}"  /> 
+			  </div>
+		  </div>
+		  <div class="form-group col-sm-12">
+			  <label class="col-xs-12 col-sm-3 col-md-2 control-label">手机号</label>
+			  <div class="col-sm-9 col-xs-12">
+				   <input class="form-control" readonly value="{$card[tel]}"  />
+			  </div>
+		  </div>
+		  <div class="form-group col-sm-12">
+			  <label class="col-xs-12 col-sm-3 col-md-2 control-label">积分</label>
+			  <div class="col-sm-9 col-xs-12">
+				  <input class="form-control" readonly value="{php echo $card[openid]?$member[credit1]:$card[credit1]}"  />
+			  </div>
+		  </div>
+		  <div class="form-group col-sm-12">
+			  <label class="col-xs-12 col-sm-3 col-md-2 control-label">增加</label>
+			  <div class="col-sm-9 col-xs-12">
+				  <input name="number" class="form-control"  value="0"  />
+			  </div>
+		  </div>
+
+
+  <div class="form-group col-sm-12" style=" text-align: right">
+			  <input name="token" type="hidden" value="{$_W['token']}" />
+			  <input type="submit" class="btn btn-primary col-lg-1" name="submit"  value="提交"  style='float:right'  />
+		  </div>
+
+</form>
+

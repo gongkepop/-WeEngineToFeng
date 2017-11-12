@@ -1,0 +1,21 @@
+<div id="container" class="nav">
+			<ul>
+				<li class="li1">
+					<div class="logo">
+					<img class="logo1" src="../addons/fl_update/template/images/logo.png" style="width:100px">
+					</div>
+				</li>
+				<li>
+					<a href="{php echo $this->createWebUrl('index')}" class="home state">首页<span></span></a>
+				</li>
+				{if !$_W['config']['setting']['member']}
+				<li>
+					<a href="https://o2odiy.kf5.com/hc/"  target="_blank" class="official state">产品说明<span></span></a>
+				</li>
+				{/if}
+				<li>
+					<a href="{php echo murl('home/welcome/ext')}" class="return">返回系统<span></span></a>
+				</li>
+			</ul>
+			<!--<span class="sl"></span>-->
+		</div>

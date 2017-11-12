@@ -1,0 +1,80 @@
+{template 'themes/sui/header'}
+    <div class="page-group">
+        <div class="page page-current">
+  <header class="bar bar-nav">
+	  <a class="button button-link button-nav pull-left" href="{php echo $this->createMobileUrl('index')}" data-transition='slide-out'>
+      <span class="icon icon-left"></span>
+      返回
+    </a>
+    <h1 class="title">设置支付密码</h1>
+  </header>
+
+  <div class="content">
+	
+    <div class="page-index">
+		
+		
+<div class="content">
+  <div class="list-block">
+	  <form id="ff" action="{php echo $this->createMobileUrl('setpass',array('task'=>'savepass'))}" method='post'>
+    <ul>
+      <!-- Text inputs -->
+	  {if $member[paypass]}
+      <li>
+        <div class="item-content">
+          <div class="item-media"><i class="icon icon-form-name"></i></div>
+          <div class="item-inner">
+            <div class="item-title label">原支付密码</div>
+            <div class="item-input">
+              <input type="password" name='oldpass' placeholder="原支付密码">
+            </div>
+          </div>
+        </div>
+      </li>
+	  {/if}
+      <li>
+        <div class="item-content">
+          <div class="item-media"><i class="icon icon-form-email"></i></div>
+          <div class="item-inner">
+            <div class="item-title label">新支付密码</div>
+            <div class="item-input">
+              <input type="password" name='newpass' placeholder="新支付密码">
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="item-content">
+          <div class="item-media"><i class="icon icon-form-password"></i></div>
+          <div class="item-inner">
+            <div class="item-title label">确认支付密码</div>
+            <div class="item-input">
+              <input type="password" name='renewpass' placeholder="确认支付密码，请保持与新支付密码一致" class="">
+            </div>
+          </div>
+        </div>
+      </li>
+    
+      
+      
+    </ul>
+	  </form>
+  </div>
+  <div class="content-block">
+    <div class="row">
+		 <a href="javascript:void(0);" onclick="document.getElementById('ff').submit();" class="button button-big button-fill button-success">保存</a>
+     
+    </div>
+  </div>
+</div>
+
+
+ 
+
+</div>
+  </div>
+
+        </div>
+    </div>
+
+{template 'themes/sui/footer'}

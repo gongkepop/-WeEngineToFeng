@@ -1,0 +1,104 @@
+.wecard{
+	background: #f6f6f8 url(../images/wecard_background.png) no-repeat 0 10px;
+	height:600px;
+	width:318px;
+	border: 1px solid #ccc;
+	position: absolute;
+}
+.wecard .main_title{ height: 70px}
+.wecard .wecard_main{
+	min-height: 150px;
+	background: rgb(144, 88, 203);
+	border-radius: 12px;
+	width: 266px;
+	margin: 0 auto;
+	
+}
+.wecard .wecard_main .logo{
+	border-radius: 22px;
+	position: absolute;
+	margin: 24px 0 0 20px
+}
+.wecard .wecard_main .logo img{
+	border-radius: inherit
+}
+.wecard .wecard_main .shopname{
+	color:#fff;
+	position: absolute;
+	margin: 24px 0 0 70px;
+	font-weight: bolder;
+	font-size: 14px
+}
+.wecard .wecard_main .cardname{
+	color:#fff;
+	position: absolute;
+	margin: 40px 0 0 70px;
+	font-weight: bolder;
+	font-size: 14px
+}
+.wecard .wecard_main .qrcode{
+	background: url("../images/member_card_control_z324410.png") 0 -147px no-repeat;
+	height: 36px;
+	width:36px;
+	position: absolute;
+	margin: 24px 0 0 210px;
+	
+	
+}
+
+.wecard .wecard_main .cardnum{
+	color:#fff;
+	font-size: 17px;
+	text-shadow:1px 1px 2px #666;
+	font-weight: bolder;
+	position: absolute;
+	margin:100px 0 0 20px 
+}
+.wecard .wecard_main .info{
+	background: url("../images/member_card_control_z324410.png") 0 -187px no-repeat;
+	height: 18px;
+	width: 18px;
+	position: absolute;
+	margin: 100px 0 0 225px 
+}
+
+.wecard .menu{
+	height:45px;
+	margin: 20px 0 0 0
+	
+}
+.wecard .menu .bind{
+	margin: 20px 0 0 0;
+	background: #fff
+	
+}
+.wecard .menu .lists{
+	border-bottom: 1px solid #ccc;
+	height: 45px;
+	line-height:45px;
+	font-size:14px;
+	padding:0 0 0 30px;
+	margin: 0 7px;
+	background: #fff;
+}
+.wecard .menu .lists .main{
+	margin: 0;
+}
+.wecard .menu .lists .main .title{
+	float:left;
+	margin: 0;
+	font-size: 14px;
+}
+.wecard .menu .lists .main .go{
+	float:right;
+	background: url("../images/member_card_control_z324410.png") 0 -128px no-repeat;
+	width: 16px;
+	height: 15px;
+	margin: 15px 0 0 0;
+}
+.wecard .menu .lists .main .second{
+	float:right;
+	margin:0 10px 0 0 ;
+	color:#8d8d8d;
+	font-size: 14px
+}

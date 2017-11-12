@@ -1,0 +1,125 @@
+{template 'themes/sui/header'}
+<div class="page-group">
+	<div class="page page-current">
+	 <header class="bar bar-nav">
+
+		<h1 class="title">会员卡充值</h1>
+	  </header>
+		 <div class="content">
+
+			<div class="page-index">
+				
+				<div class="list-block">
+				<ul>
+					<!-- Text inputs -->
+
+					<li>
+					  <div class="item-content">
+						<div class="item-media"><i class="icon icon-form-name"></i></div>
+						<div class="item-inner">
+						  <div class="item-title label">充值金额</div>
+						  <div class="item-input">
+							  <input type="number" id="money" placeholder="请输入充值金额{if $this->config_level[min_recharge_money]>0}，最低{php echo $this->config_level[min_recharge_money]}{/if}">
+						  </div>
+						</div>
+					  </div>
+					</li>
+			
+
+				
+				</ul>
+				</div>
+				<div class="list-block">
+			 <div class="card">
+				<div class="card-content">
+				  <div class="card-content-inner">
+					  充值说明：
+					  <ol>
+						  {if $this->config_level[min_recharge_money]>0}
+						  <li>单次最低充值{php echo $this->config_level[min_recharge_money]}元</li>
+						  {/if}
+						  {if $this->config_level[recharge_money_step]>0}
+						  <li>单次最低至少是{php echo $this->config_level[recharge_money_step]}元的整数倍</li>
+						  {/if}
+						  {if $this->config_level[sale_credit2]==1}
+						  {loop $this->config_level[sale_credit2_money] $key=>$value}
+						  <li>充值满{$key}元赠{php echo  is_array($value)?$value[sale_credit2_credit]:$value}元{if $value[sale_credit2_credit1]!=0}{$value[sale_credit2_credit1]}积分{/if}</li>
+						  {/loop}
+						  {/if}
+					  </ol>
+				  </div>
+				</div>
+			  </div>
+				</div>
+				  <div class="content-block">
+					  <div class="row" style="text-align:center">
+					  <div class="col-100"><a href="javascript:void(0);" class="button button-big button-fill button-success" id="verify">确认充值</a></div>
+					</div>
+				  </div>
+
+			</div>
+		 </div>
+
+
+<script type="text/javascript">
+
+	$(function(){
+	   $('#money').focus();
+		
+		//提交验证，获取卡列表
+		$("#verify").click(function(){
+		   var  money = $('#money').val();
+		    if (!$.trim(money)) {
+				$.alert("请输入充值金额", function(){
+					$('#money').focus();
+				});
+				return false;
+			}
+		
+			var $this = $(this);
+
+			
+        
+			$.ajax({
+				url : '{php echo $this->createMobileUrl('recharge',array('task'=>'pay','id'=>$card[id]))}',
+				async : true,
+				type : 'POST',
+				cache:false,
+				data : {
+					money : money,
+					staff_id : "{$_GPC['mid']}"
+				},
+				dataType : 'json',
+				timeout : 15000,
+				
+				error : function(result, status) {
+				},
+				
+				success : function(data) {
+					if(data.status==1){
+						location.href=data.url
+					}else{
+						$.alert(data.msg);
+					}
+				}
+			});
+		});
+
+		
+
+	});
+
+
+</script>
+
+
+
+
+
+	</div>
+</div>
+{template 'themes/sui/footer'}
+
+</body>
+</html>
+

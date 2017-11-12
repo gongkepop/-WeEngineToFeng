@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="../addons/fl_cashier/template/js/jquery.min.js"></script>
+		<style>
+			#sysdate ul li{ list-style: none;}
+			#sysdate ul li.left{float:left}
+		</style>
+	</head>
+	<body>
+		<div>
+		<div class="clock">
+			<div id="sysdate">
+				<ul>
+					<li class="day"></li>
+					<li class="hours left">{php echo date("H")}</li>
+					<li class="left">:</li>
+					<li class="min left">{php echo date("i")} </li>
+					<li class="left">:</li>
+					<li class="sec left">{php echo date("s")}</li>
+					<li style="clear:both"></li>
+				</ul>
+			</div>
+		</div>
+		<div>当前员工：{$staff[name]}</div>
+		<div>登录时间：{php echo date("Y-m-d H:i:s",$login[checktime])}</div>
+		<!--<div>在线时间：{php echo getbasetime(time()-$login[checktime])}</div>-->
+		<script>
+			$(document).ready(function() {
+				// 建立月份与星期的数组，便于调用
+				var monthNames = [ "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月" ]; 
+				var dayNames= ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"]
+
+				// 创建一个日期对象
+				var newDate = new Date();
+				// 根据日期对象延申出当前时间
+				newDate.setDate(newDate.getDate());
+				// 输出年月日
+				$('#sysdate .day').html( {php echo  date("Y")}+ "年 " +  monthNames[{php echo date("n")}] + ' ' +{php echo date("d")}+ '日 '  + dayNames[{php echo date("w")}] );
+
+				setInterval( function() {
+					//创建时间对象，并取得当前时间的秒数值
+					var seconds = new Date().getSeconds();
+					// 如果秒为个位数则在前面加个0
+					$("#sysdate .sec").html(( seconds < 10 ? "0" : "" ) + seconds);
+					},1000);
+
+				setInterval( function() {
+					// 取得当前时间的分钟数值
+					var minutes = new Date().getMinutes();
+					// 分钟数小于10则在前面加上0
+					$("#sysdate .min").html(( minutes < 10 ? "0" : "" ) + minutes);
+					},1000);
+
+				setInterval( function() {
+					// 妈得当前时间的小时数值
+					var hours = new Date().getHours();
+					// 如果小时数值小于10则在前面加个0
+					$("#sysdate .hours").html(( hours < 10 ? "0" : "" ) + hours);
+					}, 1000);
+
+				});
+			
+		</script>
+	</body>
+</html>

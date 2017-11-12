@@ -1,0 +1,119 @@
+{template 'header'}
+<script>
+	$(function(){
+		$("#addsale").click(function(){
+			var str=$("#addsaletemp").html()
+			$("#addsalediv").append(str);
+		})
+	})
+</script>
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}  <!-- Top Nav End -->
+<div class="sub-nav hidden-sm hidden-xs">
+  <ul>
+    <li><a href="{php echo $this->createWebUrl('index')}" class="heading">首页</a></li>
+    <li class="hidden-sm hidden-xs">
+		<a href="{php echo $this->createWebUrl('active',array('task'=>'config'))}" >营销设置</a>
+    </li>
+	
+  </ul>
+  <div class="custom-search hidden-sm hidden-xs">
+    <a href="#">会员卡管理中心</a> &gt; <a>首页</a>
+  </div>
+</div>
+<!-- Sub Nav End -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="{php echo $this->createWebUrl('adminconfig')}">营销设置</a></li>
+</ul>
+<form class="form-horizontal form" id="form2" action="{php echo $this->createWebUrl('active',array('task'=>'saveconfig'))}"method="post">
+  <div class="dashboard-wrapper">
+	 <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">消费赠积分</label>
+      <div class="col-sm-9 col-xs-12">
+          <select name="sale_credit1" class='form-control'>
+			  <option value='0' {if $config[sale_credit1]==0}selected{/if} >不启用</option>
+			  <option value='1' {if $config[sale_credit1]==1}selected{/if} >启用</option>
+		  </select>
+		     <div>启用后用户收银台消费时，或扫码消费时将赠送积分，其他方式不赠送积分</div>
+      </div>
+    </div> 
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-1 col-md-2 control-label">消费满</label>
+	   <label class="col-xs-12 col-sm-1 col-md-0 control-label"><input type="" class="form-control" name="sale_credit1_money" value='{$config[sale_credit1_money]}' /></label>
+	  <label class="col-xs-12 col-sm-1  control-label" style='width: 66px'>元赠送</label>
+	   <label class="col-xs-12 col-sm-1  control-label"><input type="" class="form-control" name="sale_credit1_credit" value='{$config[sale_credit1_credit]}' /></label>
+	  <label class="col-xs-12 col-sm-1  control-label" style='width:66px'>积分</label>
+	 
+    </div>
+	
+	  
+	<div class="form-group">
+      <label class="col-xs-12 col-sm-1 col-md-2 control-label">最低充值</label>
+	   <label class="col-xs-12 col-sm-1 col-md-0 control-label"><input type="" class="form-control" name="min_recharge_money" value='{$config[min_recharge_money]}' /></label>
+	  <label class="col-xs-12 col-sm-1  control-label" style='width: 66px'>元</label>
+	  
+    </div>    
+	<div class="form-group">
+      <label class="col-xs-12 col-sm-1 col-md-2 control-label">充值倍数</label>
+	   <label class="col-xs-12 col-sm-1 col-md-0 control-label"><input type="" class="form-control" name="recharge_money_step" value='{$config[recharge_money_step]}' /></label>
+	  <label class="col-xs-12 col-sm-1  control-label" style='width: 66px'>元</label>
+    </div>    
+	  
+	 <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">充值满赠</label>
+      <div class="col-sm-9 col-xs-12">
+          <select name="sale_credit2" class='form-control'>
+			  <option value='0' {if $config[sale_credit2]==0}selected{/if} >不启用</option>
+			  <option value='1' {if $config[sale_credit2]==1}selected{/if} >启用</option>
+		  </select>
+		     <div>启用后用户充值或员工增加余额时，达到一定程度将赠送余额</div>
+      </div>
+    </div> 
+    {loop $config[sale_credit2_money] $key=>$value}
+	<div class="form-group">
+      <label class="col-xs-12 col-sm-1 col-md-2 control-label">充值满</label>
+	   <label class="col-xs-12 col-sm-1 col-md-0 control-label"><input type="" class="form-control" name="sale_credit2_money[]" value='{$key}' /></label>
+	  <label class="col-xs-12 col-sm-1  control-label" style='width: 66px'>元赠送</label>
+	   <label class="col-xs-12 col-sm-1  control-label"><input type="" class="form-control" name="sale_credit2_credit[]" value='{php echo is_array($value)?$value[sale_credit2_credit]:$value}' /></label>
+	  <label class="col-xs-12 col-sm-1  control-label" style='width:66px'>余额</label>
+	   <label class="col-xs-12 col-sm-1  control-label"><input type="" class="form-control" name="sale_credit2_credit1[]" value='{php echo is_array($value)?$value[sale_credit2_credit1]:""}' /></label>
+	  <label class="col-xs-12 col-sm-1  control-label" style='width:66px'>积分</label>
+    </div>
+	{/loop}
+	<div id='addsalediv'>
+	</div>
+	  
+	  <div class="form-group">
+		  <label class="col-xs-12 col-sm-1 col-md-2 control-label"></label>
+		  <input type="button" class="btn btn-primary col-lg-1" id='addsale' value="增加满赠规则" />	
+	  </div>
+	 
+	  
+    <div class="form-group col-sm-12">
+      <input name="token" type="hidden" value="07a740f8" />
+      <input type="submit" class="btn btn-primary col-lg-1" name="submit" value="保存" />
+    </div>
+	
+  </div>
+
+</div>
+</div>
+</form>
+
+<div id='addsaletemp' style='display:none'>
+	<div class="form-group">
+      <label class="col-xs-12 col-sm-1 col-md-2 control-label">充值满</label>
+	   <label class="col-xs-12 col-sm-1 col-md-0 control-label"><input type="" class="form-control" name="sale_credit2_money[]" value='' /></label>
+	  <label class="col-xs-12 col-sm-1  control-label" style='width: 66px'>元赠送</label>
+	   <label class="col-xs-12 col-sm-1  control-label"><input type="" class="form-control" name="sale_credit2_credit[]" value='' /></label>
+	  <label class="col-xs-12 col-sm-1  control-label" style='width:66px'>余额</label>
+	  <label class="col-xs-12 col-sm-1  control-label"><input type="" class="form-control" name="sale_credit2_credit1[]" value='' /></label>
+	  <label class="col-xs-12 col-sm-1  control-label" style='width:66px'>积分</label>
+    </div>
+</div>
+
+</div>
+{template 'footer'}

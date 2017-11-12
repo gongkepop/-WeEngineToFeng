@@ -1,0 +1,30 @@
+body { padding: 0; margin: 0; font-family: 微软雅黑, Verdana, Geneva, sans-serif; color:#202930;}
+html, body, form, fieldset, p, div, h1, h2, h3, h4, h5, h6 { -webkit-text-size-adjust: none; }
+ul, li, dl, dd, dt, article{ list-style-type: none; margin: 0; padding: 0 }
+a { text-decoration: none;color:#3c4a55;}
+html{height:100%;}
+img{ display:block; width:100%;}
+em{ font-style:normal;}
+.img_radius img{ border-radius:100%;}
+input[type="submit"],input[type="reset"],input[type="button"], {-webkit-appearance: none;}
+
+body{ background:#f2f4f7;}
+.main{ padding-top:50px;}
+.icon_1{ background:url(../images/icon1.png) center no-repeat;background-size:100%;}
+.header{ background:#fff;border-bottom: 1px solid #E6EAF2; height:50px; width:100%; top:0px; position:fixed; z-index:5;}
+.header span {position:absolute;color:#FFF; font-size:.9em;top:14px;}
+.header span em{display:inline-block; width:20px; height:20px;vertical-align: middle; font-style:normal; position:relative;}
+.header .le_span{left:10px;}
+.header .ri_span{right:10px;}
+.header .title{ font-size:1.2em; padding:0 20%; text-align:center;line-height:50px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.header .logo{ padding:0 20%;}
+.header .logo img{ width:85px; margin:2px auto 0 auto;}
+
+.form-box{border-top:#E6EAF2 solid 1px; margin-top:10px;}
+.form-box dl{ display:-webkit-box; background:#FFF;border-bottom:#E6EAF2 solid 1px; padding:13px 15px; font-size:14px;}
+.form-box dt{ width:75px;}
+.form-box dd{ -webkit-box-flex:1; display:-webkit-box;-webkit-box-align:center;}
+.form-box dd .txt_inp{ display:block; -webkit-box-flex:1; width:100%; border:0px; -webkit-appearance:none; margin:0px; padding:0px;}
+.btn_inp{ padding:10px 15px;}
+.btn_inp input {background: #f7951e;border: 0px;border-radius: 5px;color: #fff;text-align: center;font-size: 15px;font-weight: bold;padding: 14px 0;width: 100%;-webkit-appearance: none;}
+.Validform_checktip{ color:red;display:none; margin-left:90px; line-height:20px; height:20px; overflow:hidden; font-size:12px; }

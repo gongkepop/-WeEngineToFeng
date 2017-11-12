@@ -1,0 +1,144 @@
+{template 'header'}
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+    {template 'nav'}  <!-- Top Nav End -->
+    <div class="sub-nav hidden-sm hidden-xs">
+      <ul>
+        <li><a href="{php echo $this->createWebUrl('index')}" class="heading">首页</a></li>
+        <li class="hidden-sm hidden-xs">
+          <a href="{php echo $this->createWebUrl('offline',array('task'=>'qrcode'))}"  >核销员工管理</a>
+		  <a href="{php echo $this->createWebUrl('offline',array('task'=>'record'))}" class="selected" >核销记录</a>
+		  <a href="{php echo $this->createWebUrl('offline',array('task'=>'config'))}" >核销基本配置</a>
+        </li>
+		
+     </ul>
+      <div class="custom-search hidden-sm hidden-xs">
+        <a href="#">核销管理</a> &gt; <a>首页</a>
+      </div>
+    </div>
+    <!-- Sub Nav End -->
+
+      <ul class="nav nav-tabs">
+          <li class="active"><a href="#">核销员工管理</a></li>
+      </ul>
+	<div class="panel-body" style=" background: #fff">
+		<form action="./index.php" method="get" class="form-horizontal" role="form">
+			<input type="hidden" name="c" value="site" />
+			<input type="hidden" name="a" value="entry" />
+			<input type="hidden" name="m" value="fl_card" />
+			<input type="hidden" name="do" value="offline" />
+			
+			<input type="hidden" name="task" value="{$_GPC['task']}" />
+		
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">商户</label>
+				<div class="col-xs-12 col-sm-8 col-lg-9">
+					<select name="sid" class='form-control'>
+						<option value="">全部</option>
+						{loop $shop $value}
+						<option value="{$value[id]}" {if $_GPC['sid']==$value[id]} selected{/if}>{$value[name]}</option>
+						{/loop}
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"></label>
+				<div class="col-xs-12 col-sm-8 col-lg-9">
+					总计：{$allmoney}元
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-1 control-label"></label>
+				<div class="col-sm-8 col-xs-12">
+				</div>
+				<div class="col-xs-12 col-sm-2 col-lg-2">
+					<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+				</div>
+			
+			</div>
+
+			<div class="form-group">
+			</div>
+		</form>
+	</div>
+      <div class="dashboard-wrapper">
+          <div class="row">
+              <div class="col-sm-12">
+                  <div class="panel-body">
+                      <table  class="table table-hover"  style="width:100%;z-index:-10;" cellspacing="0" cellpadding="0">
+                          <tr>
+                              <th style="width:50px;">订单编号</th>
+                              
+                              <th style="width:120px;">会员卡号</th>
+                              <th style="width:120px;">核销金额</th>
+							  <th style="width:120px;">核销店铺</th>
+							  <th style="width:120px;">核销员工</th>
+							  <th style="width:120px;">时间</th>
+                          </tr>
+                          </thead>
+                          {loop $list $value}
+                          <tr>
+                              <td>{$value[ordersn]}</td>
+                             
+                              <td>{$value[card]}</td>
+                              <td>{$value[money]}</td>
+							  <td>{$value[sname]}</td>
+							  <td>{$value[shname]}</td>
+							 <td>{php echo date("Y-m-d H:i:s",$value[paytime])}</td>
+                          </tr>
+                          {/loop}
+                      </table>
+                      <div style=" text-align: center">{$pager}</div>
+                  </div>
+                  <div class="form-group col-sm-12">
+                      <input name="token" type="hidden" value="{$_W['token']}" />
+                  </div>
+              </div>
+          </div>
+      </div>
+
+	<script>
+		//编辑积分
+		function editcredit1(id){
+			var url="{php echo $this->createWebUrl('card',array('task'=>'editcredit1'))}";
+			var data={
+				"id":id
+			}
+			var callback=function(str){
+				layer.open({
+					type:1,
+					content:str,
+					area: ['600px', '400px'],
+					title:"编辑积分"
+				})
+			}
+			var type='text';
+			$.post(url,data,callback,type);
+			
+		}
+		//编辑余额
+		function editcredit2(id){
+			var url="{php echo $this->createWebUrl('card',array('task'=>'editcredit2'))}";
+			var data={
+				"id":id
+			}
+			var callback=function(str){
+				layer.open({
+					type:1,
+					content:str,
+					area: ['600px', '400px'],
+					title:"编辑余额"
+				})
+			}
+			var type='text';
+			$.post(url,data,callback,type);
+			
+		}
+		
+	</script>
+
+	
+
+{template 'footer'}

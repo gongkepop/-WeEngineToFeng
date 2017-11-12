@@ -1,0 +1,61 @@
+{template 'header'}
+<!-- Main Container start -->
+<div class="dashboard-container">
+  <div class="container">
+    <!-- Top Nav Start -->
+	{template 'nav'}
+    <!-- Top Nav End -->
+<div class="sub-nav hidden-sm hidden-xs">
+  <ul>
+    <li><a href="{php echo $this->createWebUrl('index')}" class="heading">首页</a></li>
+    <li class="hidden-sm hidden-xs">
+      <a href="#" class="selected">基础设置</a>
+    </li>
+  </ul>
+  <div class="custom-search hidden-sm hidden-xs">
+    <a href="#">会员卡管理中心</a> &gt; <a>首页</a>
+  </div>
+</div>
+<!-- Sub Nav End -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="{php echo $this->createWebUrl('menu')}">菜单管理</a></li>
+  <li><a href="{php echo $this->createWebUrl('menu',array('task'=>'add'))}">添加菜单管理</a></li>
+</ul>
+  <div class="dashboard-wrapper">
+          <div class="row">
+              <div class="col-sm-12">
+                  <div class="panel-body">
+                      <table  class="table table-hover"  style="width:100%;z-index:-10;" cellspacing="0" cellpadding="0">
+                          <tr>
+                              <th style="width:50px;">ID</th>
+                              <th style="width:120px;">标题</th>
+                              <th style="width:120px;">链接地址</th>
+                              <th style="width:120px;">图片</th>
+                              <th style="width:120px;">状态</th>
+                              <th style="width:120px;">操作</th>
+                          </tr>
+                          </thead>
+                          {loop $data $value}
+                          <tr>
+                              <td>{$value[id]}</td>
+                              <td>{$value[name]}</td>
+                              <td>{$value[url]}</td>
+                              <td><img style="width:150px;height:100px" src="{$_W[attachurl]}{$value[images]}"></td>
+                              <td>{php echo $value[status]?"启用":"禁用"}</td>
+                              <td>
+                                  <a href="{php echo $this->createWebUrl('menu',array('task'=>'edit','id'=>$value[id]))}" class="btn btn-primary">编辑</a>
+                                  <a href="{php echo $this->createWebUrl('menu',array('task'=>'del','id'=>$value[id]))} " onclick="return confirm('确认是否删除？')" class="btn btn-primary">删除</a>
+                              </td>
+                          </tr>
+                          {/loop}
+                      </table>
+                      <div style=" text-align: center">{$pagination}</div>
+                  </div>
+                  <div class="form-group col-sm-12">
+                      <input name="token" type="hidden" value="{$_W['token']}" />
+                  </div>
+              </div>
+          </div>
+      </div>
+
+{template 'footer'}

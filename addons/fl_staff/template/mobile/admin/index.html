@@ -1,0 +1,70 @@
+{template 'themes/sui/header'}
+
+    <div class="page-group">
+        <div class="page page-current">
+  <header class="bar bar-nav">
+
+    <h1 class="title">员工首页</h1>
+  </header>
+
+  <div class="content">
+	
+    <div class="page-index">
+
+	<div style="display:none" id="index-cardinfo">
+		{php echo htmlspecialchars_decode($card[info])}
+	</div>	
+		
+		<div class="card">
+<!--			<div class="card-header">
+				<span>会员卡号：{$value[card]}</span>
+				<span>{$value[tname]}</span>
+				
+			</div>-->
+			<div id="index-card" class="card-content">
+			  <div class="list-block media-list">
+				<ul>
+				  <li class="item-content">
+					
+					<div class="item-inner" style='text-align:center;height:150px'>
+						<div>
+								<img src="../addons/fl_admin/template/images/logo.jpg" style="height:80px;width:80px" />
+						</div>
+						<div>
+							{php echo $this->staff[shop_name]}
+						</div>
+						<div>
+							{php echo $this->staff[name]}
+						</div>
+					</div>
+				  </li>
+				</ul>
+			  </div>
+			</div>
+			<div class="card-footer">
+			  <span></span>
+			  <span>{if $this->staff[onwork]==1}上班中{else}休息中{/if}</span>
+			  <span></span>
+			</div>
+			
+		  </div>   
+		
+		
+		
+		<div class='menu'>
+			<div class="list-block" style='margin:0.75rem 0'>
+				{if $this->staff[onwork]==1}
+					<a href="{php echo $this->createMobileUrl('staff',array('task'=>'unwork'))}" class="button button-small button-fill" style="width: 70%;margin: 0 auto;height: 100px;text-align: center;line-height: 100px;font-size: 40px;">下班休息</a>
+				{else}
+					<a href="{php echo $this->createMobileUrl('staff',array('task'=>'onwork'))}" class="button button-small button-fill" style="width: 70%;margin: 0 auto;height: 100px;text-align: center;line-height: 100px;font-size: 40px;">开始上班</a>
+				{/if}
+		  </div>
+		
+		</div>
+
+</div>
+  </div>
+
+        </div>
+    </div>
+{template 'themes/sui/footer'}

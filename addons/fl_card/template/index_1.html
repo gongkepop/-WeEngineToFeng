@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="IE=9; IE=8; IE=7; IE=EDGE" http-equiv="X-UA-Compatible">
+<title>会员卡管理系统</title>
+<link rel="stylesheet" type="text/css" href="../addons/fl_card/template/css/bootstrap.min.css"> 
+<link rel="stylesheet" type="text/css" href="../addons/fl_card/template/css/new.css">  
+<link rel="stylesheet" type="text/css" href="../addons/fl_card/template/css/font-awesome.min.css">    
+<!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <script src="js/respond.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="../addons/fl_card/template/js/jquery.js"></script>
+<script type="text/javascript" src="../addons/fl_card/template/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../addons/fl_card/template/js/jquery.scrollUp.js"></script>
+<!-- jQuery UI JS -->
+<script src="../addons/fl_card/template/js/jquery-ui-v1.10.3.js"></script>
+<!-- Custom JS -->
+<script src="../addons/fl_card/template/js/menu.js"></script>
+<script type="text/javascript" src="../addons/fl_card/template/js/jquery.layer.js"></script>
+<link rel="stylesheet" href="../addons/fl_card/template/js/skin/layer.css">
+<script type="text/javascript" src="../addons/fl_card/template/js/jquery.countdown.js"></script>
+<script type="text/javascript" src="../addons/fl_card/template/js/validate.js"></script>
+<script src="../addons/fl_card/template/js/beau.js"></script>
+</head>
+
+<body>
+<header>
+  <a href="#" class="logo">
+	  <font style="font-size: 26px;font-weight: bolder; color: #fff">会员卡系统</font>
+  </a>
+  <div class="pull-right">
+    <ul id="mini-nav" class="clearfix">
+      <li class="list-box">
+        <a href="#">
+          <i class="fa fa-user text-warning"></i> <span class="text-white">操作员</span>
+        </a>
+      </li>
+<!--      <li class="list-box hidden-xs">
+        <a href="#" title="取现积分">
+          <i class="fa">EP</i> <span class="badge facebook-bg">0.00</span>
+        </a>
+      </li>-->
+<!--      <li class="list-box hidden-xs">
+        <a href="#" title="理财积分">
+          <i class="fa">GP</i> <span class="badge warning-bg">0.00</span>
+        </a>
+      </li>-->
+<!--      <li class="list-box hidden-xs">
+        <a href="#" title="购股排队">
+          <i class="fa">购股排队</i> <span class="badge warning-bg">0.00 GP</span>
+        </a>
+      </li>-->
+<!--      <li class="list-box hidden-xs">
+        <a href="#" title="注册积分">
+          <i class="fa">MP</i> <span class="badge success-bg">0.00</span>
+        </a>
+      </li>-->
+<!--      <li class="list-box hidden-xs">
+        <a href="#" title="股票">
+          <i class="fa">股票</i> <span class="badge danger-bg">0.00</span>
+        </a>
+      </li>-->
+      <li class="list-box">
+        <a href="#">
+          <i class="fa fa-envelope"></i>
+        </a>
+        <span class="info-label success-bg">0</span>
+      </li>
+      <li class="list-box user-profile">
+        <a id="drop7" href="#" role="button" class="dropdown-toggle user-avtar" data-toggle="dropdown">
+          <img src="../addons/fl_card/template/images/user5.png" alt="zm9999">
+        </a>
+        <ul class="dropdown-menu server-activity">
+          <li>
+            <p class="center-align-text">欢迎您, <b>zm9999</b> !</p>
+          </li>
+          <li>
+            <p><i class="fa fa-reply text-info"></i><span>返回系统</span></p>
+          </li>
+          <li>
+            <p><i class="fa fa-cog text-info"></i><span>权限管理</span></p>
+          </li>
+          <li>
+            <p><i class="fa fa-lock text-info"></i><span>修改密码</span></p>
+          </li>
+          <li>
+            <div class="demo-btn-group clearfix">
+              <button class="btn btn-danger">
+                安全退出
+              </button>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<!-- Main Container start -->
+<div class="dashboard-container">
+
+  <div class="container">
+    <!-- Top Nav Start -->
+    <div id="cssmenu"><div id="menu-button">Menu</div>
+      <ul>
+        <li class="active has-sub"><span class="submenu-button"></span>
+          <a href="javascript:void(0);">
+            <i class="fa fa-home"></i>
+            首页
+          </a>
+          <ul>
+
+          </ul>
+       </li>
+        <li class="has-sub"><span class="submenu-button"></span>
+			<a href="#"><i class="fa fa-signal"></i>基础设置</a>
+			  <ul>
+				<li><a href="{php echo $this->createWebUrl('cardtypeconfig')}">基础设置</a></li>
+				<li><a href="{php echo $this->createWebUrl('menu')}">菜单管理</a></li>
+			</ul>
+       </li>
+        <li class="has-sub"><span class="submenu-button"></span>
+          <a href="javascript:void(0);"><i class="fa fa-users"></i>会员卡管理</a>
+          <ul>
+			  <li><a href="{php echo $this->createWebUrl('cardtype')}">会员卡分类管理</a></li>
+			  <li><a href="{php echo $this->createWebUrl('card')}">会员卡管理</a></li>
+          </ul>
+        </li>
+        <li class="has-sub"><span class="submenu-button"></span>
+			<a href="{php echo $this->createWebUrl('level')}"><i class="fa fa-sitemap"></i>会员等级管理</a>
+        </li>
+        <li class="has-sub"><span class="submenu-button"></span>
+          <a href="javascript:void(0);"><i class="fa fa-bar-chart-o"></i>会员管理</a>
+		    <ul>
+				<li><a href="{php echo $this->createWebUrl('member')}">会员管理</a></li>
+				<li><a href="{php echo $this->createWebUrl('member',array('task'=>'import'))}">会员导入</a></li>
+          </ul>
+        </li>
+        <li>
+			<a href="{php echo murl('home/welcome/ext',array('m'=>'fl_card'))}">
+            <i class="fa fa-sign-out"></i>
+            返回系统
+          </a>
+        </li>
+      </ul>
+    </div>    <!-- Top Nav End -->
+    <div class="sub-nav hidden-sm hidden-xs">
+      <ul>
+        <li><a href="#" class="heading">首页</a></li>
+        <li class="hidden-sm hidden-xs">
+          <a href="#" class="selected">会员管理</a>
+        </li>
+      
+     </ul>
+      <div class="custom-search hidden-sm hidden-xs">
+        <a href="#">会员卡管理中心</a> &gt; <a>首页</a>
+      </div>
+    </div>
+    <!-- Sub Nav End -->
+<div class="dashboard-wrapper">
+  <div class="row">
+	   <div class="col-sm-12">
+	  <table style=" width: 100%" class=" table">
+		  <thead>
+			  <th>会员id</th>
+			  <th>会员卡号</th>
+			  <th>会员昵称</th>
+			  <th>会员等级</th>
+			  <th>会员积分</th>
+			  <th>会员余额</th>
+			  <th>操作</th>
+		  </thead>
+		  <tbody>
+			  <td>1</td>
+			  <td>500001</td>
+			  <td>小狼</td>
+			  <td>金牌会员</td>
+			  <td>10.00</td>
+			  <td>20.00</td>
+			  <td>
+				  <a href="">操作</a>
+			  </td>
+		  </tbody>
+	  </table>
+	   </div>
+  
+ 
+  </div>
+</div>
+<footer>
+  <p>版权信息</p>
+</footer>
+  </div>
+</div></body></html>

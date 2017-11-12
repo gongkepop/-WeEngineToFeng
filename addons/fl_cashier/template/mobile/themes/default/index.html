@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../addons/fl_card/template/layui/css/layui.css">
+	
+		<link rel="stylesheet" type="text/css" href="../addons/fl_cashier/template/css/font-awesome.min.css">
+		<script src="../addons/fl_cashier/template/js/jquery.min.js"></script>
+		<script src="../addons/fl_cashier/template/layui/layui.js"></script>
+		<style>
+			.search{ margin:30px 0 0 0}
+			.search .layui-input{
+				width:95%
+			}
+		</style>
+	</head>
+	<body >
+		<div class='search'>
+			<table class="layui-table">
+			
+				<tbody>
+				  <tr>
+					<td style="width:20%">卡号</td>
+					<td >{$card[card]}</td>
+					<td style="width:20%">卡类型</td>
+					<td>{$card[tname]}</td>
+				  </tr>
+				   <tr>
+					<td>电话</td>
+					<td>{$card[tel]}</td>
+					<td>姓名</td>
+					<td>{$card[name]}</td>
+				  </tr>
+	
+				  <tr>
+					<td>余额</td>
+					<td>{php echo $card[openid]?$card[mcredit2]:$card[credit2]}</td>
+					<td>积分</td>
+					<td>{php echo $card[openid]?$card[mcredit]:$card[credit1]}</td>
+				  </tr>
+				  {if $card[iscount]}
+				  <tr>
+					<td>卡类型</td>
+					<td>次数卡</td>
+					<td>余次</td>
+					<td>{$card[card_count]}</td>
+				  </tr>
+				  {/if}
+				</tbody>
+			  </table>
+		</div>
+		
+		<div>
+			<table class="layui-table">
+			
+				<thead>
+				  <tr>
+					<th>时间</th>
+					<th>数额</th>
+					<th>来源</th>
+					<th>备注</th>
+					<th>操作员</th>
+	
+				  </tr> 
+				</thead>
+				<tbody>
+					{loop $log $value}
+				  <tr>
+					<td>{php echo date("Y-m-d H:i:s",$value[createtime])}</td>
+					<td>{$value[num]}</td>
+					<td>{php echo $cardModel->getlogplace($value[place])}</td>
+					<td>{$value[content]}</td>
+					<td>{if $value[staff_id]||$value[shop_id]}{$value[staff_name]}({$value[shop_name]}){else}系统{/if}</td>
+				  </tr>
+				  {/loop}
+				</tbody>
+			  </table>
+		</div>
+		<script>
+			$(function(){
+				layui.use(['layer', 'form'], function(){
+				  var layer = layui.layer
+				  ,form = layui.form();
+
+				});	
+				$(".editcredit").click(function(){
+					var id=$(this).attr("data-cid");
+					layer.open({
+							type:2,
+							content:"{php echo geturl('card','editcredit1')}&card="+id,
+							maxmin :true,
+							id:"editcredit",
+							area:['50%','80%'],
+							title:"修改积分"
+						})
+				})
+				
+				$(".editcredit2").click(function(){
+					var id=$(this).attr("data-cid");
+					layer.open({
+							type:2,
+							content:"{php echo geturl('card','editcredit2')}&card="+id,
+							maxmin :true,
+							id:"editcredit",
+							area:['50%','80%'],
+							title:"修改余额"
+						})
+				})
+				
+				$(".showcredit").click(function(){
+					var id=$(this).attr("data-cid");
+					parent.layer.open({
+							type:2,
+							content:"{php echo geturl('card','getcreditlist')}&type=credit&card="+id,
+							id:"showcredit",
+							shade:0,
+							area:['50%','80%'],
+							title:"积分记录"
+						})
+				})
+			})
+		</script>
+	</body>
+</html>

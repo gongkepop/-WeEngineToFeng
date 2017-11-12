@@ -1,0 +1,36 @@
+   <div id="cssmenu"><div id="menu-button">Menu</div>
+    <ul>
+      <li class="has-sub "><span class="submenu-button"></span>
+        <li class="  has-sub {if $nav=='index'}active{/if}"><span class="submenu-button"></span>
+          <a href="{php echo $this->createWebUrl('index')}"><i class="fa fa-home"></i>首页</a>
+          <ul>
+          </ul>
+        </li>
+        <li class="{if $nav=='base'}active{/if} has-sub"><span class="submenu-button"></span>
+         <a href="#"><i class="fa fa-signal"></i>基础设置</a>
+         <ul>
+          <li><a href="{php echo $this->createWebUrl('config')}">基础设置</a></li>
+		  {loop $this->cover $value}
+		  <li><a href="{php echo murl('platform/cover',array('eid'=>$value[eid]))}">{$value[title]}</a></li>
+		  {/loop}
+        </ul>
+      </li>
+      <li class="{if $nav=='cashier'}active{/if} has-sub"><span class="submenu-button"></span>
+        <a href="javascript:void(0);"><i class="fa fa-users"></i>收银管理</a>
+        <ul>
+			<li><a href="{php echo $this->createWebUrl('cashier',array('task'=>'list'))}">收银记录</a></li>
+       </ul>
+     </li>
+<!--     <li class="{if $nav=='level'}active{/if} has-sub"><span class="submenu-button"></span>
+       <a href="{php echo $this->createWebUrl('level')}"><i class="fa fa-users"></i>收银员管理</a>
+     </li>-->
+    
+	
+    <li>
+     <a href="{php echo murl('home/welcome/ext')}">
+      <i class="fa fa-sign-out"></i>
+      返回系统
+    </a>
+  </li>
+</ul>
+</div>

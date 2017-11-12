@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>登录申请</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<script type="text/javascript" src="../addons/fl_cashier/template/mobile/js/jquery.js"></script>
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+
+  </head>
+  <body>
+	  <script>
+		  $(function(){
+			  $("input[name='starttime']").change(function(){
+				  $("#ff").submit()
+			  });
+			  $("input[name='endtime']").change(function(){
+				  $("#ff").submit()
+			  });
+		  })
+	  </script>
+    <div class="page-group">
+        <div class="page page-current">
+  <header class="bar bar-nav">
+	 
+    <h1 class="title">扫码登录</h1>
+  </header>
+
+  <div class="content">
+	
+    <div class="page-index">
+		
+		<div class="card">
+			<div class="card-header">申请时间：{php echo date("Y-m-d H:i:s",$log[createtime])}</div>
+			<div class="card-content">
+			  <div class="card-content-inner">您有收银系统操登录申请，是否同意。</div>
+			</div>
+			
+		  </div>
+		
+		<div class="content-block">
+			<div class="row">
+			  <div class="col-50"><a href="{php echo geturl("login","setlogin",array("code"=>$code,"status"=>3))}" class="button button-big button-fill button-danger">拒绝</a></div>
+			  <div class="col-50"><a href="{php echo geturl("login","setlogin",array("code"=>$code,"status"=>2))}" class="button button-big button-fill button-success">同意</a></div>
+			</div>
+		  </div>
+ 
+
+</div>
+  </div>
+
+        </div>
+    </div>
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="no" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>我要付款</title>
+<link href="../addons/fl_card/template/mobile/css/style.css" rel="stylesheet">
+<script type="text/javascript" src="../addons/fl_card/template/mobile/js/jquery.min.js"></script>
+</head>
+<body>
+<div class="header">
+    <span class="le_span" onclick="location.href='{php echo $this->createMobileUrl('index')}'"><em class="icon_1"></em></span>
+    <div class="title">我要付款</div>
+	<span class="ri_span"></span>
+</div>
+
+<div class="main">
+    
+<form method="post" action="{php echo $this->createMobileUrl('pay',array('task'=>'offline'))}" >
+	<input type='hidden' name='staff_id' value='{$_GPC['mid']}' />
+    <div class="form-box">
+        <div class="for_m">
+            <dl>
+                <dt>商家：</dt>
+                <dd>{$data[sname]}</dd>
+            </dl>
+        </div>
+<!--        <div class="for_m">
+            <dl>
+                <dt>员工：</dt>
+                <dd>{$data[name]}</dd>
+            </dl>
+        </div>-->
+        <div class="for_m">
+        	<dl>
+                <dt>支付金额：</dt>
+                <dd><input type="text" style='height:19px' name="money" class="txt_inp" placeholder="请输入金额">元</dd>
+            </dl>
+            <!--<span class="Validform_checktip" style="display:block;">请输入金额</span>-->
+        </div>
+    </div>
+    <div class="btn_inp"><input type="submit" value="确认支付"></div>
+</form>
+    
+</div><!--------endmain---------->
+
+
+</body>
+</html>

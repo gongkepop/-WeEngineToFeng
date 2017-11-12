@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="no" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>我的</title>
+<link href="../addons/fl_card/template/mobile/css/style.css" rel="stylesheet">
+<script type="text/javascript" src="../addons/fl_card/template/mobile/js/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="../addons/fl_update/template/css/font-awesome.min.css">
+</head>
+<body>
+	<style>
+		ul.menu{
+			margin:30px 0 0 0 
+		}
+		ul.menu li{
+			float:left;
+			margin:10px
+		}
+		ul.menu li .logo{
+			font-size:50px;
+			width:80px;
+			text-align:center;
+			color:#f7951e
+		}
+		ul.menu li .name{
+			width:80px;
+			text-align:center;
+			margin:5px 0 0 0; 
+			font-weight: bolder
+		}
+	</style>
+<div class="header">
+    <span class="le_span" onclick="location.href='{php echo $this->createMobileUrl('index')}'"><em class="icon_1"></em></span>
+    <div class="title">功能列表</div>
+	<span class="ri_span"></span>
+</div>
+
+<div class="main">
+    
+    <div class="form-box">
+       
+        <div class="for_m">
+            <dl>
+                <dt>员工：</dt>
+                <dd>{$staff[name]}</dd>
+            </dl>
+        </div>
+        
+    </div>
+	
+	<div class="box">
+		<ul class="menu">
+			<li>
+				<a href="{php echo $this->createMobileUrl('staff',array('task'=>'offlinelist'))}">
+				<div class="logo fa fa-address-book" ></div>
+				<div class="name">核销记录</div>
+				</a>
+			</li>
+			<li>
+				<a href="">
+				<div class="logo fa fa-cog" ></div>
+				<div class="name">设置</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+ 
+    
+</div><!--------endmain---------->
+
+
+</body>
+</html>
